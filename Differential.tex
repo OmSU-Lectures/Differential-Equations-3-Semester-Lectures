@@ -1,0 +1,329 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{setspace,amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{scalerel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage[unicode, pdftex]{hyperref}
+
+\def\stretchint#1{\vcenter{\hbox{\stretchto[440]{\displaystyle\int}{#1}}}}
+\def\scaleint#1{\vcenter{\hbox{\scaleto[3ex]{\displaystyle\int}{#1}}}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Определение}[section]
+\newtheorem{example}{Пример}
+\newtheorem*{effect}{Следствие}
+\newtheorem{statement}{Утверждение}[section]
+\newtheorem*{remark}{Замечание}
+\newtheorem{lemma}{Лемма}[section]
+\newtheorem{theorem}{Теорема}[section]
+
+\title{Дифференциальные уравнения \\ 3 семестр}
+\author{Данил Заблоцкий}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter{Основные понятия}
+
+\section{Уравнение $1$-го порядка}
+
+\begin{definition}[Дифференциальное уравнение $n$-го порядка]
+    \textbf{Дифференциальным уравнением $n$-го порядка} называется уравнение вида
+    \begin{equation}
+        F(x,y,y',\ldots,y^{(n)}) = 0
+    \end{equation}
+    \begin{equation*}
+        x \in (a,b) \subset \mathbb{R}, \quad -\infty \leqslant a < b \leqslant +\infty
+    \end{equation*}
+    \begin{equation*}
+        [a,b), \quad [a,b], \quad (a,b]
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Дифференциальное уравнение, разрешенное относительно старшей производной]
+    \textbf{Дифференциальным уравнением, разрешенным относительно старшей производной} называется уравнение вида
+    \begin{equation}
+        y^{(n)} = f(x,y,y',\ldots,y^{(n-1)}), \quad x \in (a,b)
+    \end{equation}
+\end{definition}
+
+\begin{definition}[Решение дифференциального уравнения]
+    \textbf{Решением дифференциального уравнения} $(1.1)$ или $(1.2)$ называется $n$ раз дифференцируемая функция $y = \phi(x)$ на интервале $(a,b)$, если при подстановке она обращает уравнение в тождество на этом интервале.
+\end{definition}
+
+\begin{remark}
+    \begin{equation*}
+        y = \frac{1}{x+1}, \quad (-\infty, -1) \cup (-1, -\infty)
+    \end{equation*}
+
+    Предмет дифференциального уравнения:
+    \begin{enumerate}
+        \item Решение дифференциального уравнения.
+        \item Существует ли решение на $(a,b)$?
+        \item Единственность, $y(x_0)=y_0$ (задача Коши).
+        \item О продолжении.
+        \item Свойства решения: \begin{itemize}
+                  \item ограниченность
+                  \item монотонность
+                  \item поведение решения вблизи границ ($x \rightarrow +\infty$)
+                  \item нули функции на $(a,b)$
+              \end{itemize}
+    \end{enumerate}
+\end{remark}
+
+\begin{definition}[Дифференциальное уравнение $1$-го порядка]
+    \textbf{Дифференциальным уравнением $1$-го порядка} называется уравнение вида
+    \begin{equation}
+        F(x,y,y')=0, \quad x \in (a,b)
+    \end{equation}
+    \begin{center}
+        (неразрешенное относительно $y'$)
+    \end{center}
+\end{definition}
+
+\begin{definition}[Дифференциальное уравнение, разрешеноое относительно первой производной]
+    \textbf{Дифференциальным уравнением $1$-го порядка, разрешенным относительно первой производной}, называется уравнение вида
+    \begin{equation}
+        y'=f(x,y), \quad x \in (a,b)
+    \end{equation}
+\end{definition}
+
+\begin{definition}[Решение дифференциального уравнения $(1.3)$ и $(1.4)$]
+    \textbf{Решением дифференциального уравнения} $(1.3)$ и $(1.4)$ называется дифференцируемая функция $y = \phi(x)$, обращающая уравнение в тождество на этом интервале.
+\end{definition}
+
+\begin{example}
+    $y' = - \frac{x}{y}$ имеет решение $x^2 + y^2 = c$, где $c$ - произвольная константа, $c > 0$.
+\end{example}
+
+\begin{definition}[Поле направлений]
+    Сопоставим любой точке $(x_0,y_0) \rightarrow y'(x_0) = f(x_0,y_0) = \tan\alpha$ направления $l$. Семейство (совокупность) направлений $l$ дает \textbf{поле направлений}.
+\end{definition}
+
+\begin{definition}[Интегральная кривая]
+    Кривая, касающаяся в каждой своей точке поля направлений, называется \textbf{интегральной кривой}.
+    \begin{center}
+        $y=\phi(x,c) \quad$ интегральная кривая $\equiv$ график решений
+    \end{center}
+\end{definition}
+
+\begin{definition}[Изоклины]
+    Кривые, вдоль которых поле направлений постоянно, называется \textbf{изоклинами}.
+\end{definition}
+
+\begin{example}
+    $y' = y-x^2 \quad$ Напишем уравнение изоклин: $y-x^2 = c$ (заменяем $y'$ на $c$)
+    \begin{enumerate}
+        \item $c=0 \implies y-x^2 = 0 \implies y=x^2$
+
+              $\tan \alpha = 0 \implies \alpha = 0; \quad y \ const$.
+        \item $c=1 \implies y-x^2 = 1 \implies y=x^2 + 1$
+
+              $\tan \alpha = 1 \implies \alpha = 45^{\circ}; \quad y\uparrow$
+        \item $c=2 \implies y-x^2 = 2 \implies y=x^2 + 2$
+
+              $\tan \alpha = 2 \implies \alpha = \arctan 2; \quad y\uparrow$
+        \item $c=-1 \implies y-x^2 = -1 \implies y=x^2 - 1$
+
+              $\tan \alpha = -1 \implies \alpha = -45^{\circ}; \quad y\downarrow$
+        \item $c=-2 \implies y-x^2 = -2 \implies y=x^2 - 2$
+
+              $\tan \alpha = -2 \implies \alpha = -\arctan 2; \quad y\downarrow$
+    \end{enumerate}
+    \begin{equation*}
+        y' = 0
+    \end{equation*}
+    \begin{equation*}
+        y' > 0, \quad y > x^2
+    \end{equation*}
+    \begin{equation*}
+        y' < 0, \quad y < x^2
+    \end{equation*}
+\end{example}
+
+\begin{definition}[Общее решение]
+    \textbf{Общее решение} - совокупность функций, которая содержит все решения уравнения.
+
+    Если решение задается функцией $y = \phi(x,c)$ или $\psi(x,y,c) = 0$, то общее решение должно удовлетворять условиям:
+    \begin{enumerate}
+        \item При любом $c$ формула дает решение уравнение.
+        \item Любое решение уравнения находится по формуле при некотором $c = c_0$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Частное решение]
+    \textbf{Частное решение} определяется из общего при некотором $c = c_0$.
+\end{definition}
+
+\begin{example}
+    $y'=x \implies y = \frac{x^2}{2}+c$ - общее решение
+
+    при $c=0: \ y = \frac{x^2}{2}$, при $c=1: \ y=\frac{x^2}{2} + 1$ - частное решение
+\end{example}
+
+\section{Уравнения с разделяющимися переменными}
+
+\begin{definition}[Уравнения с разделяющимися переменными]
+    \textbf{Уравнениями с разделяющимися переменными} называются уравнения вида:
+    \begin{equation*}
+        y'=f(x)\cdot g(y), \quad f_1(x) \cdot g_1(y)\cdot dx + f_2(x) \cdot g_2(y)\cdot dy = 0,
+    \end{equation*}
+    $f, \ f_1, \ f_2$ зависят от $x$, $g, \ g_1, \ g_2$ зависят от $y$. \\
+
+    Алгоритм: \\
+
+    $\left[
+        \begin{array}{l}
+            g(y) = 0 \implies y = c \\
+            \left\{
+            \begin{array}{l}
+                g(y) \ne 0 \\
+                \frac{y'}{g(y)} = f(x)
+            \end{array}
+            \right. \implies \int \frac{y'dx}{g(y)} = \int f(x)dx \implies \int \frac{dy}{g(y)} = \int f(x)dx \implies\end{array}
+        \right.$ \\
+
+    $\left[ \begin{array}{l}
+            y = \phi(x,c) \\
+            \psi (x,y,c) = 0
+        \end{array}\right. \iff \left[\begin{array}{l}
+            y = c_1 \\
+            \left[\begin{array}{l}
+                      y = \phi(y,c_2) \\
+                      \psi(x,y,c_2) = 0
+                  \end{array}
+            \right.
+        \end{array}\right.$
+\end{definition}
+
+\begin{example}
+    $y' = xy^2$ \\
+
+    $\left[\begin{array}{l}
+            y = 0 \\
+            \left\{\begin{array}{l}
+                       \frac{dy}{y^2} = xdx \\
+                       y \ne 0
+                   \end{array}\right.
+        \end{array}\right. \iff \int \frac{dy}{y^2} = \int xdx \implies -\frac{1}{y} = \frac{x^2}{2} + C$ \\
+
+    $\left[\begin{array}{l}
+            y = -\frac{2}{x^2 + 2C}, \ C \in \mathbb{R} \\
+            y = 0
+        \end{array}\right.$
+\end{example}
+
+\begin{theorem}[Задача Коши]
+    $\left\{\begin{array}{l}
+            y'=f(x,y) \\
+            y(x_0) = y_0
+        \end{array}\right.$ \\
+
+    $f(x,y) \in C(D), \quad (x_0, y_0) \in D$ (РИСУНКИ)
+\end{theorem}
+
+\begin{example}
+    $y' = \sqrt{y}$ \\
+
+    $\left[\begin{array}{l}
+            y = 0 \\
+            \left\{\begin{array}{l}
+                       \frac{dy}{\sqrt{y}} = \int dx \\
+                       y \ne 0
+                   \end{array}\right.
+        \end{array}\right. \iff 2\sqrt{y} = x + C \implies y = (\frac{x + c}{2})^2$ при $x + c \geqslant 0$. \\
+
+    \begin{enumerate}
+        \item $y = 0 \ \cup$ парабола $AB_1D_1$;
+        \item $x_0$ на кривой $y = 0 \left[\begin{array}{l}
+                      y = 0   \\
+                      ABD     \\
+                      AB_1D_1 \\
+                      AB_2D_2
+                  \end{array}\right.$
+    \end{enumerate}
+
+    Ответ: $\left[\begin{array}{l}
+            y = 0 \\
+            y = (\frac{x + c}{2})^2, \quad x + c \geqslant 0
+        \end{array}\right.$
+\end{example}
+
+\begin{definition}[Точка единственности решения]
+    Точка $(x_0, y_0)$ называется \textbf{точкой единственности решения} $y = \phi(x)$, если через нее не проходит другое решение, не совпадающее с решением $y = \phi(x)$ ни в какой окрестности этой точки.
+
+    Остальные точки называются \textbf{точками неединственности}.
+
+    Решение, которое содержит точки неединственности, называется \textbf{особым решением}.
+\end{definition}
+
+\begin{theorem}[$\exists$ и $!$-ть решения задачи Коши]
+    Пусть
+    \begin{center}
+        $f(x,y)$ в $\left\{\begin{array}{l}
+                y'=f(x,y) \\
+                y(x_0) = y_0
+            \end{array}\right.$
+    \end{center}
+
+    \begin{enumerate}
+        \item Определена и непрерывна в прямоугольнике в прямоугольнике \\
+              $\Pi = \{(x,y): \ |x - x_0| \leqslant a, \ |y - y_0| \leqslant b\}$
+        \item Удовлетворяет условию Липшица по $y$ в $\Pi$ ($f_y'(x,y)$ непрерывна в $\Pi$)
+    \end{enumerate}
+
+    Тогда $\exists !$ решение задачи $\left\{\begin{array}{l}
+            y'=f(x,y) \\
+            y(x_0) = y_0
+        \end{array}\right.$ в окрестности точки \\
+    $x_0 \ (x_0 - h, \ x_0 + h)$, где $h = \min(a, \frac{b}{M}), \ M = \max|f(x,y)|, \ (x,y) \in \Pi$. (РИСУНОК)
+\end{theorem}
+
+\begin{definition}
+    $f(x,y)$ удовлетворяет условию Липшица по переменной $y$, если $\exists L > 0$ такая, что $\forall (x,y_1)$ и $(x,y_2)$ имеет место $|f(x,y_1) - f(x,y_2)| \leqslant L \cdot|y_1 - y_2|$.
+
+    Если $f_y'(x,y)$ - непрерывна в $\Pi$, то выполняется условие Липшица.
+
+    $\forall (x,y_1), \ (x,y_2) \in \Pi, \ \exists \widetilde{y} \in [y_1,y_2]$.
+
+    $|f(x,y_1) - f(x,y_2)| \leqslant |f_y'(x,\widetilde{y}) \cdot (y_1 - y_2)| \leqslant |f_y'(x,\widetilde{y})||y_1 - y_2| = L|y_1 - y_2|$.
+\end{definition}
+
+\begin{example}
+    $y' = \frac{1}{y^2}, \ f(x,y) = \frac{1}{y^2}, \ f_y'=\frac{2}{y^3}, \quad \int y^2dy = \int ydx \implies \frac{y^3}{3} = x + c \implies
+        \left\{\begin{array}{l}
+            y = \sqrt[3]{3(x + c)} \\
+            y(x_0) = y_0
+        \end{array}\right. \implies y = \sqrt[3]{3(x-x_0) + y_0^3}$
+\end{example}
+
+\begin{example}
+    $y'=sign x = \left\{\begin{array}{rl}
+            1,  & x > 0 \\
+            0,  & x = 0 \\
+            -1, & x < 0
+        \end{array}\right.$
+\end{example}
+
+\begin{example}
+    $y' = y^2 - 2y + 1 = (y-1)^2$
+
+    $\left[\begin{array}{l}
+            y = 1 \\
+            \left\{\begin{array}{l}
+                       y \ne 1 \\
+                       \frac{dy}{(y - 1)^2} = \int dx
+                   \end{array}\right.
+        \end{array}\right. \iff \frac{1}{y-1} = x + C \implies y = 1 - \frac{1}{x + C}$
+\end{example}
+
+\end{document}
