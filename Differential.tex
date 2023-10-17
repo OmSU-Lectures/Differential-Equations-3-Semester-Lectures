@@ -23,6 +23,8 @@
 \newtheorem{lemma}{Лемма}[section]
 \newtheorem{theorem}{Теорема}[section]
 
+\newcommand{\RomanNumeralCaps}[1]{\MakeUppercase{\romannumeral #1}}
+
 \title{Дифференциальные уравнения \\ 3 семестр}
 \author{Данил Заблоцкий}
 \date{\today}
@@ -325,5 +327,392 @@
                    \end{array}\right.
         \end{array}\right. \iff \frac{1}{y-1} = x + C \implies y = 1 - \frac{1}{x + C}$
 \end{example}
+
+\begin{center}
+    {\Large ПОСЛЕ ЭТОГО ИДЕТ ТО, ЧТО Я ПРОПУСТИЛ}
+\end{center}
+
+\section{Уравнение Бернулли}
+
+\begin{equation*}
+    y'+p(x) \cdot y = q(x)\cdot y^m, \quad m\ne 1
+\end{equation*}
+
+\begin{center}
+    $y=0$ -- решение при $m > 0$
+\end{center}
+
+\begin{enumerate}
+    \item Сведение к линейному
+    \item Метод Бернулли
+\end{enumerate}
+
+\begin{enumerate}
+    \item $y^m \ne 0, \quad \frac{y'}{y^m} + P(x) \cdot \frac{y}{y^m} = q(x); \quad z = y^{1-m}, \quad z' = (1-m)\cdot y^{-m}\cdot y' = (1-m)\cdot \frac{y'}{y^m}$ \\
+
+          $\frac{z'}{1-m} + P(x) \cdot z = q(x) \ \big| \ \cdot (1-m)$ \\
+
+          $z' + (1-m) \cdot P(x) \cdot z = (1-m)\cdot q(x)$
+
+    \item Пусть $y = u\cdot v, \quad u' \cdot v + u \cdot v' + P(x) \cdot u \cdot v = q(x) \cdot u^m \cdot v^m$ \\
+
+          $u' \cdot v  + u(v' + P(x) \cdot v) = q(x) \cdot u^m\cdot v^m$ \\
+
+          $\left\{\begin{array}{l}
+                  v' + P(x) \cdot v = 0 \\
+                  u' = q(x) \cdot u^m \cdot v^{m-1}
+              \end{array}\right. \implies u = e^{-\int p(x)dx}$ \\
+
+          $\frac{u'}{u^m} = q(x)(e^{-\int p(x)dx})^{m-1} \implies u \implies y = u \cdot v$
+\end{enumerate}
+
+\section{Уравнения в полных дифференциалах}
+
+\begin{definition}[Уравнение в ПД]
+    Уравнение вида
+    \begin{equation}
+        P(x,y)dx + Q(x,y)dy = 0
+    \end{equation}
+    называется \textbf{уравнением в полных дифференциалах (ПД)}, если левая часть уравнения $(1.5)$ является дифференциалом накоторой функции.
+    \begin{equation}
+        P,Q,P_x,Q_x,P_y,Q_y \in C(D),
+    \end{equation}
+    \begin{center}
+        $D$ - односвязная область в $\mathbb{R}^2$
+    \end{center}
+\end{definition}
+
+\begin{theorem}
+    Если существует такая функция $y(x,y): \ du = Pdx + Qdy$, выполняются условия $(1.6)$, то имеет место в $D$
+    \begin{equation}
+        \frac{\delta Q}{\delta x} = \frac{\delta P}{\delta y}
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Пусть $\exists u(x,y): \ du = Pdx + Qdy, \quad du = \frac{\delta u}{\delta x}dx + \frac{\delta u}{\delta y}dy,\\ U\in C^2(x)$ \\
+
+    $\left\{\begin{array}{l}
+            \frac{\delta u}{\delta x} = P \\
+            \frac{\delta u}{\delta y} = Q
+        \end{array}\right. \iff \frac{\delta^2 u}{\delta y \delta x} = \frac{\delta P}{\delta y} = \frac{\delta^2 u}{\delta x \delta y} = \frac{\delta Q}{\delta x} \iff \frac{\delta P}{\delta y} = \frac{\delta Q}{\delta x}$.
+\end{proof}
+
+\begin{theorem}
+    Для $\exists$ функции $u(x,y)$ такой, что $du = Pdx + Qdy$ при выполнении $(1.6) \iff \frac{\delta Q}{\delta x} = \frac{\delta P}{\delta y}$.
+    \begin{enumerate}
+        \item $Pdx + Qdy = 0$
+        \item $du = Pdx + Qdy \implies du = 0$
+        \item $u(x,y) = C$
+    \end{enumerate}
+
+    \textbf{Общий интеграл} - это функция $u(x,y)$, которая равна константе на решении уравнения.
+\end{theorem}
+
+\begin{proof}
+    Восстановление функции $u(x,y)$ по ее полному дифференциалу.
+
+    Пусть выполняется $(1.6), \ D$ -- односвязная область в $\mathbb{R}^2, \quad du = Pdx + Qdy$.
+
+    Задача: найти $u(x,y) \in C^2(D)$ \\
+
+    $du = \frac{\delta u}{\delta x}dx + \frac{\delta u}{\delta y}dy, \left\{\begin{array}{l}
+            \frac{\delta u}{\delta x} = P(x,y) \\
+            \frac{\delta u}{\delta y} = Q(x,y)
+        \end{array}\right.$
+
+    Проинтегрируем $1$-е уравнение: $(x_0,y_0) \in D$
+    \begin{equation*}
+        \int_{x_0}^{x}\frac{\delta u}{\delta x}dx = \int_{x_0}^{x}P(x,y)dx
+    \end{equation*}
+    \begin{equation}
+        u(x,y) = u(x_0,y_0) + \int_{x_0}^{x}P(x,y)dx
+    \end{equation}
+
+    $\frac{\delta u}{\delta y} = \frac{\delta}{\delta y}(u(x_0,y) + \int_{x_0}^{x}P(x,y)dx) = \frac{\delta u(x_0,y)}{\delta y} + \int_{x_0}^{x}\frac{\delta P(x,y)}{\delta y}dx = \frac{\delta u(x_0,y)}{\delta y} + \int_{x_0}^{x}\frac{\delta Q}{\delta x}dx = \frac{\delta u(x_0,y)}{\delta y} + Q(x,y) - Q(x_0,y) = Q(x,y) \implies \frac{\delta u(x_0,y)}{\delta y} = Q(x_0,y)$, интегрируем по $y$:
+
+    $\int_{y_0}^{y}\frac{\delta u(x_0,y)}{\delta y}dy = \int_{y_0}^{y}Q(x_0,y)dy, \quad u(x_0,y) - u(x_0,y_0) = \int_{y_0}^{y}Q(x_0,y)dy$
+    \begin{equation}
+        u(x,y) = u(x_0,y_0) + \int_{x_0}^{x}P(x,y)dx + \int_{y_0}^{y}Q(x_0,y)dy
+    \end{equation}
+    \begin{equation}
+        u(x,y) = u(x_0,y_0) + \int_{x_0}^{x}P(x,y_0)dx + \int_{y_0}^{y}Q(x,y)dy
+    \end{equation}
+    \begin{center}
+        $du(x,y) = 0, \quad u(x,y) = C$
+    \end{center}
+\end{proof}
+
+\begin{example}
+    $ydx + xdy = 0 \iff \frac{dx}{x} = - \frac{dy}{y}, \quad y = P, \ x = Q$
+
+    \begin{enumerate}
+        \item $\frac{\delta Q}{\delta x} = \frac{\delta P}{\delta y} = 1 \implies$ уравнение в ПД.
+
+              \begin{equation*}
+                  d(x\cdot y) = dx \cdot y + xdy = 0, \quad x \cdot y = C
+              \end{equation*}
+
+        \item $\left\{\begin{array}{l}
+                      \frac{\delta u}{\delta x} = y = P \implies \int\frac{\delta u}{\delta x}dx = \int ydx \implies u(x,y) = y\cdot x + C(y) \\
+                      \frac{\delta u}{\delta y} = x = Q \implies \frac{\delta u}{\delta y} = \frac{\delta}{\delta y}(y\cdot x + C(y)) = x + C'(y) = x
+                  \end{array}\right.$
+
+              \begin{equation*}
+                  y(x,y) = y\cdot x + C \implies y \cdot x + C = C_1 \implies y \cdot x = \widetilde{C}, \ \widetilde{C} = C_1 - C
+              \end{equation*}
+
+              $\left\{\begin{array}{l}
+                      \frac{\delta u}{\delta x} = y \\
+                      \frac{\delta u}{\delta y} = x
+                  \end{array}\right\} \implies \int \frac{\delta u}{\delta y}dy = \int x \cdot dy \implies$
+              \begin{equation*}
+                  u(x,y) = x\cdot y + C(x)
+              \end{equation*}
+
+              $\frac{\delta u}{\delta x} = \frac{\delta}{\delta x}(x\cdot y) + C(x) = y + C'(x) = y \implies C'(x) = 0 \implies C(x) = C_1 \implies u(x,y) = x\cdot y + C_1;$
+              \begin{equation*}
+                  u(x,y) = C_2 \implies x\cdot y + C_1 = C_2 \implies x\cdot y = C, \quad C = C_2 - C_1
+              \end{equation*}
+    \end{enumerate}
+\end{example}
+
+\section{Интегральный множитель}
+
+$\frac{1}{y^2}: \ ydx - xdy = 0$
+
+$\frac{\delta P}{\delta y} = y_y' = 1 \ne \frac{\delta Q}{\delta x} = \frac{\delta}{\delta x}(-x) = -1$
+\begin{equation*}
+    u(x,y) = C
+\end{equation*}
+
+\begin{equation*}
+    \frac{ydx - xdy}{y^2} = 0 \implies d(\frac{x}{y}) = 0
+\end{equation*}
+
+\begin{equation*}
+    \frac{x}{y} = C, \quad y = 0
+\end{equation*}
+
+\begin{definition}
+    Пусть
+    \begin{equation}
+        M(x,y)dx + N(x,y)dy = 0
+    \end{equation}
+    не является уравнением в ПД, $M,N \in C^2(D), \ D$ -- односвязная область в $\mathbb{R}^2$.
+
+    $\mu(x,y)$ называется \textbf{интегрирующим множителем} уравнения $(1.11)$, если $\mu(x,y)M(x,y)dx + \mu (x,y)N(x,y)dy$ -- является ПД некоторой функции
+    \begin{equation*}
+        \frac{\delta P}{\delta y} = \frac{\delta Q}{\delta x}
+    \end{equation*}
+    \begin{center}
+        {\Large НАДО ДОПИСАТЬ}
+    \end{center}
+\end{definition}
+
+\section{Методы построения интегрирующего множителя}
+
+\begin{equation}
+    M(x,y)dx + N(x,y)dy = 0
+\end{equation}
+\begin{equation*}
+    M,N \in C^2(D), \quad \frac{\delta N}{\delta x} \ne \frac{\delta M}{\delta y}, \quad \mu(x,y)\in C^1(D)
+\end{equation*}
+\begin{equation*}
+    \mu(x,y)\cdot M(x,y)dx + \mu(x,y) \cdot N(x,y)dy = 0
+\end{equation*}
+\begin{equation*}
+    \frac{\delta Q}{\delta x} = \frac{\delta P}{\delta y}
+\end{equation*}
+\begin{multline*}
+    \frac{\delta \mu(x,y)}{\delta x} \cdot N(x,y) + \mu(x,y)\cdot \frac{\delta N(x,y)}{\delta x} = \\
+    = \frac{\delta \mu(x,y)}{\delta y} \cdot M(x,y) + \mu(x,y) \cdot \frac{\delta M(x,y)}{\delta y}
+\end{multline*}
+\begin{enumerate}
+    \item \begin{multline*}
+              \mu = \mu(x) \implies \frac{\delta \mu}{\delta y} = 0 \implies \\
+              \implies \mu'(x) \cdot N(x,y) + \mu(x)\cdot \frac{\delta N}{\delta x} = \mu(x)\cdot \frac{\delta M}{\delta y}
+          \end{multline*}
+
+          \begin{equation*}
+              \frac{\mu'(x)}{\mu(x)} = \frac{\frac{\delta M}{\delta y} - \frac{\delta N}{\delta x}}{N} = F(x)
+          \end{equation*}
+
+          \begin{equation*}
+              \int\frac{\mu'(x)}{\mu(x)}dx = \int F(x)dx
+          \end{equation*}
+
+          \begin{equation*}
+              \ln|\mu(x)| = \ln c + \int F(x)dx, \quad \mu(x) = c\cdot e^{\int F(x)dx} \underset{c = 1}{=} e^{\int F(x)dx}
+          \end{equation*}
+
+    \item \begin{multline*}
+              \mu = \mu(y) \implies \frac{\delta \mu}{\delta x} = 0 \implies \\
+              \implies \mu'(y) \cdot M(x,y) + \mu(y)\cdot \frac{\delta M}{\delta y} = \mu(y)\cdot \frac{\delta N}{\delta x}
+          \end{multline*}
+
+          \begin{equation*}
+              \frac{\mu'(y)}{\mu(y)} = \frac{\frac{\delta N}{\delta x} - \frac{\delta M}{\delta y}}{M} = F(y)
+          \end{equation*}
+
+          \begin{equation*}
+              \int\frac{\mu'(y)}{\mu(y)}dy = \int F(y)dy
+          \end{equation*}
+
+          \begin{equation*}
+              \ln|\mu(y)| = \ln c + \int F(y)dy, \quad \mu(y) = c\cdot e^{\int F(y)dy} \underset{c = 1}{=} e^{\int F(y)dy}
+          \end{equation*}
+
+    \item \begin{equation*}
+              \mu = \mu(\omega(x,y))
+          \end{equation*}
+
+          \begin{eqnarray*}
+              \frac{\delta \mu}{\delta \omega} \cdot \frac{\delta \omega}{\delta x} \cdot N + \mu \cdot \frac{\delta N}{\delta x} & = &\\
+              & = & \frac{\delta \mu}{\delta \omega} \cdot \frac{\delta \omega}{\delta y} \cdot M + \mu \cdot \frac{\delta M}{\delta y}
+          \end{eqnarray*}
+
+          \begin{eqnarray*}
+              \frac{\frac{\delta \mu}{\delta \omega}}{\mu(\omega)} = \frac{\frac{\delta M}{\delta y} - \frac{\delta N}{\delta x}}{N\cdot \frac{\delta \omega}{\delta x} - M\cdot \frac{\delta \omega}{\delta y}} = F(\omega) & \implies & \\
+              & \implies & \mu(\omega) = e^{F(\omega)d\omega}
+          \end{eqnarray*}
+\end{enumerate}
+
+\begin{example}
+    \begin{equation*}
+        (x^2 + y^2 + x)dx + ydy = 0, \quad M = x^2 + y^2 + x, \quad N = y
+    \end{equation*}
+    \begin{eqnarray*}
+        \frac{\delta N}{\delta x} = 0 & \ne & \\
+        & \ne & 2y = \frac{\delta M}{\delta y}
+    \end{eqnarray*}
+    \begin{multline*}
+        \mu = \mu(x) = ?, \quad \mu(x^2 + y^2 + x)dx + \mu y dy = 0, \\
+        P = \mu(x^2 + y^2 + x), \quad Q = \mu y, \\
+        \frac{\delta P}{\delta y} = \frac{\delta Q}{\delta x}, \quad \frac{\delta M}{\delta y}(x^2 + y^2 + x) + \mu \cdot 2y = \frac{\delta \mu}{\delta x} \cdot y + \mu \cdot 0, \\
+        \frac{\mu'(x)}{M} = \frac{2y}{y} = 2, \quad \mu(x) = e^{2x}, \\
+        e^{2x}(x^2 + y^2 + x) dx + e^{2x} \cdot y dy = 0, \\
+        P = e^{2x}(x^2 + y^2 + x), \quad Q = e^{2x}\cdot y, \\
+        \frac{\delta P}{\delta y} = 2e^{2x} \cdot y = \frac{\delta Q}{\delta x}, \\
+        \left\{\begin{array}{l}
+            \frac{\delta u}{\delta x} = e^{2x}(x^2 + y^2 + x) \\
+            \frac{\delta u}{\delta y} = e^{2x}\cdot y
+        \end{array}\right. \implies u(x,y) = e^{2x} \cdot \frac{y^2}{2} + c(x), \\
+        u_x' = 2e^{2x} \cdot \frac{y^2}{2} + c'(x) = e^{2x}(x^2 + y^2 + x), \quad c'(x) = e^{2x}(x^2 + x)
+    \end{multline*}
+    \begin{eqnarray*}
+        c(x) = \frac{e^{2x}}{2}(x^2 + x) - \int \frac{e^{2x}}{2}(2x + 1)dx & = & \\
+        = \frac{e^{2x}}{2}(x^2 + x) - \frac{e^{2x}}{4}(2x + 1) &+& \int \frac{e^{2x}}{4}\cdot 2 dx = \\
+        = \frac{e^{2x}}{2}(x^2 + x) &-& \frac{e^{2x}}{4}(2x+1) + \frac{e^{2x}}{4} + C
+    \end{eqnarray*}
+    \begin{equation*}
+        c(x) = \frac{e^{2x}}{2}\cdot x^2 + C
+    \end{equation*}
+    \begin{equation*}
+        u(x,y) = e^{2x} \cdot \frac{x^2 + y^2}{2} + C = \widetilde{C}
+    \end{equation*}
+    \begin{center}
+        $e^{2x} \cdot \frac{x^2 + y^2}{2} = C$ -- общий интеграл
+    \end{center}
+    \begin{enumerate}
+        \item Если $\mu_0$ -- ИМ, то $\forall c \in \mathbb{R} \quad \mu_1 = C \cdot \mu_0$ -- тоже является ИМ
+        \item Пусть $\mu_0$ -- ИМ уравнения $(1.12)$, $V_0$ -- соответствующий ему интеграл, то есть
+              \begin{equation*}
+                  \mu_0 \cdot Mdx + \mu_0 \cdot N dx = d V_0,
+              \end{equation*}
+              тогда для произвольной функции $\phi \in C^1(D), \ \phi \ne 0$, $\mu_1 = \mu_0 \cdot \phi(V_0)$ -- так же является ИМ.
+              \begin{multline*}
+                  Mdx + Ndy = 0, \quad \mu_1 \cdot Mdx + \mu_1 \cdot N dy = \\
+                  = \mu_0 \cdot \phi(V_0)\cdot Mdx + \mu_0 \cdot \phi(V_0)\cdot Ndy = \\
+                  = \phi(V_0)(\mu_0 \cdot Mdx + \mu_0 \cdot N dy) = \phi(V_0)dV_0 = \\
+                  = d\bigg(\int \phi(V_0)dV_0\bigg) = dV_1, \quad \int \phi(V_0)dV_0 = V_1
+              \end{multline*}
+        \item Если $\mu_1$ и $\mu_2$ -- интегральные множители уравнения $(1.12)$, тогда
+              \begin{equation*}
+                  \mu_2 = \mu_1 \cdot \phi(V_1),
+              \end{equation*}
+              где $\phi$ -- произвольная функция класса $C^1$, $V_1$ -- соответствующий интеграл для $\mu_1$.
+    \end{enumerate}
+\end{example}
+
+\begin{effect}
+    Если $\mu_1$ и $\mu_2$ -- интегральные множители уравнения $(1.12)$ и $\frac{\mu_1}{\mu_2} \ne const$, тогда $\frac{\mu_1}{\mu_2}$ -- является интегралом для уравнения $(1.12)$.
+\end{effect}
+
+\begin{theorem}
+    Если уравнение 1-го порядка имеет общий интеграл $u(x,y) = C$, то оно имеет интегрирующий множитель.
+\end{theorem}
+
+\begin{proof}
+    \begin{equation*}
+        u(x,y) = C\left\{\begin{array}{l}
+            Mdx + Ndy = 0 \\
+            du \equiv \frac{\delta u}{\delta x}dx + \frac{\delta u}{\delta y}dy = 0
+        \end{array}\right.
+    \end{equation*}
+    $(dx,dy)$ -- ненулевое решение если определитель равен 0, то есть
+    \begin{equation*}
+        \left|\begin{array}{cc}
+            M                         & N                         \\
+            \frac{\delta u}{\delta x} & \frac{\delta u}{\delta y}
+        \end{array}\right| = M\cdot \frac{\delta u}{\delta y} - N\cdot \frac{\delta u}{\delta x} = 0
+    \end{equation*}
+    \begin{multline*}
+        M\cdot \frac{\delta u}{\delta y} = N\cdot \frac{\delta u}{\delta x} \quad \bigg| \ \cdot (MN) \implies \frac{1}{N}\cdot \frac{\delta u}{\delta y} = \frac{1}{M} \cdot \frac{\delta u}{\delta x} \overset{?}{=} \mu, \\
+        \mu \cdot Mdx + \mu \cdot Ndy = 0, \quad \frac{1}{M} \frac{\delta u}{\delta x} \cdot Mdx + \frac{1}{N} \cdot \frac{\delta u}{\delta y} \cdot Ndy = 0, \\
+        \frac{\delta u}{\delta x}dx + \frac{\delta u}{\delta y}dy = 0 \implies du = 0
+    \end{multline*}
+\end{proof}
+
+\section*{Еще один способ построения интегрального множителя}
+\begin{equation*}
+    \underset{\RomanNumeralCaps{1}}{M_1dx + N_1dy} + \underset{\RomanNumeralCaps{2}}{M_2dx + N_2dy} = 0
+\end{equation*}
+
+Пусть $\mu_1$ -- интегральный множитель для $\RomanNumeralCaps{1}$, $V_1$ -- соответствующий ему интеграл, то есть
+\begin{equation*}
+    dV_1 = \mu_1 \cdot M_1 dx + \mu_2 \cdot N_2 dy,
+\end{equation*}
+$\mu_2$ -- интегральный множитель для $\RomanNumeralCaps{2}$, $V_2$ -- соответствующий ему интеграл, то есть
+\begin{equation*}
+    dV_2 = \mu_2 \cdot M_2 dx + \mu_2 \cdot N_2 dy,
+\end{equation*}
+тогда $\exists \phi,\psi \in C^1(D): \quad \mu_1 \cdot \phi(V_1) = \mu_2 \cdot \psi(V_2)$ и $\mu = \mu_1 \cdot \phi (V_1)$ или $\mu = \mu_2 \cdot \psi(V_2)$ -- будет интегральным множителем.
+
+\begin{example}
+    \begin{equation*}
+        (\frac{y}{x} + 3x^2)dx + (1 + \frac{x^3}{y})dy = 0
+    \end{equation*}
+    \begin{equation*}
+        (\frac{y}{x} + dy) + (3x^2 dx + \frac{x^3}{y}dy) = 0
+    \end{equation*}
+    \begin{minipage}{0.4\textwidth}
+        $\frac{y}{x} + dy = 0$ \\
+        \begin{equation*}
+            \mu_1 = x
+        \end{equation*}
+        $ydx + xdy = 0$ \\
+        $d(xy) = 0 \implies xy = C_1$ \\
+        \begin{equation*}
+            V_1 = xy
+        \end{equation*}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.4\textwidth}
+        $\frac{y}{x} + dy = 0$ \\
+        \begin{equation*}
+            \mu_1 = x
+        \end{equation*}
+        $ydx + xdy = 0$ \\
+        $d(xy) = 0 \implies xy = C_1$ \\
+        \begin{equation*}
+            V_1 = xy
+        \end{equation*}
+    \end{minipage}
+\end{example}
+
+\begin{center}
+    {\Large ДОПИСАТЬ НАДО}
+\end{center}
 
 \end{document}
