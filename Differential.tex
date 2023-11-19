@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{wrapfig}
+\usepackage{centernot}
 \usepackage[unicode, pdftex]{hyperref}
 
 \def\stretchint#1{\vcenter{\hbox{\stretchto[440]{\displaystyle\int}{#1}}}}
@@ -714,5 +715,295 @@ $\mu_2$ -- интегральный множитель для $\RomanNumeralCaps
 \begin{center}
     {\Large ДОПИСАТЬ НАДО}
 \end{center}
+
+Рассмотрим окрестность точки $(x_0,y_0,y_0')$
+\begin{enumerate}
+    \item По теореме о неявной функции
+          \begin{equation*}
+              f(x,y,g(x,y)) = 0 \quad (*)
+          \end{equation*}
+          $\exists$ непрерывная функция $g(x,y), \ g(x_0,y_0) = y_0', \ g \in C^1$
+    \item По теореме существования и единственности
+          \begin{equation*}
+              y' = g(x,y)
+          \end{equation*}
+          $\exists y(x)$ -- решение на $[x_0-h, \ x_0+h]$ и удовлетворяющее $y(x_0) = y_0$
+          \begin{equation*}
+              y'(x) = g(x,y(x))
+          \end{equation*}
+
+          Из $(*) \implies f(x,y,y') = 0, \ y(x)$ -- решение удовлетворяет уравнению $f(x,y,y') = 0$ и удовлетворяет условиям $\begin{array}{l}
+                  y(x_0) = y_0 \\
+                  y'(x_0) = y_0'
+              \end{array}$
+          \begin{equation*}
+              y'(x_0) = g(x_0,y(x_0)) = y_0'
+          \end{equation*}
+\end{enumerate}
+
+\section*{Интегрирование уравнений, не разрешенных относительно производной}
+
+\begin{enumerate}
+    \item Выразить, если это возможно, явно $y': \ (y')_{1,2} = \ldots$
+    \item Метод параметра: $y'=p$
+\end{enumerate}
+\begin{equation*}
+    x = \Phi (y,y') \quad (3)
+\end{equation*}
+\begin{equation*}
+    y = \Psi (x,y') \quad (4)
+\end{equation*}
+
+Из $(3): \ y' = p \implies dy = pdx, \quad x = \Phi(y,p)$
+\begin{eqnarray*}
+    dx = \frac{\delta \Phi}{\delta y}dy + \frac{\delta \Phi}{\delta p}dp \\
+    \frac{dy}{p} = \frac{\delta \Phi}{\delta y}dy + \frac{\delta \Phi}{\delta p}dp
+\end{eqnarray*}
+\begin{equation*}
+    \left[\begin{array}{l}
+        p = 0 \\
+        p \ne 0: \quad \frac{dy}{p} = \frac{\delta \Phi}{\delta y}dy + \frac{\delta \Phi}{\delta p}dp \implies \left\{\begin{array}{l}
+                                                                                                                          y = y(p,c) \\
+                                                                                                                          x = \Phi (y(p,c),p)
+                                                                                                                      \end{array}\right.
+    \end{array}\right.
+\end{equation*}
+
+Из $(4): \ y = \Psi(x,p)$
+\begin{eqnarray*}
+    & dy & = \frac{\delta \Psi}{\delta x}dx + \frac{\delta \Psi}{\delta p}dp \\
+    & pdx & = \frac{\delta \Psi}{\delta x}dx + \frac{\delta \Psi}{\delta p}dp \implies \left\{\begin{array}{l}
+        x = x(p,c) \\
+        y = \Psi(x(p,c),p)
+    \end{array}\right.
+\end{eqnarray*}
+
+\subsection*{Уравнение Лагранжа}
+
+\begin{eqnarray*}
+    &y = x \cdot F(y') + G(y') \\
+    &y' = p \implies y = x\cdot F(p) + G(p) \\
+    &\underset{=pdx}{dy} = F(p)dx + x\cdot F'(p)dp + g'(p)dp \\
+    &(p - F(p))dx - F'(p)dp \cdot x = G'(p)dp: \ dp \ne 0, \ p - F(p)\ne 0 \\
+    &\frac{dx}{dp} - \frac{F'(p)}{p - f(p)}\cdot x = \frac{G'(p)}{p - F(p)},
+\end{eqnarray*}
+где $\frac{dx}{dp} - \frac{F'(p)}{p - f(p)}\cdot x = \frac{G'(p)}{p - F(p)}$ -- линейное уравнение относительно $x$.
+
+\begin{equation*}
+    p - F(p) = 0 \implies p = p_0 \implies y = x\cdot \underbrace{F(p_0)}_{=c_1} + \underbrace{G(p_0)}_{=c_2} \implies y = c_1 \cdot x + c_2
+\end{equation*}
+\begin{equation*}
+    \left\{\begin{array}{l}
+        p - F(p)\ne 0 \\
+        \frac{dx}{dp} - \frac{F'(p)}{p - F(p)}\cdot x = \frac{G'(p)}{p - F(p)} \implies \left\{\begin{array}{l}
+                                                                                                   x = \phi(p,c) \\
+                                                                                                   y = \phi(p,c) \cdot F(p) + G(p)
+                                                                                               \end{array}\right.
+    \end{array}\right.
+\end{equation*}
+\begin{equation*}
+    dp = 0 \implies p = c \implies y = x \cdot F(c) + G(c)
+\end{equation*}
+
+\subsection*{Уравнение Клеро}
+
+{\Huge МНЕ СТАЛО ВПАДЛУ НАДО ДОПИСАТЬ}
+
+\section{Линейные уравнения высших порядков}
+
+\begin{definition}[линейное неоднородное уравнение порядка $n$, однородное уравнение]
+    Уравнение вида:
+    \begin{equation*}
+        a_0(x) \cdot y^{(n)} + a_1(x) \cdot y^{(n-1)} + \ldots + a_{n-1}(x)\cdot y' + a_n(x) \cdot y = f(x), \quad a_0(x) \ne 0 \quad (1)
+    \end{equation*}
+    называется \textbf{линейным неоднородным порядка $n$},
+    \begin{equation*}
+        a_j(x) \in C(\alpha,\beta), \quad j = \overline{0,n}, \quad f(x) \in C(\alpha, \beta), \quad -\infty \leqslant \alpha < \beta \leqslant + \infty
+    \end{equation*}
+
+    Если $f(x) = 0$, то уравнение называется \textbf{однородным}.
+
+    Пусть $L[y] = Ly \equiv a_0 (x) \cdot y^{(n)} + \ldots + a_n(x) \cdot y$,
+    \begin{equation*}
+        Ly = f \quad (2)
+    \end{equation*}
+    \begin{equation*}
+        Ly = 0 \quad (3)
+    \end{equation*}
+    \begin{equation*}
+        y^{(n)} = - \frac{a_1(x)}{a_0(x)} \cdot y^{(n-1)} - \ldots - \frac{a_{n-1}(x)}{a_0(x)} \cdot y' - \frac{a_n(x)}{a_0(x)} \cdot y + \frac{f(x)}{a_0(x)} \quad (1')
+    \end{equation*}
+\end{definition}
+
+\begin{theorem}[о существовании и единственности]
+    Пусть для уравнения $(1')$ выполняются условия: $a_0(x) \ne 0, \ a_j(x) \in C(\alpha,\beta), \ f(x) \in C(\alpha, \beta)$. Тогда решение задачи Коши для уравнения $(1')$ существует и единственно на $(\alpha, \beta)$.
+\end{theorem}
+
+\paragraph*{Свойства оператора $Ly$}
+
+\begin{enumerate}
+    \item $L(\alpha y) = \alpha Ly, \ \forall \alpha \in \mathbb{R}$ (свойство однородности);
+    \item $L(y_1 + y_2) = Ly_1 = Ly_2$ (свойство аддитивности).
+\end{enumerate}
+
+\paragraph*{Свойства решений однородного линейного уравнения $(3)$ или $Ly = 0$}
+
+\begin{enumerate}
+    \item $y = 0$ является решением $(3)$;
+    \item Если $y_1(x)$ -- решение $(3)$, то $y(x) - \alpha y_1(x), \ \alpha \in \mathbb{R}$ также ялвяется решением,
+          \begin{equation*}
+              Ly = L(\alpha y_1) = \alpha \underbrace{Ly_1}_{=0} = 0
+          \end{equation*}
+    \item Если $y_1(x)$ и $y_2(x)$ -- решения $(3)$, то $y(x) = y_1(x) + y_2(x)$ также является решением
+          \begin{equation*}
+              Ly = L(y_1 + y_2) = Ly_1 + Ly_2 = 0 + 0 = 0
+          \end{equation*}
+    \item Если $y_1(x), \ldots, y_n(x)$ -- решения $(3)$, то $\forall c_i \in \mathbb{R}, \ i =\overline{1,n} \ y(x) = c_1 y_1(x) + \ldots + c_n y_n(x)$ так же является решением.
+
+          $y_1(x), \ldots, y_n(x)$ -- линейно независимая система функций $\implies \forall y(x) = \sum_{i = 1}^{n} c_i \cdot y_i(x)$ -- решение $(3)$.
+\end{enumerate}
+
+\begin{definition}[линейная зависимая система функций]
+    Система функций $y_1(x), \ldots, y_n(x)$ называется \textbf{линейной зависимой}, если $\exists$ такой набор $\alpha_1,\ldots,\alpha_n \in \mathbb{R}: \ \alpha_1^2 + \alpha_2^2 + \ldots + \alpha_n^2 \ne 0$, что линейная комбинация
+    \begin{equation*}
+        \alpha_1y_1(x) + \alpha_2y_2(x) + \ldots + \alpha_ny_n(x) = 0
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[линейная независимая система функций]
+    Система функций $y_1(x),\ldots,y_n(x)$ называется \textbf{линейной независимой}, если линейная комбинация этих функций равна $0$ в случае, когда
+    \begin{equation*}
+        \alpha_1 = \alpha_2 = \ldots = \alpha_n = 0,
+    \end{equation*}
+    \begin{equation*}
+        \alpha_1y_1(x) + \ldots + \alpha_ny_n(x) = 0 \iff \alpha_1 = \ldots = \alpha_n = 0.
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    \textbf{Определителем Вронского (вронскианом)} системы функций $y_1(x),\ldots,y_n(x)$, имеющих производные до порядка $(n-1)$ включительно, называется определитель:
+    \begin{equation*}
+        W(x) = \left|\begin{array}{ccc}
+            y_1(x)         & \cdots & y_n(x)         \\
+            y_1'(x)        & \cdots & y_n'(x)        \\
+            \vdots         & \ddots & \vdots         \\
+            y_1^{(n-1)}(x) & \cdots & y_n^{(n-1)}(x) \\
+        \end{array}\right|
+    \end{equation*}
+\end{definition}
+
+\section{Линейные уравнения высших порядков}
+
+\begin{theorem}
+    Если система функций $y_1(x), \ldots, y_n(x)$ линейно зависима, то определитель Вронского равен $0$, то есть $W(x) = 0$.
+\end{theorem}
+
+\begin{proof}
+    Из линейной зависимости $y_1(x),\ldots,y_n(x) \implies \exists \alpha_1,\ldots,\alpha_n \in \mathbb{R}$:
+    \begin{equation*}
+        \alpha_1y_1(x) + \ldots + \alpha_ny_n(x) = 0.
+    \end{equation*}
+
+    Пусть $\alpha_n \ne 0$, тогда:
+    \begin{equation*}
+        \begin{array}{l}
+            y_n(x) = -\frac{\alpha_1}{\alpha_n}y_1(x) - \frac{\alpha_2}{\alpha_n}y_2(x) - \ldots - \frac{\alpha_{n-1}}{\alpha_n}y_{n-1}(x)     \\
+            y_n'(x) = -\frac{\alpha_1}{\alpha_n}y_1'(x) - \frac{\alpha_2}{\alpha_n}y_2'(x) - \ldots - \frac{\alpha_{n-1}}{\alpha_n}y_{n-1}'(x) \\
+            \vdots                                                                                                                             \\
+            y_n^{(n-1)}(x) = -\frac{\alpha_1}{\alpha_n}y_1^{(n-1)}(x) - \frac{\alpha_2}{\alpha_n}y_2^{(n-1)}(x) - \ldots - \frac{\alpha_{n-1}}{\alpha_n}y_{n-1}^{(n-1)}(x)
+        \end{array}
+    \end{equation*}
+    \begin{equation*}
+        W(x) = \left|\begin{array}{ccc}
+            y_1(x)         & \cdots & y_{n-1}(x) - \sum_{k=1}^{n-1}\frac{\alpha_k}{\alpha_n}y_k(x)                 \\
+            y_1'(x)        & \cdots & y_{n-1}'(x) - \sum_{k=1}^{n-1}\frac{\alpha_k}{\alpha_n}y_k'(x)               \\
+            \vdots         & \ddots & \vdots                                                                       \\
+            y_1^{(n-1)}(x) & \cdots & y_{n-1}^{(n-1)}(x) - \sum_{k=1}^{n-1}\frac{\alpha_k}{\alpha_n}y_k^{(n-1)}(x)
+        \end{array}\right| = 0
+    \end{equation*}
+\end{proof}
+
+\begin{remark}
+    $W(x) = 0 \centernot\implies y_1(x),\ldots,y_n(x)$ -- линейно зависима.
+
+    \begin{equation*}
+        y_1(x) = \left\{\begin{array}{ll}
+            x^2, & x \geqslant 0 \\
+            0,   & x < 0
+        \end{array}\right., \quad y_2(x) = \left\{\begin{array}{ll}
+            0,   & x \geqslant 0 \\
+            x^2, & x < 0
+        \end{array}\right.
+    \end{equation*}
+    \begin{equation*}
+        W(x) = \left\{\begin{array}{ll}
+            \left|\begin{array}{cc}
+                      x^2 & 0 \\
+                      2x  & 0
+                  \end{array}\right| = 0, & x \geqslant 0 \\
+            \empty                                        \\
+            \left|\begin{array}{cc}
+                      0 & x^2 \\
+                      0 & 2x
+                  \end{array}\right| = 0, & x < 0
+        \end{array}\right. \equiv 0
+    \end{equation*}
+    \begin{equation*}
+        \frac{y_1(x)}{y_2(x)} = \left\{\begin{array}{ll}
+            \infty, & x \geqslant 0 \\
+            0, & x < 0
+        \end{array}\right., \quad \frac{y_1(x)}{y_2(x)} = const \ (linearly \ dependent)
+    \end{equation*}
+    \begin{equation*}
+        \alpha_1\cdot y_1 + \alpha_2 \cdot y_2 = 0, \quad y_1 = - \frac{\alpha_2}{\alpha_1} \cdot y_2
+    \end{equation*}
+\end{remark}
+
+\begin{theorem}
+    Пусть $y_1(x), \ldots, y_n(x)$ -- система линейно независимых на $(\alpha,\beta)$ решений уравнения $Ly = 0$. Тогда $W(x) \ne 0$ ни в какой точке интегрвала $(\alpha,\beta)$?
+\end{theorem}
+
+\begin{proof}
+    От противного. Предположим, что $\exists x_0 \in (\alpha,\beta)$. $W(x_0) = 0$,
+    \begin{equation*}
+        W(x_0) = \left|\begin{array}{ccc}
+            y_1(x_0) & \cdots & y_n(x_0) \\
+            y_1'(x_0) & \cdots & y_n'(x_0) \\
+            \vdots & \ddots & \vdots \\
+            y_1^{(n-1)}(x_0) & \cdots & y_n^{(n-1)}(x_0) \\
+        \end{array}\right| = 0, \quad \left(\begin{array}{c}
+            c_1 \\
+            c_2 \\
+            \vdots \\
+            c_n
+        \end{array}\right)
+    \end{equation*}
+
+    \begin{equation*}
+        (4) \quad \left\{\begin{array}{l}
+            c_1y_1(x_0) + \ldots + c_ny_n(x_0) = 0 \\
+            c_1y_1'(x_0) + \ldots + c_ny_n'(x_0) = 0 \\
+            \vdots \\
+            c_1y_1^{(n-1)}(x_0) + \ldots + c_ny_n^{(n-1)}(x_0) = 0 \\
+        \end{array}\right.
+    \end{equation*}
+
+    Однородная система линейно алгебраических уравнений, $\det = W(x_0) = 0, \implies$ система $(4)$ имеет нетривиальное решение: $\overrightarrow{c^0} - (c_1^0,c_2^0,\ldots,c_n^0)$, $y_1(x),\ldots,y_n(x)$ -- линейно зависимая?
+    \begin{equation*}
+        y(x) = c_1^0 \cdot y_1(x) + \ldots + c_n^0 \cdot y_n(x)
+    \end{equation*}
+    \begin{enumerate}
+        \item $y(x)$ -- решение $Ly = 0$;
+        \item $\left\{\begin{array}{l}
+            y(x_0) = 0 \\
+            y'(x_0) = c_1^0 y_1'(x) + \ldots + c_n^0y_n'(x)\bigg|_{x=x_0} = 0 \\
+            \vdots \\
+            y^{(n-1)}(x_0) = c_1^0 y_1^{(n-1)}(x) + \ldots + c_n^0y_n^{(n-1)}(x)\bigg|_{x=x_0} = 0
+        \end{array}\right.$
+    \end{enumerate}
+    \begin{enumerate}
+        \item $y\equiv0 \implies Ly = 0 \implies$ из теоремы существования и единственности $\implies y(x) = \sum_{k=1}^{n}c_k^0 y_k(x) \equiv 0 \implies y_1,\ldots,y_n$ -- линейно зависимые $\implies$ противоречие.
+    \end{enumerate}
+\end{proof}
 
 \end{document}
