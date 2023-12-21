@@ -1,34 +1,43 @@
-\documentclass{report}
-\usepackage[utf8]{inputenc}
-\usepackage[russian]{babel}
-\usepackage{setspace,amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{amsfonts}
-\usepackage{scalerel}
-\usepackage{graphicx}
-\usepackage{float}
-\usepackage{wrapfig}
-\usepackage{centernot}
-\usepackage[unicode, pdftex]{hyperref}
+\documentclass[11pt,a4paper,oneside]{report}
 
-\def\stretchint#1{\vcenter{\hbox{\stretchto[440]{\displaystyle\int}{#1}}}}
-\def\scaleint#1{\vcenter{\hbox{\scaleto[3ex]{\displaystyle\int}{#1}}}}
+\usepackage{amsthm, amsmath, amssymb, centernot, hyperref, graphicx, romannum}
+\usepackage[russian]{babel}
+
+\usepackage{import, pdfpages, wrapfig}
+
+% \begin{wrapfigure}{r}{0.5\textwidth}
+%     \centering
+%     \def\svgwidth{0.5\textwidth}
+%     \import{figures/}{fig1.pdf_tex}
+%     % \caption{caption}
+% \end{wrapfigure}
+
+% \centering
+% \def\svgwidth{0.5\textwidth}
+% \import{figures/}{fig1.pdf_tex}
+
+\newcommand{\verteq}[0]{\rotatebox{90}{$=$}}
+\newcommand{\vertneq}[0]{\rotatebox{90}{$\ne$}}
+\newcommand{\equalto}[2]{\underset{\scriptstyle\overset{\mkern4mu\verteq}{#2}}{#1}}
+\newcommand{\nequalto}[2]{\underset{\scriptstyle\overset{\mkern4mu\vertneq}{#2}}{#1}}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Определение}[section]
 \newtheorem{example}{Пример}
-\newtheorem*{effect}{Следствие}
-\newtheorem{statement}{Утверждение}[section]
-\newtheorem*{remark}{Замечание}
-\newtheorem{lemma}{Лемма}[section]
-\newtheorem{theorem}{Теорема}[section]
 
-\newcommand{\RomanNumeralCaps}[1]{\MakeUppercase{\romannumeral #1}}
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}[section]
+\newtheorem{lemma}{Лемма}[section]
+\newtheorem{statement}{Утверждение}[section]
+\newtheorem*{effect}{Следствие}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Замечание}
 
 \title{Дифференциальные уравнения \\ 3 семестр}
 \author{Данил Заблоцкий}
-\date{\today}
+
+\AtBeginDocument{\pagenumbering{arabic}}
 
 \begin{document}
 
@@ -39,108 +48,109 @@
 
 \section{Уравнение $1$-го порядка}
 
-\begin{definition}[Дифференциальное уравнение $n$-го порядка]
-    \textbf{Дифференциальным уравнением $n$-го порядка} называется уравнение вида
-    \begin{equation}
-        F(x,y,y',\ldots,y^{(n)}) = 0
+\begin{definition}[дифференциальное уравнение $n$-го порядка]
+    \emph{Дифференциальным уравнением $n$-го порядка} называется уравнение вида:
+    \begin{equation}\label{eq1}
+        F(x,y,y',\ldots,y^{(n)}) = 0, \quad x \in \underset{[a,b), \ [a,b], \ (a,b]}{(a,b)} \subset \mathbb{R},
     \end{equation}
-    \begin{equation*}
-        x \in (a,b) \subset \mathbb{R}, \quad -\infty \leqslant a < b \leqslant +\infty
-    \end{equation*}
-    \begin{equation*}
-        [a,b), \quad [a,b], \quad (a,b]
-    \end{equation*}
+    где $-\infty \leqslant a < b \leqslant +\infty$.
 \end{definition}
 
-\begin{definition}[Дифференциальное уравнение, разрешенное относительно старшей производной]
-    \textbf{Дифференциальным уравнением, разрешенным относительно старшей производной} называется уравнение вида
-    \begin{equation}
-        y^{(n)} = f(x,y,y',\ldots,y^{(n-1)}), \quad x \in (a,b)
+\begin{definition}[дифференциальное уравнение, разрешенное относительно старшей производной]
+    \emph{Дифференциальным уравнением, разрешенным относительно старшей производной} называется уравнение вида:
+    \begin{equation}\label{eq2}
+        y^{(n)} = f(x,y,y',\ldots,y^{(n-1)}), \quad x \in (a;b)
     \end{equation}
 \end{definition}
 
-\begin{definition}[Решение дифференциального уравнения]
-    \textbf{Решением дифференциального уравнения} $(1.1)$ или $(1.2)$ называется $n$ раз дифференцируемая функция $y = \phi(x)$ на интервале $(a,b)$, если при подстановке она обращает уравнение в тождество на этом интервале.
+\begin{definition}[решение дифференциального уравнения]
+    \emph{Решением дифференциального уравнения} $\ref{eq1}$ или $\ref{eq2}$ называется $n$ раз дифференцируемая функция $y = \phi(x)$ на интервале $(a,b)$, если при подстановке она обращает уравнение в тождество на этом интервале.
 \end{definition}
 
 \begin{remark}
     \begin{equation*}
-        y = \frac{1}{x+1}, \quad (-\infty, -1) \cup (-1, -\infty)
+        y = \frac{1}{x+1}, \quad (-\infty; -1) \cup (-1; -\infty),
     \end{equation*}
-
-    Предмет дифференциального уравнения:
-    \begin{enumerate}
-        \item Решение дифференциального уравнения.
-        \item Существует ли решение на $(a,b)$?
-        \item Единственность, $y(x_0)=y_0$ (задача Коши).
-        \item О продолжении.
-        \item Свойства решения: \begin{itemize}
-                  \item ограниченность
-                  \item монотонность
-                  \item поведение решения вблизи границ ($x \rightarrow +\infty$)
-                  \item нули функции на $(a,b)$
-              \end{itemize}
-    \end{enumerate}
+    где $(-\infty; -1)$ -- первое решение, a $(-1; -\infty)$ -- второе решение.
+    \centering
+    \def\svgwidth{0.5\textwidth}
+    \import{figures/}{fig1.pdf_tex}
 \end{remark}
 
-\begin{definition}[Дифференциальное уравнение $1$-го порядка]
-    \textbf{Дифференциальным уравнением $1$-го порядка} называется уравнение вида
-    \begin{equation}
-        F(x,y,y')=0, \quad x \in (a,b)
+\paragraph*{Предмет дифференциального уравнения:}
+\begin{enumerate}
+    \item Решение дифференциального уравнения.
+    \item Существует ли решение на $(a;b)$?
+    \item Единственность, $y(x_0)=y_0$ (задача Коши).
+    \item О продолжении.
+    \item Свойства решения: \begin{itemize}
+              \item ограниченность
+              \item монотонность
+              \item поведение решения вблизи границ ($x \rightarrow +\infty$)
+              \item нули функции на $(a;b)$
+          \end{itemize}
+\end{enumerate}
+
+\begin{definition}[дифференциальное уравнение $1$-го порядка]
+    \emph{Дифференциальным уравнением $1$-го порядка} называется уравнение вида:
+    \begin{equation}\label{eq3}
+        F(x,y,y')=0, \quad x \in (a;b)
     \end{equation}
     \begin{center}
         (неразрешенное относительно $y'$)
     \end{center}
 \end{definition}
 
-\begin{definition}[Дифференциальное уравнение, разрешеноое относительно первой производной]
-    \textbf{Дифференциальным уравнением $1$-го порядка, разрешенным относительно первой производной}, называется уравнение вида
-    \begin{equation}
-        y'=f(x,y), \quad x \in (a,b)
+\begin{definition}[дифференциальное уравнение, разрешеноое относительно первой производной]
+    \emph{Дифференциальным уравнением $1$-го порядка, разрешенным относительно первой производной}, называется уравнение вида:
+    \begin{equation}\label{eq4}
+        y'=f(x,y), \quad x \in (a;b)
     \end{equation}
 \end{definition}
 
-\begin{definition}[Решение дифференциального уравнения $(1.3)$ и $(1.4)$]
-    \textbf{Решением дифференциального уравнения} $(1.3)$ и $(1.4)$ называется дифференцируемая функция $y = \phi(x)$, обращающая уравнение в тождество на этом интервале.
+\begin{definition}[решение дифференциального уравнения $\ref{eq3}$ и $\ref{eq4}$]
+    \emph{Решением дифференциального уравнения} $\ref{eq3}$ и $\ref{eq4}$ называется дифференцируемая функция $y = \phi(x)$, обращающая уравнение в тождество на этом интервале.
 \end{definition}
 
 \begin{example}
     $y' = - \frac{x}{y}$ имеет решение $x^2 + y^2 = c$, где $c$ - произвольная константа, $c > 0$.
 \end{example}
 
-\begin{definition}[Поле направлений]
-    Сопоставим любой точке $(x_0,y_0) \rightarrow y'(x_0) = f(x_0,y_0) = \tan\alpha$ направления $l$. Семейство (совокупность) направлений $l$ дает \textbf{поле направлений}.
+\begin{definition}[поле направлений]
+    Сопоставим любой точке $(x_0,y_0) \rightarrow y'(x_0) = f(x_0,y_0) = \tan\alpha$ направления $l$. Семейство (совокупность) направлений $l$ дает \emph{поле направлений}.
 \end{definition}
 
-\begin{definition}[Интегральная кривая]
-    Кривая, касающаяся в каждой своей точке поля направлений, называется \textbf{интегральной кривой}.
-    \begin{center}
-        $y=\phi(x,c) \quad$ интегральная кривая $\equiv$ график решений
-    \end{center}
+\begin{definition}[интегральная кривая]
+    Кривая, касающаяся в каждой своей точке поля направлений, называется \emph{интегральной кривой}:
+    \begin{equation*}
+        y = \phi(x,c)\text{ -- интергральная кривая }\equiv\text{ график решения}
+    \end{equation*}
 \end{definition}
 
-\begin{definition}[Изоклины]
-    Кривые, вдоль которых поле направлений постоянно, называется \textbf{изоклинами}.
+\begin{definition}[изоклины]
+    Кривые, вдоль которых поле направлений постоянно, называется \emph{изоклинами}.
 \end{definition}
 
 \begin{example}
-    $y' = y-x^2 \quad$ Напишем уравнение изоклин: $y-x^2 = c$ (заменяем $y'$ на $c$)
+    $y' = y-x^2$
+
+    Напишем уравнение изоклин: $y-x^2 = c$ (заменяем $y'$ на $c$)
     \begin{enumerate}
-        \item $c=0 \implies y-x^2 = 0 \implies y=x^2$
+        \item $c=0 \implies y-x^2 = 0 \implies y=x^2$ (уравнение изоклины)
 
               $\tan \alpha = 0 \implies \alpha = 0; \quad y \ const$.
         \item $c=1 \implies y-x^2 = 1 \implies y=x^2 + 1$
 
-              $\tan \alpha = 1 \implies \alpha = 45^{\circ}; \quad y\uparrow$
+              $\tan \alpha = 1 \implies \alpha = 45^{\circ}; \quad y\nearrow$
         \item $c=2 \implies y-x^2 = 2 \implies y=x^2 + 2$
 
-              $\tan \alpha = 2 \implies \alpha = \arctan 2; \quad y\uparrow$
+              $\tan \alpha = 2 \implies \alpha = \arctan 2; \quad y\nearrow$
         \item $c=-1 \implies y-x^2 = -1 \implies y=x^2 - 1$
 
-              $\tan \alpha = -1 \implies \alpha = -45^{\circ}; \quad y\downarrow$
+              $\tan \alpha = -1 \implies \alpha = -45^{\circ}; \quad y\searrow$
         \item $c=-2 \implies y-x^2 = -2 \implies y=x^2 - 2$
 
-              $\tan \alpha = -2 \implies \alpha = -\arctan 2; \quad y\downarrow$
+              $\tan \alpha = -2 \implies \alpha = -\arctan 2; \quad y\searrow$
     \end{enumerate}
     \begin{equation*}
         y' = 0
@@ -153,8 +163,8 @@
     \end{equation*}
 \end{example}
 
-\begin{definition}[Общее решение]
-    \textbf{Общее решение} - совокупность функций, которая содержит все решения уравнения.
+\begin{definition}[общее решение]
+    \emph{Общее решение} -- совокупность функций, которая содержит все решения уравнения.
 
     Если решение задается функцией $y = \phi(x,c)$ или $\psi(x,y,c) = 0$, то общее решение должно удовлетворять условиям:
     \begin{enumerate}
@@ -163,41 +173,54 @@
     \end{enumerate}
 \end{definition}
 
-\begin{definition}[Частное решение]
-    \textbf{Частное решение} определяется из общего при некотором $c = c_0$.
+\begin{definition}[частное решение]
+    \emph{Частное решение} определяется из общего при некотором $c = c_0$.
 \end{definition}
 
 \begin{example}
-    $y'=x \implies y = \frac{x^2}{2}+c$ - общее решение
-
-    при $c=0: \ y = \frac{x^2}{2}$, при $c=1: \ y=\frac{x^2}{2} + 1$ - частное решение
+    $y'=x \implies y = \frac{x^2}{2}+c$ -- общее решение,
+    \begin{equation*}
+        \left\{\begin{array}{ll}
+            c=0: & y = \frac{x^2}{2},  \\
+            c=1: & y=\frac{x^2}{2} + 1
+        \end{array}\right.\text{ -- частное решение}.
+    \end{equation*}
 \end{example}
 
 \section{Уравнения с разделяющимися переменными}
 
-\begin{definition}[Уравнения с разделяющимися переменными]
-    \textbf{Уравнениями с разделяющимися переменными} называются уравнения вида:
+\begin{definition}[уравнения с разделяющимися переменными]
+    \emph{Уравнениями с разделяющимися переменными} называются уравнения вида:
     \begin{equation*}
-        y'=f(x)\cdot g(y), \quad f_1(x) \cdot g_1(y)\cdot dx + f_2(x) \cdot g_2(y)\cdot dy = 0,
+        y'=f(x)\cdot g(y)\text{ или }f_1(x) \cdot g_1(y)\cdot dx + f_2(x) \cdot g_2(y)\cdot dy = 0,
     \end{equation*}
-    $f, \ f_1, \ f_2$ зависят от $x$, $g, \ g_1, \ g_2$ зависят от $y$. \\
+    \begin{equation*}
+        \text{где }\begin{array}{l}
+            f, \ f_1, \ f_2\text{ зависят от }x, \\
+            g, \ g_1, \ g_2\text{ зависят от }y
+        \end{array}
+    \end{equation*}
 
-    Алгоритм: \\
+    \paragraph*{Алгоритм:}
 
-    $\left[
-        \begin{array}{l}
-            g(y) = 0 \implies y = c \\
+    \begin{equation*}
+        \left[\begin{array}{rl}
+            g(y) = 0 & \implies y = c                                                            \\
             \left\{
-            \begin{array}{l}
-                g(y) \ne 0 \\
-                \frac{y'}{g(y)} = f(x)
+            \begin{array}{rl}
+                g(y)            & \ne 0  \\
+                \frac{y'}{g(y)} & = f(x)
             \end{array}
-            \right. \implies \int \frac{y'dx}{g(y)} = \int f(x)dx \implies \int \frac{dy}{g(y)} = \int f(x)dx \implies\end{array}
-        \right.$ \\
-
-    $\left[ \begin{array}{l}
-            y = \phi(x,c) \\
-            \psi (x,y,c) = 0
+            \right.  & \implies \int \frac{y'dx}{g(y)} = \int f(x)dx \overset{dy=y'dx}{\implies}
+        \end{array}\right.
+    \end{equation*}
+    \begin{equation*}
+        \overset{dy=y'dx}{\implies}\int \frac{dy}{g(y)} = \int f(x)dx \implies
+    \end{equation*}
+    \begin{equation*}
+        \implies\left[ \begin{array}{rl}
+            y            & = \phi(x,c) \\
+            \psi (x,y,c) & = 0
         \end{array}\right. \iff \left[\begin{array}{l}
             y = c_1 \\
             \left[\begin{array}{l}
@@ -205,45 +228,55 @@
                       \psi(x,y,c_2) = 0
                   \end{array}
             \right.
-        \end{array}\right.$
+        \end{array}\right.
+    \end{equation*}
 \end{definition}
 
 \begin{example}
-    $y' = xy^2$ \\
-
-    $\left[\begin{array}{l}
+    $y' = xy^2$
+    \begin{equation*}
+        \left[\begin{array}{l}
             y = 0 \\
-            \left\{\begin{array}{l}
-                       \frac{dy}{y^2} = xdx \\
-                       y \ne 0
+            \left\{\begin{array}{rl}
+                       \frac{dy}{y^2} & = xdx \\
+                       y              & \ne 0
                    \end{array}\right.
-        \end{array}\right. \iff \int \frac{dy}{y^2} = \int xdx \implies -\frac{1}{y} = \frac{x^2}{2} + C$ \\
-
-    $\left[\begin{array}{l}
+        \end{array}\right. \iff \int \frac{dy}{y^2} = \int xdx \implies -\frac{1}{y} = \frac{x^2}{2} + C \implies
+    \end{equation*}
+    \begin{equation*}
+        \implies\left[\begin{array}{l}
             y = -\frac{2}{x^2 + 2C}, \ C \in \mathbb{R} \\
             y = 0
-        \end{array}\right.$
+        \end{array}\right.
+    \end{equation*}
 \end{example}
 
-\begin{theorem}[Задача Коши]
-    $\left\{\begin{array}{l}
-            y'=f(x,y) \\
-            y(x_0) = y_0
-        \end{array}\right.$ \\
-
-    $f(x,y) \in C(D), \quad (x_0, y_0) \in D$ (РИСУНКИ)
+\begin{theorem}[задача Коши]
+    \begin{equation}\label{eq5}
+        \left\{\begin{array}{rl}
+            y'     & =f(x,y) \\
+            y(x_0) & = y_0
+        \end{array}\right.
+    \end{equation}
+    \begin{equation*}
+        f(x,y) \in C(D), \quad (x_0, y_0) \in D
+    \end{equation*}
 \end{theorem}
 
 \begin{example}
-    $y' = \sqrt{y}$ \\
-
-    $\left[\begin{array}{l}
+    $y' = \sqrt{y}$
+    \begin{equation*}
+        \left[\begin{array}{l}
             y = 0 \\
-            \left\{\begin{array}{l}
-                       \frac{dy}{\sqrt{y}} = \int dx \\
-                       y \ne 0
+            \left\{\begin{array}{rl}
+                       \frac{dy}{\sqrt{y}} & = \int dx \\
+                       y                   & \ne 0
                    \end{array}\right.
-        \end{array}\right. \iff 2\sqrt{y} = x + C \implies y = (\frac{x + c}{2})^2$ при $x + c \geqslant 0$. \\
+        \end{array}\right. \iff 2\sqrt{y} = x + C \implies
+    \end{equation*}
+    \begin{equation*}
+        \implies y = \left(\frac{x + c}{2}\right)^2\text{ при }x + c \geqslant 0
+    \end{equation*}
 
     \begin{enumerate}
         \item $y = 0 \ \cup$ парабола $AB_1D_1$;
@@ -257,56 +290,59 @@
 
     Ответ: $\left[\begin{array}{l}
             y = 0 \\
-            y = (\frac{x + c}{2})^2, \quad x + c \geqslant 0
+            y = \left(\frac{x + c}{2}\right)^2, \quad x + c \geqslant 0
         \end{array}\right.$
 \end{example}
 
-\begin{definition}[Точка единственности решения]
-    Точка $(x_0, y_0)$ называется \textbf{точкой единственности решения} $y = \phi(x)$, если через нее не проходит другое решение, не совпадающее с решением $y = \phi(x)$ ни в какой окрестности этой точки.
+\begin{definition}[точка единственности, неединственности решения, особое решение]
+    Точка $(x_0, y_0)$ называется \emph{точкой единственности решения} $y = \phi(x)$, если через нее не проходит другое решение, не совпадающее с решением $y = \phi(x)$ ни в какой окрестности этой точки.
 
-    Остальные точки называются \textbf{точками неединственности}.
+    Остальные точки называются \emph{точками неединственности}.
 
-    Решение, которое содержит точки неединственности, называется \textbf{особым решением}.
+    Решение, которое содержит точки неединственности, называется \emph{особым решением}.
 \end{definition}
 
 \begin{theorem}[$\exists$ и $!$-ть решения задачи Коши]
-    Пусть
-    \begin{center}
-        $f(x,y)$ в $\left\{\begin{array}{l}
-                y'=f(x,y) \\
-                y(x_0) = y_0
-            \end{array}\right.$
-    \end{center}
-
+    Пусть $f(x,y)$ в \ref{eq5}:
     \begin{enumerate}
-        \item Определена и непрерывна в прямоугольнике в прямоугольнике \\
-              $\Pi = \{(x,y): \ |x - x_0| \leqslant a, \ |y - y_0| \leqslant b\}$
-        \item Удовлетворяет условию Липшица по $y$ в $\Pi$ ($f_y'(x,y)$ непрерывна в $\Pi$)
+        \item Определена и непрерывна в прямоугольнике в прямоугольнике:
+              \begin{equation*}
+                  \Pi = \big\{(x,y): \ |x - x_0| \leqslant a, \ |y - y_0| \leqslant b\big\}
+              \end{equation*}
+        \item Удовлетворяет условию Липшица по $y$ в $\Pi$:
+              \begin{center}
+                  \big($f_y'(x,y)$ непрерывна в $\Pi$\big)
+              \end{center}
     \end{enumerate}
 
-    Тогда $\exists !$ решение задачи $\left\{\begin{array}{l}
-            y'=f(x,y) \\
-            y(x_0) = y_0
-        \end{array}\right.$ в окрестности точки \\
-    $x_0 \ (x_0 - h, \ x_0 + h)$, где $h = \min(a, \frac{b}{M}), \ M = \max|f(x,y)|, \ (x,y) \in \Pi$. (РИСУНОК)
+    Тогда $\exists !$ решение задачи \ref{eq5} в окрестности точки $x_0$:
+    \begin{equation*}
+        (x_0 - h; x_0 + h),
+    \end{equation*}
+    где $h = \min\left(a;\frac{b}{M}\right), \ M = \max|f(x,y)|, \ (x,y) \in \Pi$.
 \end{theorem}
 
-\begin{definition}
-    $f(x,y)$ удовлетворяет условию Липшица по переменной $y$, если $\exists L > 0$ такая, что $\forall (x,y_1)$ и $(x,y_2)$ имеет место $|f(x,y_1) - f(x,y_2)| \leqslant L \cdot|y_1 - y_2|$.
+\begin{definition}[функция, удовлетворяющая условию Липшица]
+    $f(x,y)$ \emph{удовлетворяет условию Липшица} по переменной $y$, если $\exists L > 0$ такая, что $\forall (x,y_1)$ и $(x,y_2)$ имеет место соотношение:
+    \begin{equation*}
+        \big|f(x,y_1) - f(x,y_2)\big| \leqslant L \cdot|y_1 - y_2|
+    \end{equation*}
 
-    Если $f_y'(x,y)$ - непрерывна в $\Pi$, то выполняется условие Липшица.
-
-    $\forall (x,y_1), \ (x,y_2) \in \Pi, \ \exists \widetilde{y} \in [y_1,y_2]$.
-
-    $|f(x,y_1) - f(x,y_2)| \leqslant |f_y'(x,\widetilde{y}) \cdot (y_1 - y_2)| \leqslant |f_y'(x,\widetilde{y})||y_1 - y_2| = L|y_1 - y_2|$.
+    Если $f_y'(x,y)$ -- непрерывна в $\Pi$, то выполняется условие Липшица: $\forall (x,y_1), \ (x,y_2) \in \Pi, \ \exists \widetilde{y} \in [y_1;y_2]$:
+    \begin{equation*}
+        \big|f(x,y_1) - f(x,y_2)\big| \leqslant \big|f_y'(x,\widetilde{y}) \cdot (y_1 - y_2)\big| \leqslant \underbrace{\big|f_y'(x,\widetilde{y})\big|}_{\leqslant L}\cdot|y_1 - y_2| = L\cdot|y_1 - y_2|
+    \end{equation*}
 \end{definition}
 
 \begin{example}
-    $y' = \frac{1}{y^2}, \ f(x,y) = \frac{1}{y^2}, \ f_y'=\frac{2}{y^3}, \quad \int y^2dy = \int ydx \implies \frac{y^3}{3} = x + c \implies
-        \left\{\begin{array}{l}
-            y = \sqrt[3]{3(x + c)} \\
-            y(x_0) = y_0
-        \end{array}\right. \implies y = \sqrt[3]{3(x-x_0) + y_0^3}$
+    $y' = \frac{1}{y^2}, \ f(x,y) = \frac{1}{y^2}, \ f_y'=\frac{2}{y^3}$
+    \begin{multline*}
+        \int y^2dy = \int ydx \implies \frac{y^3}{3} = x + c \implies \\
+        \implies \left\{\begin{array}{rl}
+            y      & = \sqrt[3]{3(x + c)} \\
+            y(x_0) & = y_0
+        \end{array}\right. \implies y = \sqrt[3]{3(x-x_0)} + y_0^3
+    \end{multline*}
 \end{example}
 
 \begin{example}
@@ -314,34 +350,512 @@
             1,  & x > 0 \\
             0,  & x = 0 \\
             -1, & x < 0
-        \end{array}\right.$
+        \end{array}\right., \ y = |x|$
 \end{example}
 
 \begin{example}
     $y' = y^2 - 2y + 1 = (y-1)^2$
-
-    $\left[\begin{array}{l}
+    \begin{equation*}
+        \left[\begin{array}{l}
             y = 1 \\
-            \left\{\begin{array}{l}
-                       y \ne 1 \\
-                       \frac{dy}{(y - 1)^2} = \int dx
+            \left\{\begin{array}{rl}
+                       y                    & \ne 1     \\
+                       \frac{dy}{(y - 1)^2} & = \int dx
                    \end{array}\right.
-        \end{array}\right. \iff \frac{1}{y-1} = x + C \implies y = 1 - \frac{1}{x + C}$
+        \end{array}\right. \iff -\frac{1}{y-1} = x + C \implies y = 1 - \frac{1}{x + C}
+    \end{equation*}
+    \begin{equation*}
+        \left[\begin{array}{l}
+            y = 1,                                       \\
+            y = 1 - \frac{1}{x + C_1}, \ (-\infty;-C_1), \\
+            y = 1 - \frac{1}{x + C_2}, \ (-C_2;+\infty)
+        \end{array}\right.
+    \end{equation*}
 \end{example}
 
+\section{Особые решения}
+
+\begin{equation*}
+    \left\{\begin{array}{rl}
+        y'     & = f(y), \ f \in C(D), \ D \subset\mathbb{R}, \\
+        y(x_0) & = y_0
+    \end{array}\right.
+\end{equation*}
+\begin{equation*}
+    \left[\begin{array}{rl}
+        f(y) = 0                           & \implies y = c\text{ -- ?}       \\
+        \left\{\begin{array}{rl}
+                   f(y)                & \ne 0,    \\
+                   \int\frac{dy}{f(y)} & = \int dx
+               \end{array}\right. & \implies \left[\begin{array}{rl}
+                                                       y           & = \phi(x,C), \\
+                                                       \psi(y,x,C) & = 0
+                                                   \end{array}\right.
+    \end{array}\right.
+\end{equation*}
+
+Для $\forall$ точки $x \in \{y = C\} \ \exists$ точка $(x_1,y_1)$ и интегральная кривая, проходящая через точку $(x_1,y_1)$, которая пересекает прямую $y = C$ в точке $x \ \big(x \equiv (x,C)\big)$.
+
+Проинтегрируем на отрезке $[x_1;x]$:
+\begin{equation*}
+    \int_{y_1}^{C}\frac{dy}{f(y)} = \int_{x_1}^{x}dx \iff \int_{y_1}^{C}\frac{dy}{f(y)} = x-x_1 \iff \underbrace{x}_{\text{конечная}} = x_1 + \underbrace{\int_{y_1}^{C}\frac{dy}{f(y)}}_{\text{конечный}},
+\end{equation*}
 \begin{center}
-    {\Large ПОСЛЕ ЭТОГО ИДЕТ ТО, ЧТО Я ПРОПУСТИЛ}
+    (несобственный интеграл сходится)
 \end{center}
+
+\paragraph*{Критерий.}
+
+Решение $y = C$ дифференциального уравнения $y' = f(y), \ f\in C(D)$ такое, что $f(C) = 0$ называется \emph{особым} $\iff$
+\begin{equation*}
+    \iff \int_{y_1}^{C}\frac{dy}{f(y)} < \infty \quad \text{(несобственный интеграл сходится)}
+\end{equation*}
+
+\begin{example}
+    $y'=3y^{\frac{2}{3}}$
+    \begin{enumerate}
+        \item Непрерывно.
+        \item $f_y' = 2y^{-\frac{1}{3}}$ -- разрывна в точке $0$ (условие Липшица не выполнено?).
+    \end{enumerate}
+    \begin{equation*}
+        \left[\begin{array}{rl}
+            y                             & = 0 \ ?                                \\
+            \int\frac{dy}{3y^\frac{2}{3}} & = \int dx \implies y^\frac{1}{3} = x+C
+        \end{array}\right.
+    \end{equation*}
+    \begin{equation*}
+        \int_{y_1}^{0}\frac{dy}{3y^\frac{2}{3}} = y^\frac{1}{3}\Big|_{y_1}^0 = 0 - y_1^\frac{1}{3} < + \infty \overset{\text{по критерию}}{\implies} y = 0\text{ -- особое}
+    \end{equation*}
+\end{example}
+
+\begin{example}
+    Найти особое решение $y' = \left\{\begin{array}{rl}
+            y\cdot\ln y, & y > 0 \\
+            0,           & y = 0
+        \end{array}\right., \ D = [0;+\infty)$:
+    \begin{equation*}
+        f(y) = \left\{\begin{array}{rl}
+            y\cdot\ln y, & y > 0 \\
+            0,           & y = 0
+        \end{array}\right.
+    \end{equation*}
+    \begin{enumerate}
+        \item Непрерывно.
+              \begin{equation*}
+                  \underset{y\rightarrow+0}{\lim}(y\cdot \ln y) = \underset{y\rightarrow+0}{\lim}\frac{\ln y}{\frac{1}{y}} = \underset{y\rightarrow+0}{\lim}\frac{\frac{1}{y}}{\frac{1}{y^2}} = -\underset{y\rightarrow+0}{\lim} = 0
+              \end{equation*}
+        \item Условие Липшица:
+              \begin{equation*}
+                  \big|f(y_1) - f(y_2)\big| \leqslant L \cdot |y_1 - y_2|, \quad \begin{array}{l}
+                      y_1 \in (0;+\infty), \\
+                      y_2 = 0
+                  \end{array}
+              \end{equation*}
+              \begin{equation*}
+                  \big|f(y_1) - f(y_2)\big| = |y_1\cdot \ln y_1 - 0| \leqslant |y_1|\cdot|\ln y_1| \leqslant |y_1| \cdot L,
+              \end{equation*}
+              то есть $|\ln y_1| \leqslant L$.
+
+              Для $\forall L > 0 \ \exists y_1^*$ близкий к $0$ и такой, что $|\ln y_1^*| > L$.
+        \item $f(y) = 0 \implies \left[\begin{array}{l}
+                      y = 0 \\
+                      y = 1
+                  \end{array}\right.$
+              \begin{enumerate}
+                  \item $y = 0$:
+                        \begin{equation*}
+                            \int_{y_1}^{0}\frac{dy}{y \cdot \ln y} = \int_{y_1}^{0}\frac{d(\ln y)}{\ln y} = \ln |\ln y| \Big|_{y_1}^0 = \infty - \ln|\ln y_1| = \infty \implies
+                        \end{equation*}
+                        $\implies y =0$ не является особым.
+                  \item $y = 1$:
+                        \begin{equation*}
+                            \int_{y_1}^{1}\frac{dy}{y\cdot \ln y} = \ln|\ln y| \Big|_{y_1}^1 = -\infty - \ln|\ln y_1| = - \infty \implies
+                        \end{equation*}
+                        $\implies y =1$ не является особым.
+              \end{enumerate}
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    Найти особое решение $y' = \left\{\begin{array}{rl}
+            y\cdot\ln^2 y, & y > 0 \\
+            0,             & y = 0
+        \end{array}\right., \ D = [0;+\infty)$:
+    \begin{equation*}
+        f(y) = \left\{\begin{array}{rl}
+            y\cdot\ln^2 y, & y > 0 \\
+            0,             & y = 0
+        \end{array}\right.
+    \end{equation*}
+    \begin{enumerate}
+        \item Непрерывно (аналогично).
+        \item Условие Липшица (аналогично).
+        \item $f(y) = 0 \implies y\cdot\ln^2y=0 \left[\begin{array}{l}
+                      y = 0 \\
+                      y = 1
+                  \end{array}\right.$
+              \begin{enumerate}
+                  \item $y = 0$:
+                        \begin{equation*}
+                            \int_{y_1}^{0}\frac{dy}{y \cdot \ln^2 y} = \int_{y_1}^{0}\frac{d(\ln y)}{\ln^2 y} = \frac{1}{\ln y} \Big|_{y_1}^0 = 0 + \frac{1}{\ln y_1} \implies
+                        \end{equation*}
+                        $\implies y =0$ -- особое.
+                  \item $y = 1$:
+                        \begin{equation*}
+                            \int_{y_1}^{1}\frac{dy}{y\cdot \ln^2 y} = -\frac{1}{\ln y} \Big|_{y_1}^1 = -\infty + \frac{1}{\ln y_1}\text{ -- расходится } \implies
+                        \end{equation*}
+                        $\implies y =1$ не является особым.
+              \end{enumerate}
+    \end{enumerate}
+\end{example}
+
+\chapter{Методы интегрирования дифференциальных уравнений $1$-го порядка}
+
+\section{Однородные уравнения}
+
+\begin{definition}[однородное уравнение первого порядка]
+    \emph{Однородным уравнением первого порядка} называется уравнение вида:
+    \begin{equation}\label{eq6}
+        y' = f\left(\frac{y}{x}\right),\quad f\in C(D)
+    \end{equation}
+    или:
+    \begin{equation}\label{eq7}
+        y'=\frac{P(x,y)}{Q(x,y)},
+    \end{equation}
+    где $P(x,y)$ и $Q(x,y)$ являются однородными функциями одного и того же порядка.
+\end{definition}
+
+\begin{definition}[однородная функция порядка $k$]
+    \emph{Однородной функцией порядка $k$} называется функция:
+    \begin{equation*}
+        P(\lambda x,\lambda y) = \lambda^k \cdot P(x,y),\quad \lambda \in \mathbb{R}, \ \lambda \ne 0
+    \end{equation*}
+\end{definition}
+
+\begin{example}
+    $P(x,y) = x^2 - 2xy + 7y^2$
+    \begin{equation*}
+        P(\lambda x,\lambda y) = (\lambda x)^2 - 2(\lambda x)(\lambda y) + 7(\lambda y)^2 = \lambda^2(x^2 - 2xy + 7y^2)
+    \end{equation*}
+\end{example}
+
+\begin{example}
+    $x(x^2 + y^2)dy = y(y^2 - xy + x^2)dx$
+    \begin{equation*}
+        \underbrace{x^3 + xy^2}_{Q(x,y)},\quad \underbrace{y^3 - xy^2 + yx^2}_{P(x,y)}
+    \end{equation*}
+\end{example}
+
+\paragraph*{Замена переменной:}
+
+$t = \frac{y}{x} \implies y = t\cdot x$
+\begin{align*}
+     & y = t(x)\cdot x \implies y' = t'\cdot x + t\text{ -- подставим в \ref{eq6}}: \\
+     & t'\cdot x = f(t) - t\text{ -- уравнение с разделяющей переменной (РП)}
+\end{align*}
+\begin{equation*}
+    \frac{dt}{dx}x = f(t) - t
+\end{equation*}
+\begin{equation*}
+    \left[\begin{array}{l}
+        f(t) - t = 0 \\
+        \left\{\begin{array}{rl}
+                   f(t) - t                 & \ne 0               \\
+                   \int \frac{dt}{f(t) - t} & = \int \frac{dx}{x}
+               \end{array}\right. \iff \left[\begin{array}{rl}
+                                                 t = \phi(x,C)   & \implies y = x \cdot \phi(x,C)     \\
+                                                 \psi(t,x,C) = 0 & \implies \psi(\frac{y}{x},x,C) = 0
+                                             \end{array}\right.
+    \end{array}\right.
+\end{equation*}
+$t'x = 0 \implies t'=0 \implies t = C \implies y = Cx$ -- решение при $C: \ f(C) - C = 0$.
+
+\begin{equation*}
+    \text{Изоклины: }\begin{array}{l}
+        f(\frac{y}{x}) = const                \\
+        \frac{y}{x} = C \implies f(C) = const \\
+        y = Cx\text{ -- изоклины уравнения \ref{eq6}}
+    \end{array}
+\end{equation*}
+
+\begin{enumerate}
+    \item \begin{enumerate}
+              \item Уравнение вида $y' = f\left(\frac{a_1x + b_1y + c_1}{a_2x + b_2y + c_2}\right)$ сводится к однородному с помощью замены:
+                    \begin{equation*}
+                        \left\{\begin{array}{l}
+                            x = \xi + \alpha \\
+                            y = \eta + \beta
+                        \end{array}\right.,\quad (\alpha;\beta)\text{ -- решение системы }\left\{\begin{array}{l}
+                            a_1x + b_1y + c_1 = 0 \\
+                            a_2x + b_2y + c_2 = 0
+                        \end{array}\right.
+                    \end{equation*}
+              \item Прямые параллельны, то есть $a_1x + b_1y = k(a_2x + b_2y)$.
+
+                    Замена переменной $t = a_2x + b_2 y$ и привести к уравнению с РП.
+          \end{enumerate}
+    \item Замена переменной $y = t^m$. Подставить эту замену в уравнение и из условия однородности выбрать $m$.
+\end{enumerate}
+
+\begin{example}
+    $ydx + x(2xy + 1)dy = 0, \quad ydx + (2x^2 + x)dy = 0$
+    \begin{equation*}
+        y = t^m \implies t^mdx + (2x^2t^m + x)\cdot mt^{m-1}dt = 0
+    \end{equation*}
+    \begin{align*}
+        m = 2m + 1 = m \\
+        m = -1 \implies y = t^{-1} = \frac{1}{t}
+    \end{align*}
+    \begin{multline*}
+        \frac{dx}{t} + \left(\frac{2x^2}{t} + x\right)\left(-\frac{1}{t^2}\right)dt = Q \implies \\
+        \implies dx - \frac{x}{t}\left(\frac{2x}{t} + 1\right)dt = 0\text{ -- однородное уравнение}\implies \\
+        \implies \frac{dx}{dt}=\frac{x}{t}\left(\frac{2x}{t} + 1\right)\equiv f\left(\frac{x}{t}\right)
+    \end{multline*}
+    Замена переменной: $u = \frac{x}{t}\implies x = ut \implies dx = udt + tdu$
+    \begin{align*}
+        udt + tdu - u(2u + t)dt = 0               \\
+        tdu - 2u^2dt = 0, \quad t\ne0, \ u^2\ne 0 \\
+        \int \frac{du}{2u^2} = \int \frac{dt}{t}  \\
+        -\frac{1}{2u} = \ln|t| + C
+    \end{align*}
+    \begin{equation*}
+        \left\{\begin{array}{l}
+            u = \frac{x}{t} \\
+            t=\frac{1}{y}
+        \end{array}\right. \implies \left\{\begin{array}{l}
+            u = xy \\ t = \frac{1}{y}
+        \end{array}\right., \quad \begin{array}{l}
+            -\frac{1}{xy} = \ln \left(\frac{1}{y}\right)^2 + C \\
+            -\frac{1}{xy} = \ln y^2 + C                        \\
+        \end{array}
+    \end{equation*}
+    \begin{equation*}
+        \ln y^2 - \frac{1}{xy} = C
+    \end{equation*}
+    \begin{equation*}
+        u = 0 \implies x\cdot y = 0 \implies \left[\begin{array}{l}
+            x = 0\text{ -- решение} \\
+            y = 0\text{ -- решение}
+        \end{array}\right.
+    \end{equation*}
+
+    Ответ: $\ln y^2 - \frac{1}{xy} = C, \quad x=0, \ y=0$
+\end{example}
+
+\section{Линейные уравнения $1$-го порядка}
+
+\begin{definition}[линейное уравнение $1$-го порядка]
+    \emph{Линейным уравнением $1$-го порядка} называется уравнение вида:
+    \begin{equation}\label{eq8}
+        a_0(x)y' + a_1(x)y = b(x),
+    \end{equation}
+    \begin{equation}\label{eq9}
+        a_0(x)y' + a_1(x)y = 0,
+    \end{equation}
+    где $b(x), a_0(x),a_1 \in C(\alpha;\beta), \ a_0(x) \ne 0, \quad -\infty \leqslant \alpha \leqslant\beta\leqslant+\infty$.
+\end{definition}
+
+\paragraph*{Задача Коши:} $y(x_0) = y_0$
+
+\begin{theorem}[$\exists$ и $!$]
+    \begin{equation*}
+        y' = \underbrace{\frac{b(x)}{a_0(x)} - \frac{a_1(x)}{a_0(x)}y}_{f(x,y)}
+    \end{equation*}
+    \begin{enumerate}
+        \item $f\in C\big((\alpha;\beta) \times (-\infty;+\infty)\big)$.
+        \item $f'_y = -\frac{a_1(x)}{a_0(x)}$
+    \end{enumerate}
+
+    Однородное уравнение \ref{eq9}.
+    \begin{equation*}
+        y = 0\text{ -- решение: }y = c\cdot e^{-\int \frac{a_1(x)}{a_0(x)}dx}
+    \end{equation*}
+\end{theorem}
+
+\begin{definition}[линейное уравнение $1$-го порядка]
+    \emph{Линейным уравнением $1$-го порядка} называется уравнение вида:
+    \begin{equation}\label{eq10}
+        y'+p(x)\cdot y = q(x),
+    \end{equation}
+    \begin{equation}\label{eq11}
+        y' + p(x)\cdot y = 0,
+    \end{equation}
+    где $p(x),q(x) \in C(\alpha;\beta)$.
+\end{definition}
+
+\paragraph*{Свойства \ref{eq11}:}
+\begin{enumerate}
+    \item Пусть $y_1(x)$ -- решение \ref{eq11} $\implies k\cdot y_1$ -- решение \ref{eq11}, $k \in \mathbb{R}(\mathbb{C})$.
+    \item Если $y_1,y_2$ -- решения \ref{eq11} $\implies y_1 + y_2$ -- решение \ref{eq11} ($k_1y_1 + k_2y_2$ -- решение).
+    \item $y=0$ -- решение \ref{eq11}.
+          \begin{statement}
+              Решения \ref{eq11} образуют линейное пространство:
+              \begin{equation*}
+                  y' + p(x)y = 0
+              \end{equation*}
+              \begin{align*}
+                   & \frac{dy}{y} = -p(x)dx         \\
+                   & \ln|y| = -\int p(x)dx + \ln|C|
+              \end{align*}
+              \begin{equation*}
+                  (\star) \ y = C \cdot e^{-\int p(x)dx}
+              \end{equation*}
+              \begin{align*}
+                   & \left\{\begin{array}{rl}
+                                y' + p(x)y & = 0   \\
+                                y(x_0)     & = y_0
+                            \end{array}\right., \quad [x_0;x]                   \\
+                   & \int_{x_0}^{x}\frac{y'(s)}{y(s)}ds = -\int_{x_0}^{x}p(s)dx
+              \end{align*}
+              \begin{equation*}
+                  \int_{y_0}^{y}\frac{dy}{y} = -\int_{x_0}^{x}p(s)dx \implies \ln|y| - \ln|y_0| = - \int_{x_0}^{x}p(x)dx \implies
+              \end{equation*}
+              \begin{equation*}
+                  (\star\star) \ \implies y = y_0\cdot e^{-\int_{x_0}^{x}p(x)dx},
+              \end{equation*}
+              при $C = y_0$.
+          \end{statement}
+    \item Если $y$ -- частное решение, то $C \cdot y$ -- общее решение \ref{eq11}.
+\end{enumerate}
+
+\paragraph*{Структура решений неоднородного линейного уравнения \ref{eq10}.}
+
+\begin{theorem}
+    \begin{equation*}
+        \underbrace{y_\text{ОН}}_{\begin{array}{c}
+                \text{общее реш-е} \\
+                \text{неодн. ур.}
+            \end{array}} = \underbrace{y_\text{ОО}}_{\begin{array}{c}
+                \text{общее реш-е} \\
+                \text{одн.}
+            \end{array}} + \underbrace{y_\text{ЧН}}_{\begin{array}{c}
+                \text{частное реш-е} \\
+                \text{неодн. ур.}
+            \end{array}}
+    \end{equation*}
+\end{theorem}
+
+\begin{proof}
+    Пусть $y_1$ -- частное решение уравнения \ref{eq10}. Рассмотрим $y = y_1 + z$.
+
+    Подставим в \ref{eq10}:
+    \begin{multline*}
+        y' + p(x)y = (y_1 + z)' _ p(x)(y_1 + z) =\\
+        = y'_1 + p(x)y_1 + z' + p(x)z = q(x) \implies z'+ p(x)z = 0 \implies \\
+        \implies z\text{ -- решение однородного дифференциального уравнения}
+    \end{multline*}
+\end{proof}
+
+\paragraph*{Метод вариации произвольной постоянной (метод Лагранжа).}
+\begin{enumerate}
+    \item Находим общее решение одногородного уравнения:
+          \begin{equation*}
+              y' + p(x)y = 0
+          \end{equation*}
+          \begin{equation*}
+              \left[\begin{array}{l}
+                  y = 0 \\
+                  \left\{\begin{array}{rl}
+                             \frac{dy}{y} & = -p(x) \\
+                             y            & \ne 0
+                         \end{array}\right.\iff y_\text{ОО} = C \cdot e^{-\int p(x)dx}
+              \end{array}\right.
+          \end{equation*}
+    \item Решение неоднородного уравнения $y_\text{ОН} = \underbrace{c(x)}_{\text{диф-мая ф-ция}}\cdot e^{-\int p(x)dx}$
+          \begin{equation*}
+              \begin{array}{l}
+                  + \begin{array}{l}
+                        y' = c'(x)\cdot e^{-\int p(x)dx} + c(x) \ (-p(x)\cdot e^{-\int p(x)dx}) \\
+                        p(x)y = p(x)\cdot c(x) \cdot e^{-\int p(x)dx}
+                    \end{array} \\ \hline
+                  q(x) = c'(x)\cdot e^{-\int p(x)dx}
+              \end{array}
+          \end{equation*}
+          \begin{align*}
+              c'(x) = q(x)\cdot e^{\int p(x)dx} \\
+              c(x) = \int q(x)\cdot e^{\int p(x)dx}dx + C
+          \end{align*}
+    \item \begin{multline*}
+              y = \left(\int q(x)\cdot e^{\int p(x)dx}dx + C\right)\cdot e^{-\int p(x)dx} = \\
+              = \underbrace{C\cdot e^{-\int p(x)dx}}_{=y_\text{ОО}} + \underbrace{e^{-\int p(x)dx}\cdot \in q(x)\cdot e^{\int p(x)dx}dx}_{=y_\text{ЧН}}
+          \end{multline*}
+\end{enumerate}
+
+\begin{example}
+    $y' + y = e^{-x}$ (методом Лагранжа)
+    \begin{enumerate}
+        \item $y' + y = 0$
+              \begin{align*}
+                  \int \frac{dy}{y} = -\int dx; \\
+                  \ln|y| = -x + \ln |C|;        \\
+                  y = C\cdot e^{-x}
+              \end{align*}
+        \item $y = c(x)\cdot e^{-x}$
+              \begin{align*}
+                  c'(x)\cdot e^{-x} - c(x)\cdot e^{-x} + c(x)\cdot e^{-x} = e^{-x}; \\
+                  c'(x)\cdot e^{-x} = e^{-x} \ \Big| \ :e^{-x};                     \\
+                  c'(x) = 1;                                                        \\
+                  c(x) = x + C
+              \end{align*}
+        \item $y_\text{ОН} = (x+c)\cdot e^{-x} = \underbrace{c\cdot e^{-x}}_{=y_\text{ОО}} + x\cdot e^{-x}$
+    \end{enumerate}
+\end{example}
+
+\paragraph*{Метод Бернулли (метод подстановки).}
+
+\begin{enumerate}
+    \item $y = u(x)\cdot v(x), \quad u(x), v(x)$ -- неизвестные функции.
+    \item $y' = u'v + uv' \implies$
+          \begin{align*}
+              u'v + uv' + p(x) \cdot u \cdot v = q(x);              \\
+              u'v + u(v' + p(x)\cdot v) = q(x);                     \\
+              \left\{\begin{array}{l}
+                         u'v = q(x) \\
+                         v' + p(x)v = 0 \iff \frac{dv}{dx} = -p(x)v \iff
+                     \end{array}\right. \\
+              \iff \left[\begin{array}{l}
+                             v = 0 \\
+                             \frac{dv}{v} = -p(x)dx \iff v = C\cdot e^{-\int p(x)dx}, \ C = 1
+                         \end{array}\right.
+          \end{align*}
+          $\implies u'\cdot e^{-\int p(x)dx} = q(x)$.
+
+          $u(x)$ и $u'(x)$ -- аналогичны $c(x)$ и $c'(x)$ (в методе Лагранжа).
+          \begin{align*}
+              u'=q(x)\cdot e^{\int p(x)dx}; \\
+              u(x) = \int q(x)\cdot e^{\int p(x)dx} + C
+          \end{align*}
+          \begin{multline*}
+              y_\text{ОН} = y = u\cdot v = \\
+              = \left(\int q(x)\cdot e^{p(x)dx}dx + C\right)\cdot e^{-\int p(x)dx} =\\
+              = \underbrace{C\cdot e^{-\int p(x)dx}}_{=y_\text{ОО}} + \underbrace{e^{-\int p(x)dx}\cdot \int q(x)\cdot e^{\int p(x)dx}dx}_{=y_\text{ЧН}}
+          \end{multline*}
+\end{enumerate}
+
+\begin{example}
+    $y' + y = e^{-x}$ (методом Бернулли)
+    \begin{align*}
+        y = uv;                                                        \\
+        u'v + uv' + uv = e^{-x};                                       \\
+        \left\{\begin{array}{rl}
+                   u'v    & = e^{-x}                                       \\
+                   v' + v & = 0 \implies \int \frac{dv}{v} = -\int dx \iff
+               \end{array}\right. \\
+        \iff \ln|x| = -x + \underbrace{C}_{=0} \implies v = e^{-x}
+    \end{align*}
+    \begin{equation*}
+        u'e^{-x} = e^{-x} \implies u' =1 \implies u = x+C \implies y = uv = (x + C)e^{-x}
+    \end{equation*}
+\end{example}
 
 \section{Уравнение Бернулли}
 
 \begin{equation*}
     y'+p(x) \cdot y = q(x)\cdot y^m, \quad m\ne 1
 \end{equation*}
-
-\begin{center}
-    $y=0$ -- решение при $m > 0$
-\end{center}
+\begin{equation*}
+    y = 0\text{ -- решение при }m > 0
+\end{equation*}
 
 \begin{enumerate}
     \item Сведение к линейному
@@ -349,178 +863,227 @@
 \end{enumerate}
 
 \begin{enumerate}
-    \item $y^m \ne 0, \quad \frac{y'}{y^m} + P(x) \cdot \frac{y}{y^m} = q(x); \quad z = y^{1-m}, \quad z' = (1-m)\cdot y^{-m}\cdot y' = (1-m)\cdot \frac{y'}{y^m}$ \\
+    \item $y^m \ne 0$
+          \begin{align*}
+              \frac{y'}{y^m} + p(x) \cdot \frac{y}{y^m} = q(x);                 \\
+              \quad z = y^{1-m};                                                \\
+              \quad z' = (1-m)\cdot y^{-m}\cdot y' = (1-m)\cdot \frac{y'}{y^m}; \\
+              \frac{z'}{1-m} + p(x) \cdot z = q(x) \ \Big| \ \cdot (1-m)
+          \end{align*}
+          \begin{equation*}
+              \underbrace{z' + (1-m) \cdot p(x) \cdot z}_{\text{метод Лагранжа}} = \underbrace{(1-m)\cdot q(x)}_{\text{метод Бернулли}}
+          \end{equation*}
 
-          $\frac{z'}{1-m} + P(x) \cdot z = q(x) \ \big| \ \cdot (1-m)$ \\
-
-          $z' + (1-m) \cdot P(x) \cdot z = (1-m)\cdot q(x)$
-
-    \item Пусть $y = u\cdot v, \quad u' \cdot v + u \cdot v' + P(x) \cdot u \cdot v = q(x) \cdot u^m \cdot v^m$ \\
-
-          $u' \cdot v  + u(v' + P(x) \cdot v) = q(x) \cdot u^m\cdot v^m$ \\
-
-          $\left\{\begin{array}{l}
-                  v' + P(x) \cdot v = 0 \\
-                  u' = q(x) \cdot u^m \cdot v^{m-1}
-              \end{array}\right. \implies u = e^{-\int p(x)dx}$ \\
-
-          $\frac{u'}{u^m} = q(x)(e^{-\int p(x)dx})^{m-1} \implies u \implies y = u \cdot v$
+    \item Пусть $y = u\cdot v$
+          \begin{equation*}
+              u' \cdot v + \underbrace{u \cdot v' + p(x) \cdot u \cdot v} = q(x) \cdot u^m \cdot v^m
+          \end{equation*}
+          \begin{equation*}
+              u' \cdot v  + u(v' + p(x) \cdot v) = q(x) \cdot u^m\cdot v^m
+          \end{equation*}
+          \begin{equation*}
+              \left\{\begin{array}{rl}
+                  v' + p(x) \cdot v & = 0                            \\
+                  u'                & = q(x) \cdot u^m \cdot v^{m-1}
+              \end{array}\right. \implies
+          \end{equation*}
+          \begin{equation*}
+              \implies \begin{array}{rl}
+                  u              & = e^{-\int p(x)dx}                                               \\
+                  \frac{u'}{u^m} & = q(x)(e^{-\int p(x)dx})^{m-1} \implies u \implies y = u \cdot v
+              \end{array}
+          \end{equation*}
 \end{enumerate}
 
 \section{Уравнения в полных дифференциалах}
 
-\begin{definition}[Уравнение в ПД]
-    Уравнение вида
-    \begin{equation}
+\begin{definition}[уравнение в ПД]
+    Уравнение вида:
+    \begin{equation}\label{eq12}
         P(x,y)dx + Q(x,y)dy = 0
     \end{equation}
-    называется \textbf{уравнением в полных дифференциалах (ПД)}, если левая часть уравнения $(1.5)$ является дифференциалом накоторой функции.
-    \begin{equation}
+    называется \emph{уравнением в полных дифференциалах (ПД)}, если левая часть уравнения \ref{eq12} является полным дифференциалом некоторой функции.
+    \begin{equation}\label{eq13}
         P,Q,P_x,Q_x,P_y,Q_y \in C(D),
     \end{equation}
-    \begin{center}
-        $D$ - односвязная область в $\mathbb{R}^2$
-    \end{center}
+    \begin{equation*}
+        D\text{ -- односвязная область в }\mathbb{R}^2
+    \end{equation*}
 \end{definition}
 
 \begin{theorem}
-    Если существует такая функция $y(x,y): \ du = Pdx + Qdy$, выполняются условия $(1.6)$, то имеет место в $D$
-    \begin{equation}
+    Если существует такая функция $u(x,y): \ du = Pdx + Qdy$, что выполняются условия \ref{eq13}, то имеет место в $D$:
+    \begin{equation}\label{eq14}
         \frac{\delta Q}{\delta x} = \frac{\delta P}{\delta y}
     \end{equation}
 \end{theorem}
 
 \begin{proof}
-    Пусть $\exists u(x,y): \ du = Pdx + Qdy, \quad du = \frac{\delta u}{\delta x}dx + \frac{\delta u}{\delta y}dy,\\ U\in C^2(x)$ \\
-
-    $\left\{\begin{array}{l}
+    Пусть $\exists u(x,y): \ du = Pdx + Qdy$
+    \begin{equation*}
+        du = \frac{\delta u}{\delta x}dx + \frac{\delta u}{\delta y}dy,\quad u\in C^2(x)
+    \end{equation*}
+    \begin{equation*}
+        \left\{\begin{array}{l}
             \frac{\delta u}{\delta x} = P \\
             \frac{\delta u}{\delta y} = Q
-        \end{array}\right. \iff \frac{\delta^2 u}{\delta y \delta x} = \frac{\delta P}{\delta y} = \frac{\delta^2 u}{\delta x \delta y} = \frac{\delta Q}{\delta x} \iff \frac{\delta P}{\delta y} = \frac{\delta Q}{\delta x}$.
+        \end{array}\right. \iff \begin{array}{ccc}
+            \frac{\delta^2 u}{\delta y \delta x} & = & \frac{\delta P}{\delta y} \\
+            \verteq                              &   &                           \\
+            \frac{\delta^2 u}{\delta x \delta y} & = & \frac{\delta Q}{\delta x}
+        \end{array} \iff \frac{\delta P}{\delta y} = \frac{\delta Q}{\delta x}
+    \end{equation*}
 \end{proof}
 
 \begin{theorem}
-    Для $\exists$ функции $u(x,y)$ такой, что $du = Pdx + Qdy$ при выполнении $(1.6) \iff \frac{\delta Q}{\delta x} = \frac{\delta P}{\delta y}$.
+    Для $\exists$ функции $u(x,y)$ такой, что $du = Pdx + Qdy$ при выполнении \ref{eq13} $\iff \frac{\delta Q}{\delta x} = \frac{\delta P}{\delta y}$:
     \begin{enumerate}
-        \item $Pdx + Qdy = 0$
-        \item $du = Pdx + Qdy \implies du = 0$
-        \item $u(x,y) = C$
+        \item $Pdx + Qdy = 0$.
+        \item $du = Pdx + Qdy \implies du = 0$.
+        \item $u(x,y) = C$.
     \end{enumerate}
 
-    \textbf{Общий интеграл} - это функция $u(x,y)$, которая равна константе на решении уравнения.
+    \emph{Общий интеграл} -- это функция $u(x,y)$, которая равна константе на решении уравнения.
 \end{theorem}
 
-\begin{proof}
-    Восстановление функции $u(x,y)$ по ее полному дифференциалу.
+\paragraph*{Восстановление функции $u(x,y)$ по ее полному дифференциалу.}
 
-    Пусть выполняется $(1.6), \ D$ -- односвязная область в $\mathbb{R}^2, \quad du = Pdx + Qdy$.
+Пусть выполняется \ref{eq13}, $D$ -- односвязная область в $\mathbb{R}^2,$
+\begin{equation*}
+    du = Pdx + Qdy
+\end{equation*}
 
-    Задача: найти $u(x,y) \in C^2(D)$ \\
+Задача: найти $u(x,y) \in C^2(D)$.
+\begin{equation*}
+    du = \frac{\delta u}{\delta x}dx + \frac{\delta u}{\delta y}dy, \ \left\{\begin{array}{l}
+        \frac{\delta u}{\delta x} = P(x,y) \\
+        \frac{\delta u}{\delta y} = Q(x,y)
+    \end{array}\right.
+\end{equation*}
 
-    $du = \frac{\delta u}{\delta x}dx + \frac{\delta u}{\delta y}dy, \left\{\begin{array}{l}
-            \frac{\delta u}{\delta x} = P(x,y) \\
-            \frac{\delta u}{\delta y} = Q(x,y)
-        \end{array}\right.$
-
-    Проинтегрируем $1$-е уравнение: $(x_0,y_0) \in D$
-    \begin{equation*}
-        \int_{x_0}^{x}\frac{\delta u}{\delta x}dx = \int_{x_0}^{x}P(x,y)dx
-    \end{equation*}
-    \begin{equation}
-        u(x,y) = u(x_0,y_0) + \int_{x_0}^{x}P(x,y)dx
-    \end{equation}
-
-    $\frac{\delta u}{\delta y} = \frac{\delta}{\delta y}(u(x_0,y) + \int_{x_0}^{x}P(x,y)dx) = \frac{\delta u(x_0,y)}{\delta y} + \int_{x_0}^{x}\frac{\delta P(x,y)}{\delta y}dx = \frac{\delta u(x_0,y)}{\delta y} + \int_{x_0}^{x}\frac{\delta Q}{\delta x}dx = \frac{\delta u(x_0,y)}{\delta y} + Q(x,y) - Q(x_0,y) = Q(x,y) \implies \frac{\delta u(x_0,y)}{\delta y} = Q(x_0,y)$, интегрируем по $y$:
-
-    $\int_{y_0}^{y}\frac{\delta u(x_0,y)}{\delta y}dy = \int_{y_0}^{y}Q(x_0,y)dy, \quad u(x_0,y) - u(x_0,y_0) = \int_{y_0}^{y}Q(x_0,y)dy$
-    \begin{equation}
-        u(x,y) = u(x_0,y_0) + \int_{x_0}^{x}P(x,y)dx + \int_{y_0}^{y}Q(x_0,y)dy
-    \end{equation}
-    \begin{equation}
-        u(x,y) = u(x_0,y_0) + \int_{x_0}^{x}P(x,y_0)dx + \int_{y_0}^{y}Q(x,y)dy
-    \end{equation}
-    \begin{center}
-        $du(x,y) = 0, \quad u(x,y) = C$
-    \end{center}
-\end{proof}
+Проинтегрируем $1$-е уравнение: $(x_0,y_0) \in D$
+\begin{equation*}
+    \int_{x_0}^{x}\frac{\delta u}{\delta x}dx = \int_{x_0}^{x}P(x,y)dx
+\end{equation*}
+\begin{equation}\label{eq15}
+    u(x,y) = u(x_0,y) + \int_{x_0}^{x}P(x,y)dx
+\end{equation}
+\begin{multline*}
+    \frac{\delta u}{\delta y} = \frac{\delta}{\delta y}(u(x_0,y) + \int_{x_0}^{x}P(x,y)dx) = \\
+    = \frac{\delta u(x_0,y)}{\delta y} + \int_{x_0}^{x}\frac{\delta P(x,y)}{\delta y}dx = \frac{\delta u(x_0,y)}{\delta y} + \int_{x_0}^{x}\frac{\delta Q}{\delta x}dx = \\
+    = \frac{\delta u(x_0,y)}{\delta y} + Q(x,y) - Q(x_0,y) = Q(x,y) \implies \\
+    \implies \frac{\delta u(x_0,y)}{\delta y} = Q(x_0,y),
+\end{multline*}
+интегрируем по $y$:
+\begin{equation*}
+    \int_{y_0}^{y}\frac{\delta u(x_0,y)}{\delta y}dy = \int_{y_0}^{y}Q(x_0,y)dy
+\end{equation*}
+\begin{equation*}
+    u(x_0,y) - u(x_0,y_0) = \int_{y_0}^{y}Q(x_0,y)dy
+\end{equation*}
+\begin{equation}\label{eq16}
+    u(x,y) = \equalto{u(x_0,y_0)}{C} + \int_{x_0}^{x}P(x,y)dx + \int_{y_0}^{y}Q(x_0,y)dy
+\end{equation}
+\begin{equation}\label{eq17}
+    u(x,y) = \equalto{u(x_0,y_0)}{C} + \int_{x_0}^{x}P(x,y_0)dx + \int_{y_0}^{y}Q(x,y)dy
+\end{equation}
+\begin{equation*}
+    du(x,y) = 0, \quad u(x,y) = C
+\end{equation*}
 
 \begin{example}
-    $ydx + xdy = 0 \iff \frac{dx}{x} = - \frac{dy}{y}, \quad y = P, \ x = Q$
-
+    $\equalto{ydx}{P} + \equalto{xdy}{Q} = 0 \iff \frac{dx}{x} = - \frac{dy}{y}$
     \begin{enumerate}
-        \item $\frac{\delta Q}{\delta x} = \frac{\delta P}{\delta y} = 1 \implies$ уравнение в ПД.
-
+        \item $\equalto{\frac{\delta Q}{\delta x}}{1} = \equalto{\frac{\delta P}{\delta y}}{1} = 1 \implies$ уравнение в ПД.
               \begin{equation*}
                   d(x\cdot y) = dx \cdot y + xdy = 0, \quad x \cdot y = C
               \end{equation*}
-
         \item $\left\{\begin{array}{l}
-                      \frac{\delta u}{\delta x} = y = P \implies \int\frac{\delta u}{\delta x}dx = \int ydx \implies u(x,y) = y\cdot x + C(y) \\
-                      \frac{\delta u}{\delta y} = x = Q \implies \frac{\delta u}{\delta y} = \frac{\delta}{\delta y}(y\cdot x + C(y)) = x + C'(y) = x
+                      \frac{\delta u}{\delta x} = \equalto{y}{P} \implies \int\frac{\delta u}{\delta x}dx = \int ydx \implies u(x,y) = y\cdot x + c(y) \\
+                      \frac{\delta u}{\delta y} = \equalto{x}{Q} \implies \frac{\delta u}{\delta y} = \frac{\delta}{\delta y}\big(y\cdot x + c(y)\big) = x + c'(y) = x
                   \end{array}\right.$
-
               \begin{equation*}
-                  y(x,y) = y\cdot x + C \implies y \cdot x + C = C_1 \implies y \cdot x = \widetilde{C}, \ \widetilde{C} = C_1 - C
+                  y(x,y) = y\cdot x + C \implies y \cdot x + C = C_1
               \end{equation*}
-
-              $\left\{\begin{array}{l}
+              \begin{equation*}
+                  y \cdot x = \widetilde{C}, \quad \widetilde{C} = C_1 - C
+              \end{equation*}
+              \begin{equation*}
+                  \left\{\begin{array}{l}
                       \frac{\delta u}{\delta x} = y \\
-                      \frac{\delta u}{\delta y} = x
-                  \end{array}\right\} \implies \int \frac{\delta u}{\delta y}dy = \int x \cdot dy \implies$
-              \begin{equation*}
-                  u(x,y) = x\cdot y + C(x)
+                      \frac{\delta u}{\delta y} = x \implies \int \frac{\delta u}{\delta y}dy = \int x \cdot dy \implies
+                  \end{array}\right.
               \end{equation*}
-
-              $\frac{\delta u}{\delta x} = \frac{\delta}{\delta x}(x\cdot y) + C(x) = y + C'(x) = y \implies C'(x) = 0 \implies C(x) = C_1 \implies u(x,y) = x\cdot y + C_1;$
               \begin{equation*}
-                  u(x,y) = C_2 \implies x\cdot y + C_1 = C_2 \implies x\cdot y = C, \quad C = C_2 - C_1
+                  \implies u(x,y) = x\cdot y + c(x)\text{ в 1-е уравнение}
+              \end{equation*}
+              \begin{multline*}
+                  \frac{\delta u}{\delta x} = \frac{\delta}{\delta x}(x\cdot y) + c(x) = y + c'(x) = y \implies \\
+                  \implies c'(x) = 0 \implies c(x) = C_1 \implies \begin{array}{l}
+                      u(x,y) = x\cdot y + C_1 \\
+                      u(x,y) = C_2
+                  \end{array} \implies
+              \end{multline*}
+              \begin{equation*}
+                  \implies x\cdot y + C_1 = C_2 \implies x\cdot y = C, \quad C = C_2 - C_1
               \end{equation*}
     \end{enumerate}
 \end{example}
 
-\section{Интегральный множитель}
+\section{Интегрирующий множитель}
 
-$\frac{1}{y^2}: \ ydx - xdy = 0$
-
-$\frac{\delta P}{\delta y} = y_y' = 1 \ne \frac{\delta Q}{\delta x} = \frac{\delta}{\delta x}(-x) = -1$
+$\equalto{ydx}{P} - \equalto{xdy}{Q} = 0 \ \Big| \ \cdot \frac{1}{y^2}$
 \begin{equation*}
-    u(x,y) = C
+    \begin{array}{ccl}
+        \frac{\delta P}{\delta y} & = & y_y' = 1                         \\
+        \vertneq                  &   &                                  \\
+        \frac{\delta Q}{\delta x} & = & \frac{\delta}{\delta x}(-x) = -1
+    \end{array}
 \end{equation*}
-
 \begin{equation*}
-    \frac{ydx - xdy}{y^2} = 0 \implies d(\frac{x}{y}) = 0
+    \frac{ydx - xdy}{y^2} = 0 \implies d\left(\frac{x}{y}\right) = 0
 \end{equation*}
-
 \begin{equation*}
     \frac{x}{y} = C, \quad y = 0
 \end{equation*}
 
-\begin{definition}
+\begin{definition}[интегрирующий множитель]
     Пусть
-    \begin{equation}
+    \begin{equation}\label{eq18}
         M(x,y)dx + N(x,y)dy = 0
     \end{equation}
-    не является уравнением в ПД, $M,N \in C^2(D), \ D$ -- односвязная область в $\mathbb{R}^2$.
+    не является уравнением в полных дифференциалах, $M,N \in C^2(D), \ D$ -- односвязная область в $\mathbb{R}^2$.
 
-    $\mu(x,y)$ называется \textbf{интегрирующим множителем} уравнения $(1.11)$, если $\mu(x,y)M(x,y)dx + \mu (x,y)N(x,y)dy$ -- является ПД некоторой функции
+    $M(x,y)$ называется \emph{интегрирующим множителем} уравнения \ref{eq18}, если
     \begin{equation*}
-        \frac{\delta P}{\delta y} = \frac{\delta Q}{\delta x}
+        \mu(x,y)M(x,y)dx + \mu(x,y)N(x,y)dy
     \end{equation*}
-    \begin{center}
-        {\Large НАДО ДОПИСАТЬ}
-    \end{center}
+    является полным дифференциалом некоторой функции $\frac{\delta P}{\delta y} = \frac{\delta Q}{\delta x}$.
 \end{definition}
+
+$\Romannum{1}. \ \mu(x,y) \in C^2(D)$
+\begin{equation*}
+    \mu(x,y)\cdot M(x,y) = P(x,y), \quad \mu(x,y)\cdot N(x,y) = Q(x,y)
+\end{equation*}
+\begin{equation*}
+    \frac{\delta \mu(x,y)}{\delta y}M(x,y) + \mu(x,y)\cdot\frac{\delta M(x,y)}{\delta y} = \frac{\delta\mu(x,y)}{\delta x}N(x,y) + \mu(x,y)\cdot\frac{\delta ?}{\delta x}
+\end{equation*}
+\begin{enumerate}
+    \item $\mu = \mu(x)$.
+    \item $\mu = \mu(x)$.
+    \item $\mu = \mu(\omega(x,y))$.
+\end{enumerate}
 
 \section{Методы построения интегрирующего множителя}
 
-\begin{equation}
+\begin{equation}\label{eq19}
     M(x,y)dx + N(x,y)dy = 0
 \end{equation}
 \begin{equation*}
-    M,N \in C^2(D), \quad \frac{\delta N}{\delta x} \ne \frac{\delta M}{\delta y}, \quad \mu(x,y)\in C^1(D)
+    M,N \in C^2(D), \quad \frac{\delta N}{\delta x} \ne \frac{\delta M}{\delta y}, \quad \mu(x,y)\in C^1(D):
 \end{equation*}
 \begin{equation*}
-    \mu(x,y)\cdot M(x,y)dx + \mu(x,y) \cdot N(x,y)dy = 0
+    \equalto{\mu(x,y)\cdot M(x,y)dx}{P(x,y)} + \equalto{\mu(x,y) \cdot N(x,y)dy}{Q(x,y)} = 0\text{ -- уравнение в ПД?}
 \end{equation*}
 \begin{equation*}
     \frac{\delta Q}{\delta x} = \frac{\delta P}{\delta y}
@@ -536,7 +1099,10 @@ $\frac{\delta P}{\delta y} = y_y' = 1 \ne \frac{\delta Q}{\delta x} = \frac{\del
           \end{multline*}
 
           \begin{equation*}
-              \frac{\mu'(x)}{\mu(x)} = \frac{\frac{\delta M}{\delta y} - \frac{\delta N}{\delta x}}{N} = F(x)
+              \underbrace{\frac{\mu'(x)}{\mu(x)}}_{\text{зависит от }x} = \underbrace{\frac{\frac{\delta M}{\delta y} - \frac{\delta N}{\delta x}}{N}}_{\text{зависит от }x} = F(x)
+          \end{equation*}
+          \begin{equation*}
+              \left(M\ne0\text{ и }N\ne0\right)
           \end{equation*}
 
           \begin{equation*}
@@ -553,7 +1119,7 @@ $\frac{\delta P}{\delta y} = y_y' = 1 \ne \frac{\delta Q}{\delta x} = \frac{\del
           \end{multline*}
 
           \begin{equation*}
-              \frac{\mu'(y)}{\mu(y)} = \frac{\frac{\delta N}{\delta x} - \frac{\delta M}{\delta y}}{M} = F(y)
+              \underbrace{\frac{\mu'(y)}{\mu(y)}}_{\text{зависит от }y} = \underbrace{\frac{\frac{\delta N}{\delta x} - \frac{\delta M}{\delta y}}{M}}_{\text{зависит от }y} = F(y)
           \end{equation*}
 
           \begin{equation*}
@@ -565,17 +1131,16 @@ $\frac{\delta P}{\delta y} = y_y' = 1 \ne \frac{\delta Q}{\delta x} = \frac{\del
           \end{equation*}
 
     \item \begin{equation*}
-              \mu = \mu(\omega(x,y))
+              \mu = \mu\big(\omega(x,y)\big)
+          \end{equation*}
+
+          \begin{equation*}
+              \frac{\delta \mu}{\delta \omega} \cdot \frac{\delta \omega}{\delta x} \cdot N + \mu \cdot \frac{\delta N}{\delta x} = \frac{\delta \mu}{\delta \omega} \cdot \frac{\delta \omega}{\delta y} \cdot M + \mu \cdot \frac{\delta M}{\delta y}
           \end{equation*}
 
           \begin{eqnarray*}
-              \frac{\delta \mu}{\delta \omega} \cdot \frac{\delta \omega}{\delta x} \cdot N + \mu \cdot \frac{\delta N}{\delta x} & = &\\
-              & = & \frac{\delta \mu}{\delta \omega} \cdot \frac{\delta \omega}{\delta y} \cdot M + \mu \cdot \frac{\delta M}{\delta y}
-          \end{eqnarray*}
-
-          \begin{eqnarray*}
               \frac{\frac{\delta \mu}{\delta \omega}}{\mu(\omega)} = \frac{\frac{\delta M}{\delta y} - \frac{\delta N}{\delta x}}{N\cdot \frac{\delta \omega}{\delta x} - M\cdot \frac{\delta \omega}{\delta y}} = F(\omega) & \implies & \\
-              & \implies & \mu(\omega) = e^{F(\omega)d\omega}
+              & \implies & \mu(\omega) = e^{\int F(\omega)d\omega}
           \end{eqnarray*}
 \end{enumerate}
 
@@ -583,10 +1148,13 @@ $\frac{\delta P}{\delta y} = y_y' = 1 \ne \frac{\delta Q}{\delta x} = \frac{\del
     \begin{equation*}
         (x^2 + y^2 + x)dx + ydy = 0, \quad M = x^2 + y^2 + x, \quad N = y
     \end{equation*}
-    \begin{eqnarray*}
-        \frac{\delta N}{\delta x} = 0 & \ne & \\
-        & \ne & 2y = \frac{\delta M}{\delta y}
-    \end{eqnarray*}
+    \begin{equation*}
+        \begin{array}{ccl}
+            \frac{\delta N}{\delta x} & = & 0  \\
+            \vertneq                  &   &    \\
+            \frac{\delta M}{\delta y} & = & 2y
+        \end{array}
+    \end{equation*}
     \begin{multline*}
         \mu = \mu(x) = ?, \quad \mu(x^2 + y^2 + x)dx + \mu y dy = 0, \\
         P = \mu(x^2 + y^2 + x), \quad Q = \mu y, \\
@@ -612,32 +1180,35 @@ $\frac{\delta P}{\delta y} = y_y' = 1 \ne \frac{\delta Q}{\delta x} = \frac{\del
     \begin{equation*}
         u(x,y) = e^{2x} \cdot \frac{x^2 + y^2}{2} + C = \widetilde{C}
     \end{equation*}
-    \begin{center}
-        $e^{2x} \cdot \frac{x^2 + y^2}{2} = C$ -- общий интеграл
-    \end{center}
-    \begin{enumerate}
-        \item Если $\mu_0$ -- ИМ, то $\forall c \in \mathbb{R} \quad \mu_1 = C \cdot \mu_0$ -- тоже является ИМ
-        \item Пусть $\mu_0$ -- ИМ уравнения $(1.12)$, $V_0$ -- соответствующий ему интеграл, то есть
-              \begin{equation*}
-                  \mu_0 \cdot Mdx + \mu_0 \cdot N dx = d V_0,
-              \end{equation*}
-              тогда для произвольной функции $\phi \in C^1(D), \ \phi \ne 0$, $\mu_1 = \mu_0 \cdot \phi(V_0)$ -- так же является ИМ.
-              \begin{multline*}
-                  Mdx + Ndy = 0, \quad \mu_1 \cdot Mdx + \mu_1 \cdot N dy = \\
-                  = \mu_0 \cdot \phi(V_0)\cdot Mdx + \mu_0 \cdot \phi(V_0)\cdot Ndy = \\
-                  = \phi(V_0)(\mu_0 \cdot Mdx + \mu_0 \cdot N dy) = \phi(V_0)dV_0 = \\
-                  = d\bigg(\int \phi(V_0)dV_0\bigg) = dV_1, \quad \int \phi(V_0)dV_0 = V_1
-              \end{multline*}
-        \item Если $\mu_1$ и $\mu_2$ -- интегральные множители уравнения $(1.12)$, тогда
-              \begin{equation*}
-                  \mu_2 = \mu_1 \cdot \phi(V_1),
-              \end{equation*}
-              где $\phi$ -- произвольная функция класса $C^1$, $V_1$ -- соответствующий интеграл для $\mu_1$.
-    \end{enumerate}
+    \begin{equation*}
+        e^{2x} \cdot \frac{x^2 + y^2}{2} = C\text{ -- общий интеграл}
+    \end{equation*}
 \end{example}
 
+\paragraph*{Свойства интегрирующего множителя (ИМ):}
+
+\begin{enumerate}
+    \item Если $\mu_0$ -- ИМ, то $\forall c \in \mathbb{R} \quad \mu_1 = C \cdot \mu_0$ -- тоже является ИМ.
+    \item Пусть $\mu_0$ -- ИМ уравнения $(1.12)$, $V_0$ -- соответствующий ему интеграл, то есть:
+          \begin{equation*}
+              \mu_0 \cdot Mdx + \mu_0 \cdot N dx = d V_0,
+          \end{equation*}
+          тогда для произвольной функции $\phi \in C^1(D), \ \phi \ne 0$, $\mu_1 = \mu_0 \cdot \phi(V_0)$ -- так же является ИМ.
+          \begin{multline*}
+              Mdx + Ndy = 0, \quad \mu_1 \cdot Mdx + \mu_1 \cdot N dy = \\
+              = \mu_0 \cdot \phi(V_0)\cdot Mdx + \mu_0 \cdot \phi(V_0)\cdot Ndy = \\
+              = \phi(V_0)(\mu_0 \cdot Mdx + \mu_0 \cdot N dy) = \phi(V_0)dV_0 = \\
+              = d\bigg(\int \phi(V_0)dV_0\bigg) = dV_1, \quad \int \phi(V_0)dV_0 = V_1
+          \end{multline*}
+    \item Если $\mu_1$ и $\mu_2$ -- интегральные множители уравнения \ref{eq19}, тогда:
+          \begin{equation*}
+              \mu_2 = \mu_1 \cdot \phi(V_1),
+          \end{equation*}
+          где $\phi$ -- произвольная функция класса $C^1$, $V_1$ -- соответствующий интеграл для $\mu_1$.
+\end{enumerate}
+
 \begin{effect}
-    Если $\mu_1$ и $\mu_2$ -- интегральные множители уравнения $(1.12)$ и $\frac{\mu_1}{\mu_2} \ne const$, тогда $\frac{\mu_1}{\mu_2}$ -- является интегралом для уравнения $(1.12)$.
+    Если $\mu_1$ и $\mu_2$ -- интегральные множители уравнения \ref{eq19} и $\frac{\mu_1}{\mu_2} \ne const$, тогда $\frac{\mu_1}{\mu_2}$ -- является интегралом для уравнения \ref{eq19}.
 \end{effect}
 
 \begin{theorem}
@@ -665,16 +1236,16 @@ $\frac{\delta P}{\delta y} = y_y' = 1 \ne \frac{\delta Q}{\delta x} = \frac{\del
     \end{multline*}
 \end{proof}
 
-\section*{Еще один способ построения интегрального множителя}
+\paragraph*{Еще один способ построения интегрального множителя:}
 \begin{equation*}
-    \underset{\RomanNumeralCaps{1}}{M_1dx + N_1dy} + \underset{\RomanNumeralCaps{2}}{M_2dx + N_2dy} = 0
+    \underbrace{M_1dx + N_1dy}_{\Romannum{1}} + \underbrace{M_2dx + N_2dy}_{\Romannum{2}} = 0
 \end{equation*}
 
-Пусть $\mu_1$ -- интегральный множитель для $\RomanNumeralCaps{1}$, $V_1$ -- соответствующий ему интеграл, то есть
+Пусть $\mu_1$ -- интегральный множитель для $\Romannum{1}$, $V_1$ -- соответствующий ему интеграл, то есть:
 \begin{equation*}
     dV_1 = \mu_1 \cdot M_1 dx + \mu_2 \cdot N_2 dy,
 \end{equation*}
-$\mu_2$ -- интегральный множитель для $\RomanNumeralCaps{2}$, $V_2$ -- соответствующий ему интеграл, то есть
+$\mu_2$ -- интегральный множитель для $\Romannum{2}$, $V_2$ -- соответствующий ему интеграл, то есть:
 \begin{equation*}
     dV_2 = \mu_2 \cdot M_2 dx + \mu_2 \cdot N_2 dy,
 \end{equation*}
@@ -688,190 +1259,427 @@ $\mu_2$ -- интегральный множитель для $\RomanNumeralCaps
         (\frac{y}{x} + dy) + (3x^2 dx + \frac{x^3}{y}dy) = 0
     \end{equation*}
     \begin{minipage}{0.4\textwidth}
-        $\frac{y}{x} + dy = 0$ \\
+        $\frac{y}{x}dx + dy = 0$
         \begin{equation*}
             \mu_1 = x
         \end{equation*}
         $ydx + xdy = 0$ \\
         $d(xy) = 0 \implies xy = C_1$ \\
         \begin{equation*}
-            V_1 = xy
+            u_1 = xy
         \end{equation*}
     \end{minipage}
     \hfill
     \begin{minipage}{0.4\textwidth}
-        $\frac{y}{x} + dy = 0$ \\
+        $3x^2dx + \frac{x^3}{y}dy = 0$
         \begin{equation*}
-            \mu_1 = x
+            \mu_2 = y
         \end{equation*}
-        $ydx + xdy = 0$ \\
-        $d(xy) = 0 \implies xy = C_1$ \\
+        $3x^2ydx + x^3dy = 0$ \\
+        $d(x^3y) = 0$ \\
         \begin{equation*}
-            V_1 = xy
+            u_2 = x^3y
         \end{equation*}
     \end{minipage}
+    \begin{equation*}
+        x\phi(xy) = y \psi(x^3y),\quad \phi(t) = t^2, \ \psi(t) = t,
+    \end{equation*}
+    \begin{equation*}
+        x(x^2y^2) = yx^3y = \mu
+    \end{equation*}
+    \begin{equation*}
+        x^3y^2\left(\frac{y}{x}+3x^2\right)dx + x^3y^2\left(1 + \frac{x^2}{y}\right)dy = 0
+    \end{equation*}
+    \begin{equation*}
+        \underbrace{(x^2y^3 + 3x^5y^2)}_{P}dx + \underbrace{(x^3y^2 + x^6y)}_{Q}dy = 0
+    \end{equation*}
+    \begin{equation*}
+        \begin{array}{ccc}
+            \frac{\delta P}{\delta y} & = & 3x^2y^2 + 6x^5y \\
+                                      &   & \verteq         \\
+            \frac{\delta Q}{\delta x} & = & 3x^2y^2 + 6x^5y
+        \end{array} \implies\text{ уравнение в ПД}
+    \end{equation*}
+    \begin{equation*}
+        \left\{\begin{array}{l}
+            \frac{\delta u}{\delta x} = x^2y^3 + 3x^5y^2 \\
+            \frac{\delta u}{\delta y} = x^3y^2 + x^6y
+        \end{array}\right.
+    \end{equation*}
 \end{example}
 
-\begin{center}
-    {\Large ДОПИСАТЬ НАДО}
-\end{center}
+\section{Теорема существования и единственности}
 
-Рассмотрим окрестность точки $(x_0,y_0,y_0')$
-\begin{enumerate}
-    \item По теореме о неявной функции
-          \begin{equation*}
-              f(x,y,g(x,y)) = 0 \quad (*)
-          \end{equation*}
-          $\exists$ непрерывная функция $g(x,y), \ g(x_0,y_0) = y_0', \ g \in C^1$
-    \item По теореме существования и единственности
-          \begin{equation*}
-              y' = g(x,y)
-          \end{equation*}
-          $\exists y(x)$ -- решение на $[x_0-h, \ x_0+h]$ и удовлетворяющее $y(x_0) = y_0$
-          \begin{equation*}
-              y'(x) = g(x,y(x))
-          \end{equation*}
+\paragraph*{Задача Коши:}
 
-          Из $(*) \implies f(x,y,y') = 0, \ y(x)$ -- решение удовлетворяет уравнению $f(x,y,y') = 0$ и удовлетворяет условиям $\begin{array}{l}
-                  y(x_0) = y_0 \\
-                  y'(x_0) = y_0'
-              \end{array}$
-          \begin{equation*}
-              y'(x_0) = g(x_0,y(x_0)) = y_0'
-          \end{equation*}
-\end{enumerate}
+\begin{equation}\label{eq20}
+    y' = f(x,y),
+\end{equation}
+\begin{equation}\label{eq21}
+    y(x_0) = y_0
+\end{equation}
 
-\section*{Интегрирование уравнений, не разрешенных относительно производной}
+\begin{theorem}[теорема Пикара]
+    Пусть функция $f(x,y)$ определена и непрерывна по совокупности переменных в прямоугольнике $\Pi = \{(x,y): \ |x-x_0| \leqslant a, \ |y-y_0|\leqslant b\}$ и на переменной $y$ удовлетворяет условию Липшица:
+    \begin{equation*}
+        \big(f(x,y)\in C(\Pi) \cap Lip y(\Pi)\big)
+    \end{equation*}
+
+    Тогда $\exists!$ решение задачи Коши \ref{eq20}, \ref{eq21} в $V_h = (x_0 - h;x_0 + h)$, где $h = \min\left(a,\frac{b}{M},\frac{1}{L}\right), \ M = \underset{(x,y)\in \Pi}{\max}\big|f(x,y)\big|$.
+\end{theorem}
+
+\begin{definition}
+    $f(x,y)\in Lip y$, если $\exists L > 0: \ \forall (x,y_1), \ (x,y_2)\in \Pi$ имеет место:
+    \begin{equation*}
+        \big|f(x,y_1) - f(x,y_2)\big| \leqslant L \cdot |y_1 - y_2|
+    \end{equation*}
+\end{definition}
+
+\begin{lemma}[об интегральном уравнении]
+    В предположении теоремы $y$ является решением задачи \ref{eq20}, \ref{eq21} $\iff$ оно является решением интегрального уравнения:
+    \begin{equation}\label{eq22}
+        y(x) = y_0 + \int_{x_0}^{x}f\big(x,y(s)\big)ds
+    \end{equation}
+\end{lemma}
+
+\begin{definition}[решение интегрального уравнения \ref{eq22}]
+    \emph{Решением интегрального уравнения \ref{eq22}} называется непрерывная функция $y$, обращающая уравнение в тождество.
+\end{definition}
+
+\begin{proof}[Доказательство леммы?]
+    \begin{itemize}
+        \item $\Rightarrow y$ -- решение \ref{eq20}, \ref{eq21}, проинтегрируем \ref{eq20} на $[x_0;x]$:
+              \begin{equation*}
+                  \int_{x_0}^{x}y'(x)dx = \int_{x_0}^{x}f\big(s,y(s)\big)ds
+              \end{equation*}
+              \begin{equation*}
+                  y(x) - y(x_0) = \int_{x_0}^{x}f\big(s,y(s)\big)ds\text{, с учетом \ref{eq21}},
+              \end{equation*}
+              \begin{equation*}
+                  y(x) = y_0 + \int_{x_0}^{x}f\big(s,y(x)\big)dx,\quad y(x)\text{ удовлетворяет уравнению \ref{eq22}}
+              \end{equation*}
+
+              $y(x)$ непрерывна (следует из дифференцируемости).
+
+        \item $\Leftarrow y(x)$ -- решение \ref{eq22}, $y(x)$ -- непрерывна, $f(x,y)$ -- непрерывна по условию теоремы $\implies$ интеграл с переменным верхним пределом можно дифференцировать:
+              \begin{equation*}
+                  y'(x) = f\big(x,y(x)\big) \cdot 1,\quad y(x)\text{ удовлетворяет уравнению \ref{eq20}}
+              \end{equation*}
+              \begin{multline*}
+                  \frac{d}{d\alpha}\int_{a(\alpha)}^{b(\alpha)}F(x,\alpha)d\alpha = \\
+                  = \int_{a(\alpha)}^{b(\alpha)}F_\alpha'(x,\alpha)d\alpha + F(b(\alpha),\alpha)\cdot b'(\alpha) - F(a(\alpha),\alpha)\cdot a'(\alpha)
+              \end{multline*}
+              \begin{equation*}
+                  y(x_0) = y_0 + \int_{x_0}^{x_0}f\big(s,y(s)\big)ds\text{, выполняется условие \ref{eq21}}
+              \end{equation*}
+    \end{itemize}
+\end{proof}
+
+\begin{proof}[Доказательство теоремы Пикара]
+    \begin{enumerate}
+        \item Последовательность приближения Пикара:
+              \begin{equation*}
+                  \begin{array}{l}
+                      y_0(x) = y_0,                                       \\
+                      y_1(x) = y_0 + \int_{x_0}^{x}f\big(s,y_0(s)\big)ds, \\
+                      y_2(x) = y_0 + \int_{x_0}^{x}f\big(s,y_1(s)\big)ds, \\
+                      \vdots                                              \\
+                      y_n(x) = y_0 + \int_{x_0}^{x}f\big(s,y_{n-1}(s)\big)ds
+                  \end{array}
+              \end{equation*}
+        \item $y_n(x)$ -- непрерывна при $|x-x_0| \leqslant h, \ \big(x,y_n(x)\big)\in \Pi$.
+
+              По индукции, $n=1$:
+              \begin{equation*}
+                  \big|y_1(x) - y_0\big| \overset{?}{\leqslant}b
+              \end{equation*}
+              \begin{multline*}
+                  \big|y_1(x) - y_0\big| = \left|\int_{x_0}^{x}f\big(s,y_0(s)\big)ds\right| \leqslant \\
+                  \leqslant \left|\int_{x_0}^{x}\Big|f\big(s,y_0(s)\big)\Big|dx\right| \leqslant M|x - x_0| \leqslant M\cdot h \leqslant M\cdot \frac{b}{M} = b
+              \end{multline*}
+
+              Пусть $\big|y_{n-1}(x) - y_0\big|\leqslant b$, то есть $\big(x,y_{n-1}(x)\big)\in \Pi$. Докажем, что $\big(x,y_n(x)\big)\in\Pi$:
+              \begin{multline*}
+                  \big|y_n(x) - y_0\big| \leqslant \left|\int_{x_0}^{x}\Big|f\big(s,y_{n_1}(s)\big)\Big|\right|\leqslant \\
+                  \leqslant M\cdot |x - x_0| \leqslant M\cdot h \leqslant M\cdot \frac{b}{M} = b
+              \end{multline*}
+        \item Покажем, что $\big\{y_n(x)\big\}^\infty_{n=1} \rightrightarrows \overline{y}(x)$.
+
+              Составим функциональный ряд:
+              \begin{equation*}
+                  (\star) \quad \underbrace{\underbrace{\underbrace{\underbrace{y_0(x)}_{S_0(x)}, \ y_1(x) - y_0(x)}_{S_1(x) = y_1(x)}, \ y_2(x) - y_1(x)}_{S_2(x) = y_2(x)}, \ldots, \ y_1(x) - y_{n-1}(x)}_{S_n(x) = y_n(x)}, \ldots
+              \end{equation*}
+    \end{enumerate}
+
+    Нужно дописать.
+\end{proof}
+
+\begin{lemma}[Гронуолла]
+    Пусть $u(x) \geqslant 0$ и $u(x) \in C\big([x_0;x_0+h]\big)$,
+    \begin{equation*}
+        (\star) \quad u(x)\leqslant a + b\int_{x_0}^{x}u(t)dt, \quad a\geqslant 0, \ b\geqslant 0
+    \end{equation*}
+
+    Тогда $u(x)\leqslant a\cdot e^{b(x-x_0)}$ на $[x_0;x_0+h]$.
+\end{lemma}
+
+\begin{proof}
+    $u(x) = e^{b(x-x_0)}v(x)$
+
+    На $[x_0;x_0+h]: \ v(x)$ -- непрерывна и в точке $x_1: \ v(x_1) =\underset{[x_0;x_0+h]}{\max}v(x)$.
+    \begin{multline*}
+        e^{b(x-x_)}v(x_1) = u(x_1) \leqslant \\
+        \leqslant a+b \int_{x_0}^{x_1}u(t)dt = a+b\int_{x_0}^{x_1}e^{b(t-x_0)}v(t)dt \leqslant \\
+        \leqslant a+b \cdot v(x_1)\cdot \frac{e^{v(t-x_0)}}{b}\Big|_{x_0}^{x_1} = a+ v(x_1)\cdot e^{b(x_1-x_0)} - v(x_1) \implies \\
+        \implies 0 \leqslant a-v(x_1) \implies v(x_1) \leqslant a \implies \\
+        \implies u(x) = e^{b(x-x_0)}v(x) \leqslant e^{b(x-x_0)}v(x_1) \leqslant a\cdot e^{b(x-x_0)}
+    \end{multline*}
+\end{proof}
+
+\begin{effect}
+    Если $a=0$, то $u(x) \equiv 0$.
+\end{effect}
+
+\section{Уравнения, не разрешенные относительно производной}
+
+\begin{definition}[уравнение, не разрешенное относительно производной]
+    \emph{Уравнением, не разрешенным относительно производной} называется уравнение вида:
+    \begin{equation}\label{eq23}
+        f(x,y,y') = 0
+    \end{equation}
+\end{definition}
+
+\paragraph*{Задача Коши:} найти прешение \ref{eq23} при условиях:
+\begin{equation}\label{eq24}
+    \left\{\begin{array}{rl}
+        y(x_0)  & = y_0  \\
+        y'(x_0) & = y_0'
+    \end{array}\right.
+\end{equation}
+
+\begin{theorem}[$\exists$ и $!$ задачи Коши]
+    Пусть $f\in C^1(D)$ и в точке $(x_0,y_0,y_0') \in D$,
+    \begin{equation*}
+        f(x_0,y_0,y_0') = 0\text{ и }f_{y'}'(x_0,y_0,y_0')\ne0
+    \end{equation*}
+
+    Тогда на достаточно малом отрезке $[x_0 - h;x_0 + h]$ решение задачи Коши \ref{eq23}, \ref{eq24} существует и единственно.
+\end{theorem}
+
+\begin{example}
+    $(y')^2 = x^2$
+    \begin{equation*}
+        \left[\begin{array}{l}
+            y' = x \\
+            y' = -x
+        \end{array}\right. \implies \left[\begin{array}{l}
+            y = \frac{x^2}{2} + C \\
+            y = - \frac{x^2}{2} + C
+        \end{array}\right.
+    \end{equation*}
+\end{example}
+
+\begin{definition}[особое решение, дискриминантная кривая]
+    Решение $y = \phi(x)$ уравнения \ref{eq23} называется \emph{особым}, если через $\forall$ точку $y = \phi(x)$, помимо того, проходит другое решение, имеющее ту же касательную, не совпадающее с исходным решением в сколь угодно малой окрестности этой точки.
+
+    Особые решения будем искать из системы:
+    \begin{equation}\label{eq25}
+        \left\{\begin{array}{l}
+            f(x,y,y') = 0 \\
+            f_{y'}'(x,y,y') = 0
+        \end{array}\right.
+    \end{equation}
+    путем исключения $y'$.
+
+    Кривая, определенная уравнением \ref{eq25} $\psi(x,y) = 0$, называется \emph{дискриминантной}.
+\end{definition}
+
+\section{Интегрирование уравнений, не разрешенных относительно производной}
 
 \begin{enumerate}
     \item Выразить, если это возможно, явно $y': \ (y')_{1,2} = \ldots$
     \item Метод параметра: $y'=p$
 \end{enumerate}
-\begin{equation*}
-    x = \Phi (y,y') \quad (3)
-\end{equation*}
-\begin{equation*}
-    y = \Psi (x,y') \quad (4)
-\end{equation*}
+\begin{equation}\label{eq26}
+    x = \Phi (y,y')
+\end{equation}
+\begin{equation}
+    y = \Psi (x,y')\label{eq27}
+\end{equation}
 
-Из $(3): \ y' = p \implies dy = pdx, \quad x = \Phi(y,p)$
+Из \ref{eq26}: $y' = p \implies dy = pdx, \quad x = \Phi(y,p)$
 \begin{eqnarray*}
     dx = \frac{\delta \Phi}{\delta y}dy + \frac{\delta \Phi}{\delta p}dp \\
     \frac{dy}{p} = \frac{\delta \Phi}{\delta y}dy + \frac{\delta \Phi}{\delta p}dp
 \end{eqnarray*}
 \begin{equation*}
     \left[\begin{array}{l}
-        p = 0 \\
-        p \ne 0: \quad \frac{dy}{p} = \frac{\delta \Phi}{\delta y}dy + \frac{\delta \Phi}{\delta p}dp \implies \left\{\begin{array}{l}
-                                                                                                                          y = y(p,c) \\
-                                                                                                                          x = \Phi (y(p,c),p)
-                                                                                                                      \end{array}\right.
+        p = 0   \\
+        p \ne 0 \\
+        \frac{dy}{p} = \frac{\delta \Phi}{\delta y}dy + \frac{\delta \Phi}{\delta p}dp \implies \left\{
+        \begin{array}{l}
+            y = y(p,c) \\
+            x = \Phi \big(y(p,c),p\big)
+        \end{array}\right.
     \end{array}\right.
 \end{equation*}
 
-Из $(4): \ y = \Psi(x,p)$
+Из \ref{eq27}: $y = \Psi(x,p)$
 \begin{eqnarray*}
     & dy & = \frac{\delta \Psi}{\delta x}dx + \frac{\delta \Psi}{\delta p}dp \\
     & pdx & = \frac{\delta \Psi}{\delta x}dx + \frac{\delta \Psi}{\delta p}dp \implies \left\{\begin{array}{l}
         x = x(p,c) \\
-        y = \Psi(x(p,c),p)
+        y = \Psi\big(x(p,c),p\big)
     \end{array}\right.
 \end{eqnarray*}
 
-\subsection*{Уравнение Лагранжа}
+\paragraph*{Уравнение Лагранжа}
 
 \begin{eqnarray*}
     &y = x \cdot F(y') + G(y') \\
     &y' = p \implies y = x\cdot F(p) + G(p) \\
-    &\underset{=pdx}{dy} = F(p)dx + x\cdot F'(p)dp + g'(p)dp \\
+    &\equalto{dy}{pdx} = F(p)dx + x\cdot F'(p)dp + g'(p)dp \\
     &(p - F(p))dx - F'(p)dp \cdot x = G'(p)dp: \ dp \ne 0, \ p - F(p)\ne 0 \\
-    &\frac{dx}{dp} - \frac{F'(p)}{p - f(p)}\cdot x = \frac{G'(p)}{p - F(p)},
+    &\frac{dx}{dp} - \frac{F'(p)}{p - f(p)}\cdot x = \frac{G'(p)}{p - F(p)}\text{ -- линейное уравнение относительно }x
 \end{eqnarray*}
-где $\frac{dx}{dp} - \frac{F'(p)}{p - f(p)}\cdot x = \frac{G'(p)}{p - F(p)}$ -- линейное уравнение относительно $x$.
 
 \begin{equation*}
-    p - F(p) = 0 \implies p = p_0 \implies y = x\cdot \underbrace{F(p_0)}_{=c_1} + \underbrace{G(p_0)}_{=c_2} \implies y = c_1 \cdot x + c_2
-\end{equation*}
-\begin{equation*}
-    \left\{\begin{array}{l}
-        p - F(p)\ne 0 \\
-        \frac{dx}{dp} - \frac{F'(p)}{p - F(p)}\cdot x = \frac{G'(p)}{p - F(p)} \implies \left\{\begin{array}{l}
-                                                                                                   x = \phi(p,c) \\
-                                                                                                   y = \phi(p,c) \cdot F(p) + G(p)
-                                                                                               \end{array}\right.
+    \left[\begin{array}{l}
+        p - F(p) = 0 \implies p = p_0 \implies y = x\cdot\equalto{F(p_0)}{C_1} + \equalto{G(p_0)}{C_2} \implies y = x\cdot C_1 + C_2    \\
+        \left\{\begin{array}{l}
+                   p - F(p) \ne 0 \\
+                   \frac{dx}{dp} - \frac{F'(p)}{p - F(p)}\cdot x = \frac{G'(p)}{p - F(p)} \implies \left\{\begin{array}{l}
+                                                                                                       x = \phi(p,C) \\
+                                                                                                       y = \phi(p, C)\cdot F(p) + G(p)
+                                                                                                   \end{array}\right.
+               \end{array}\right. \\
+        dp = 0 \implies p = C \implies y = x\cdot F(C) + G(C)
     \end{array}\right.
 \end{equation*}
-\begin{equation*}
-    dp = 0 \implies p = c \implies y = x \cdot F(c) + G(c)
-\end{equation*}
 
-\subsection*{Уравнение Клеро}
+\paragraph*{Уравнение Клеро}
 
-{\Huge МНЕ СТАЛО ВПАДЛУ НАДО ДОПИСАТЬ}
+\begin{align*}
+    y = xy' + G(y');                         \\
+    y = xp + G(p);                           \\
+    \equalto{dy}{pdx} = xdp + pdx + G'(p)dp; \\
+    \big(x + G'(p)\big)dp = 0;               \\
+    \left\{\begin{array}{l}
+               x = - G'(p) \implies y = -G(p)\cdot p + G(p) \\
+               dp = 0 \implies p = C \implies y = xF(C) + G(C)
+           \end{array}\right.
+\end{align*}
+
+\section{Уравнения высших порядков}
+
+\begin{definition}[уравнение $n$-го порядка]
+    \emph{Уравнением порядка $n$} называется уравнение вида:
+    \begin{equation}\label{eq28}
+        F(x,y,y',y'',\ldots,y^{(n)}) = 0,
+    \end{equation}
+    где $x$ -- неизвестная, $n$ -- наивысший порядок производной:
+    \begin{equation}\label{eq29}
+        y^{(n)} = f(x,y,y',\ldots,y^{(n-1)})
+    \end{equation}
+\end{definition}
+
+\begin{definition}[решение уравнений \ref{eq28} и \ref{eq29}]
+    \emph{Решением уравнений \ref{eq28} и \ref{eq29}} называется $n$ раз дифференцируемая функция, которая при подстановке в уравнение, обращает его в тождество.
+\end{definition}
+
+\begin{definition}[задача Коши]
+    \emph{Задача Коши}: найти уравнения \ref{eq29} удовлетворяющему начальным условиям:
+    \begin{equation}\label{eq30}
+        \left\{\begin{array}{l}
+            y(x_0) = y_0   \\
+            y'(x_0) = y_0' \\
+            \vdots         \\
+            y^{(n-1)}(x_0) = y_0^{n-1}
+        \end{array}\right. \quad \left(\begin{matrix}
+                y_0^\circ \\ y_1^\circ \\ \vdots \\ y_{n-1}^\circ
+            \end{matrix}\right)
+    \end{equation}
+\end{definition}
+
+\begin{theorem}[$\exists$ и $!$ задачи Коши \ref{eq29}, \ref{eq30}]
+    Пусть $f(x,y_0,y_1,\ldots,y_{n-1})$ -- непрерывна по совокупности переменных в параллелепипеде:
+    \begin{equation*}
+        \Pi = \big\{(x,y_0,y_1,\ldots,y_{n-1}): \ |x-x_0|\leqslant a, \ |y_k - y_k^0| \leqslant b, \ k = \overline{0,n-1}\big\}
+    \end{equation*}
+    и удовлетворяет условию Липшица по переменным $y_0,y_1,\ldots,y_{n-1}$
+    \begin{equation*}
+        \left(\frac{\delta f}{\delta y_k}\text{ -- непр., }k = \overline{0,n-1}\right)
+    \end{equation*}
+
+    Тогда в окрестности точки $x_0 \ (x_0 - h;x_0 + h)$ решение задачи Коши существует и единственно,  где:
+    \begin{equation*}
+        h = \min\left\{a,\frac{b}{\max\{M_0,M_1,\ldots,M_{n-1}\}}\right\}, \quad M_k = \max\left|\frac{\delta f}{\delta y_k}\right|
+    \end{equation*}
+\end{theorem}
 
 \section{Линейные уравнения высших порядков}
 
 \begin{definition}[линейное неоднородное уравнение порядка $n$, однородное уравнение]
     Уравнение вида:
+    \begin{equation}\label{eq31}
+        a_0(x) \cdot y^{(n)} + a_1(x) \cdot y^{(n-1)} + \ldots + a_{n-1}(x)\cdot y' + a_n(x) \cdot y = f(x), \quad a_0(x) \ne 0
+    \end{equation}
+    называется \emph{линейным неоднородным порядка $n$},
     \begin{equation*}
-        a_0(x) \cdot y^{(n)} + a_1(x) \cdot y^{(n-1)} + \ldots + a_{n-1}(x)\cdot y' + a_n(x) \cdot y = f(x), \quad a_0(x) \ne 0 \quad (1)
-    \end{equation*}
-    называется \textbf{линейным неоднородным порядка $n$},
-    \begin{equation*}
-        a_j(x) \in C(\alpha,\beta), \quad j = \overline{0,n}, \quad f(x) \in C(\alpha, \beta), \quad -\infty \leqslant \alpha < \beta \leqslant + \infty
+        a_j(x) \in C(\alpha;\beta), \quad j = \overline{0,n}, \quad f(x) \in C(\alpha, \beta), \quad -\infty \leqslant \alpha < \beta \leqslant + \infty
     \end{equation*}
 
-    Если $f(x) = 0$, то уравнение называется \textbf{однородным}.
+    Если $f(x) = 0$, то уравнение называется \emph{однородным}.
 
     Пусть $L[y] = Ly \equiv a_0 (x) \cdot y^{(n)} + \ldots + a_n(x) \cdot y$,
-    \begin{equation*}
-        Ly = f \quad (2)
-    \end{equation*}
-    \begin{equation*}
-        Ly = 0 \quad (3)
-    \end{equation*}
-    \begin{equation*}
-        y^{(n)} = - \frac{a_1(x)}{a_0(x)} \cdot y^{(n-1)} - \ldots - \frac{a_{n-1}(x)}{a_0(x)} \cdot y' - \frac{a_n(x)}{a_0(x)} \cdot y + \frac{f(x)}{a_0(x)} \quad (1')
-    \end{equation*}
+    \begin{equation}\label{eq32}
+        Ly = f
+    \end{equation}
+    \begin{equation}\label{eq33}
+        Ly = 0
+    \end{equation}
+    \begin{equation}\label{eq34}
+        y^{(n)} = - \frac{a_1(x)}{a_0(x)} \cdot y^{(n-1)} - \ldots - \frac{a_{n-1}(x)}{a_0(x)} \cdot y' - \frac{a_n(x)}{a_0(x)} \cdot y + \frac{f(x)}{a_0(x)}
+    \end{equation}
 \end{definition}
 
 \begin{theorem}[о существовании и единственности]
-    Пусть для уравнения $(1')$ выполняются условия: $a_0(x) \ne 0, \ a_j(x) \in C(\alpha,\beta), \ f(x) \in C(\alpha, \beta)$. Тогда решение задачи Коши для уравнения $(1')$ существует и единственно на $(\alpha, \beta)$.
+    Пусть для уравнения \ref{eq34} выполняются условия: $a_0(x) \ne 0, \ a_j(x) \in C(\alpha;\beta), \ f(x) \in C(\alpha, \beta)$. Тогда решение задачи Коши для уравнения \ref{eq34} существует и единственно на $(\alpha, \beta)$.
 \end{theorem}
 
-\paragraph*{Свойства оператора $Ly$}
+\paragraph*{Свойства оператора $Ly$:}
 
 \begin{enumerate}
     \item $L(\alpha y) = \alpha Ly, \ \forall \alpha \in \mathbb{R}$ (свойство однородности);
     \item $L(y_1 + y_2) = Ly_1 = Ly_2$ (свойство аддитивности).
 \end{enumerate}
 
-\paragraph*{Свойства решений однородного линейного уравнения $(3)$ или $Ly = 0$}
+\paragraph*{Свойства решений однородного линейного уравнения \ref{eq33} или $Ly = 0$.}
 
 \begin{enumerate}
-    \item $y = 0$ является решением $(3)$;
-    \item Если $y_1(x)$ -- решение $(3)$, то $y(x) - \alpha y_1(x), \ \alpha \in \mathbb{R}$ также ялвяется решением,
+    \item $y \equiv 0$ является решением \ref{eq33};
+    \item Если $y_1(x)$ -- решение \ref{eq33}, то $y(x) - \alpha y_1(x), \ \alpha \in \mathbb{R}$ также ялвяется решением:
           \begin{equation*}
-              Ly = L(\alpha y_1) = \alpha \underbrace{Ly_1}_{=0} = 0
+              Ly = L(\alpha y_1) = \alpha \equalto{Ly_1}{0} = 0
           \end{equation*}
-    \item Если $y_1(x)$ и $y_2(x)$ -- решения $(3)$, то $y(x) = y_1(x) + y_2(x)$ также является решением
+    \item Если $y_1(x)$ и $y_2(x)$ -- решения \ref{eq33}, то $y(x) = y_1(x) + y_2(x)$ также является решением:
           \begin{equation*}
               Ly = L(y_1 + y_2) = Ly_1 + Ly_2 = 0 + 0 = 0
           \end{equation*}
-    \item Если $y_1(x), \ldots, y_n(x)$ -- решения $(3)$, то $\forall c_i \in \mathbb{R}, \ i =\overline{1,n} \ y(x) = c_1 y_1(x) + \ldots + c_n y_n(x)$ так же является решением.
+    \item Если $y_1(x), \ldots, y_n(x)$ -- решения \ref{eq33}, то $\forall c_i \in \mathbb{R}, \ i =\overline{1,n} \ y(x) = c_1 y_1(x) + \ldots + c_n y_n(x)$ так же является решением.
 
-          $y_1(x), \ldots, y_n(x)$ -- линейно независимая система функций $\implies \forall y(x) = \sum_{i = 1}^{n} c_i \cdot y_i(x)$ -- решение $(3)$.
+          $y_1(x), \ldots, y_n(x)$ -- линейно независимая система функций $\implies \forall y(x) = \sum_{i = 1}^{n} c_i \cdot y_i(x)$ -- решение \ref{eq33}.
 \end{enumerate}
 
-\begin{definition}[линейная зависимая система функций]
-    Система функций $y_1(x), \ldots, y_n(x)$ называется \textbf{линейной зависимой}, если $\exists$ такой набор $\alpha_1,\ldots,\alpha_n \in \mathbb{R}: \ \alpha_1^2 + \alpha_2^2 + \ldots + \alpha_n^2 \ne 0$, что линейная комбинация
+\begin{definition}[линейно зависимая система функций]
+    Система функций $y_1(x), \ldots, y_n(x)$ называется \emph{линейно зависимой}, если $\exists$ такой набор $\alpha_1,\ldots,\alpha_n \in \mathbb{R}: \ \alpha_1^2 + \alpha_2^2 + \ldots + \alpha_n^2 \ne 0$, что линейная комбинация
     \begin{equation*}
         \alpha_1y_1(x) + \alpha_2y_2(x) + \ldots + \alpha_ny_n(x) = 0
     \end{equation*}
 \end{definition}
 
-\begin{definition}[линейная независимая система функций]
-    Система функций $y_1(x),\ldots,y_n(x)$ называется \textbf{линейной независимой}, если линейная комбинация этих функций равна $0$ в случае, когда
+\begin{definition}[линейно независимая система функций]
+    Система функций $y_1(x),\ldots,y_n(x)$ называется \emph{линейно независимой}, если линейная комбинация этих функций равна $0$ в случае, когда
     \begin{equation*}
         \alpha_1 = \alpha_2 = \ldots = \alpha_n = 0,
     \end{equation*}
@@ -880,19 +1688,17 @@ $\mu_2$ -- интегральный множитель для $\RomanNumeralCaps
     \end{equation*}
 \end{definition}
 
-\begin{definition}
-    \textbf{Определителем Вронского (вронскианом)} системы функций $y_1(x),\ldots,y_n(x)$, имеющих производные до порядка $(n-1)$ включительно, называется определитель:
+\begin{definition}[определитель Вронского]
+    \emph{Определителем Вронского (вронскианом)} системы функций $y_1(x),\ldots,y_n(x)$, имеющих производные до порядка $(n-1)$ включительно, называется определитель:
     \begin{equation*}
-        W(x) = \left|\begin{array}{ccc}
+        W(x) = \left|\begin{matrix}
             y_1(x)         & \cdots & y_n(x)         \\
             y_1'(x)        & \cdots & y_n'(x)        \\
             \vdots         & \ddots & \vdots         \\
             y_1^{(n-1)}(x) & \cdots & y_n^{(n-1)}(x) \\
-        \end{array}\right|
+        \end{matrix}\right|
     \end{equation*}
 \end{definition}
-
-\section{Линейные уравнения высших порядков}
 
 \begin{theorem}
     Если система функций $y_1(x), \ldots, y_n(x)$ линейно зависима, то определитель Вронского равен $0$, то есть $W(x) = 0$.
@@ -951,8 +1757,8 @@ $\mu_2$ -- интегральный множитель для $\RomanNumeralCaps
     \begin{equation*}
         \frac{y_1(x)}{y_2(x)} = \left\{\begin{array}{ll}
             \infty, & x \geqslant 0 \\
-            0, & x < 0
-        \end{array}\right., \quad \frac{y_1(x)}{y_2(x)} = const \ (linearly \ dependent)
+            0,      & x < 0
+        \end{array}\right., \quad \frac{y_1(x)}{y_2(x)} = const\text{ ЛЗ}
     \end{equation*}
     \begin{equation*}
         \alpha_1\cdot y_1 + \alpha_2 \cdot y_2 = 0, \quad y_1 = - \frac{\alpha_2}{\alpha_1} \cdot y_2
@@ -960,50 +1766,611 @@ $\mu_2$ -- интегральный множитель для $\RomanNumeralCaps
 \end{remark}
 
 \begin{theorem}
-    Пусть $y_1(x), \ldots, y_n(x)$ -- система линейно независимых на $(\alpha,\beta)$ решений уравнения $Ly = 0$. Тогда $W(x) \ne 0$ ни в какой точке интегрвала $(\alpha,\beta)$?
+    Пусть $y_1(x), \ldots, y_n(x)$ -- система линейно независимых на $(\alpha;\beta)$ решений уравнения $Ly = 0$. Тогда $W(x) \ne 0$ ни в какой точке интервала $(\alpha;\beta)$.
 \end{theorem}
 
 \begin{proof}
-    От противного. Предположим, что $\exists x_0 \in (\alpha,\beta)$. $W(x_0) = 0$,
+    От противного. Предположим, что $\exists x_0 \in (\alpha;\beta)$. $W(x_0) = 0$,
     \begin{equation*}
         W(x_0) = \left|\begin{array}{ccc}
-            y_1(x_0) & \cdots & y_n(x_0) \\
-            y_1'(x_0) & \cdots & y_n'(x_0) \\
-            \vdots & \ddots & \vdots \\
+            y_1(x_0)         & \cdots & y_n(x_0)         \\
+            y_1'(x_0)        & \cdots & y_n'(x_0)        \\
+            \vdots           & \ddots & \vdots           \\
             y_1^{(n-1)}(x_0) & \cdots & y_n^{(n-1)}(x_0) \\
         \end{array}\right| = 0, \quad \left(\begin{array}{c}
-            c_1 \\
-            c_2 \\
+            c_1    \\
+            c_2    \\
             \vdots \\
             c_n
         \end{array}\right)
     \end{equation*}
 
-    \begin{equation*}
-        (4) \quad \left\{\begin{array}{l}
-            c_1y_1(x_0) + \ldots + c_ny_n(x_0) = 0 \\
-            c_1y_1'(x_0) + \ldots + c_ny_n'(x_0) = 0 \\
-            \vdots \\
+    \begin{equation}\label{eq35}
+        \left\{\begin{array}{l}
+            c_1y_1(x_0) + \ldots + c_ny_n(x_0) = 0                 \\
+            c_1y_1'(x_0) + \ldots + c_ny_n'(x_0) = 0               \\
+            \vdots                                                 \\
             c_1y_1^{(n-1)}(x_0) + \ldots + c_ny_n^{(n-1)}(x_0) = 0 \\
         \end{array}\right.
-    \end{equation*}
+    \end{equation}
 
-    Однородная система линейно алгебраических уравнений, $\det = W(x_0) = 0, \implies$ система $(4)$ имеет нетривиальное решение: $\overrightarrow{c^0} - (c_1^0,c_2^0,\ldots,c_n^0)$, $y_1(x),\ldots,y_n(x)$ -- линейно зависимая?
+    Однородная система линейно алгебраических уравнений, $\det = W(x_0) = 0, \implies$ система \ref{eq35} имеет нетривиальное решение: $\overrightarrow{c^0} - (c_1^0,c_2^0,\ldots,c_n^0)$, $y_1(x),\ldots,y_n(x)$ -- линейно зависимая?
     \begin{equation*}
         y(x) = c_1^0 \cdot y_1(x) + \ldots + c_n^0 \cdot y_n(x)
     \end{equation*}
     \begin{enumerate}
         \item $y(x)$ -- решение $Ly = 0$;
         \item $\left\{\begin{array}{l}
-            y(x_0) = 0 \\
-            y'(x_0) = c_1^0 y_1'(x) + \ldots + c_n^0y_n'(x)\bigg|_{x=x_0} = 0 \\
-            \vdots \\
-            y^{(n-1)}(x_0) = c_1^0 y_1^{(n-1)}(x) + \ldots + c_n^0y_n^{(n-1)}(x)\bigg|_{x=x_0} = 0
-        \end{array}\right.$
+                      y(x_0) = 0                                                        \\
+                      y'(x_0) = c_1^0 y_1'(x) + \ldots + c_n^0y_n'(x)\bigg|_{x=x_0} = 0 \\
+                      \vdots                                                            \\
+                      y^{(n-1)}(x_0) = c_1^0 y_1^{(n-1)}(x) + \ldots + c_n^0y_n^{(n-1)}(x)\bigg|_{x=x_0} = 0
+                  \end{array}\right.$
     \end{enumerate}
     \begin{enumerate}
         \item $y\equiv0 \implies Ly = 0 \implies$ из теоремы существования и единственности $\implies y(x) = \sum_{k=1}^{n}c_k^0 y_k(x) \equiv 0 \implies y_1,\ldots,y_n$ -- линейно зависимые $\implies$ противоречие.
     \end{enumerate}
 \end{proof}
+
+\begin{theorem}[Лиувилля-Остроградского $\big(W(x), \ W(x_0)\big)$]
+    Пусть задано уравнение:
+    \begin{equation*}
+        a_0(x)\cdot y^{(n)} + a_1(x)\cdot y^{(n-1)} + \ldots + a_{n-1}(x)\cdot y' + a_n(c)\cdot y = 0,
+    \end{equation*}
+    $a_0(x) \ne 0, \ a_j(x)\in C(\alpha;\beta), \ j = \overline{0,n}, \ -\infty\leqslant\alpha<\beta\leqslant+\infty$. Тогда:
+    \begin{equation*}
+        W(x) = W(x_0) \cdot e^{-\int_{x_0}^{x}\frac{a_1(s)}{a_0(s)}ds}, \quad x_0 \in (\alpha;\beta)
+    \end{equation*}
+\end{theorem}
+
+\begin{effect}
+    Если $\exists x_0 \in (\alpha;\beta): \ W(x_0) = 0 \implies W(x) = 0 \ \forall x \in (\alpha;\beta)$
+\end{effect}
+
+\section{Построение общего решения уравнения $Ly = 0$}
+
+\begin{definition}[решение $Ly=0$]
+    Функция $y = \phi(x,C_1,C_2,\ldots,C_n)$ называется \emph{решением $Ly = 0$}, если для $\forall$ набора $C_1,C_2,\ldots,C_n$ она является решением $Ly = 0$ и для $\forall$ задачи Коши $y(x_0) = y_0^\circ, \ y'(x_0) = y_1^\circ, \ \ldots, \ y^{(n-1)}(x_0) = y_{n-1}^\circ \ \exists$ набор $C_1^\circ,C_2^\circ,\ldots,C_n^\circ: \ y = \phi(x,C_1^\circ,\ldots,C_n^\circ)$ является решением $Ly = 0$.
+\end{definition}
+
+\begin{theorem}[структура решения однородного уравнения]
+    Пусть $y_1(x),\ldots,y_n(x)$ -- линейно независимые решения $Ly=0 \ n$-го порядка. Тогда:
+    \begin{equation*}
+        y_{\text{ОО}} = C_1y_1(x) + \ldots + C_ny_n(x),
+    \end{equation*}
+    где $C_1,\ldots,C_n$ -- произвольные константы.
+\end{theorem}
+
+\begin{definition}[фундаментальная система решений (ФСР)]
+    Любые $n$ линейно независимых решений задачи Коши уравнения $Ly=0$ называются \emph{фундаментальной системой решений (ФСР)}.
+\end{definition}
+
+\begin{theorem}
+    ФСР уравнения $Ly=0$ -- существует.
+\end{theorem}
+
+\begin{theorem}
+    Любые $(n+1)$ решения задачи Коши для $Ly = 0 n$-го порядка линейно зависимы, то есть $\exists \alpha_1,\ldots,\alpha_{n+1}$:
+    \begin{equation*}
+        \alpha_1^2 + \ldots + \alpha_{n+1}^2 \ne 0, \quad \alpha_1y_1(x) + \alpha_2y_2(x) + \ldots + \alpha_{n+1}y_{n+1}(x) = 0
+    \end{equation*}
+\end{theorem}
+
+\section{Линейные уравнения с переменными коэффициентами}
+
+Решения линейного однородного уравнения $n$-го порядка с переменными коэффициентами -- линейное пространство размерности $n$ с базисом ФСР.
+
+\emph{Нормированная ФСР} -- это задача Коши с начальными условиями:
+\begin{eqnarray*}
+    (1,0,\ldots,0),(0,1,\ldots,0),\ldots,(0,0,\ldots,1)
+\end{eqnarray*}
+
+Если имеем $y_1,y_2,\ldots,y_n$ -- решений $Ly = 0$ и $\exists x_0 \in (\alpha;\beta): \ W(x_0) \ne 0$, то пытаемся восстановить дифференциальное уравнение.
+
+\begin{example}
+    $n = 2, \ \{\sin x, \cos x\}, \ w(x) = \left|\begin{array}{cc}
+            \sin x & \cos x   \\
+            \cos x & - \sin x
+        \end{array}\right| = -1 \ne 0$
+    \begin{equation*}
+        a_0(x)y'' + a_1(x)y' + a_2(x)y = 0, \quad a_0(x) \ne 0
+    \end{equation*}
+    \begin{equation*}
+        y'' + p(x)y' + q(x) \cdot y = 0
+    \end{equation*}
+
+    \begin{equation*}
+        \left\{\begin{array}{l}
+            -\sin x + p(x) \cdot \cos x + q(x)\cdot \sin x = 0 \\
+            -\cos x - p(x) \cdot \sin x + q(x)\cdot \cos x = 0
+        \end{array}\right.
+    \end{equation*}
+
+    \begin{equation*}
+        \begin{pmatrix}
+            \cos x & \sin x \\ -\sin x & \cos x
+        \end{pmatrix} \cdot \begin{pmatrix}
+            p(x) \\ q(x)
+        \end{pmatrix} = \begin{pmatrix}
+            \sin x \\ \cos x
+        \end{pmatrix}
+    \end{equation*}
+    \begin{equation*}
+        \begin{array}{l}
+            \Delta = \left|\begin{array}{cc}
+                               \cos x & \sin x \\ -\sin x & \cos x
+                           \end{array}\right| = \cos^2 x + \sin^2 x = 1 \ne 0 \\
+            \Delta_1 = \left|\begin{array}{cc}
+                                 \sin x & \sin x \\ \cos x & \cos x
+                             \end{array}\right| = 0                \\
+            \Delta_2 = \left|\begin{array}{cc}
+                                 \cos x & \sin x \\ -\sin x & \cos x
+                             \end{array}\right| = \cos^2 x + \sin^2x = 1
+        \end{array}
+    \end{equation*}
+
+    \begin{equation*}
+        \begin{array}{l}
+            p(x) = \frac{\Delta_1}{\Delta} = 0 \\
+            q(x) = \frac{\Delta_2}{\Delta} = 1
+        \end{array} \implies y'' + y = 0
+    \end{equation*}
+\end{example}
+
+\paragraph*{Способы восстановления дифференциального уравнения}
+
+\begin{enumerate}
+    \item Способ первый:
+          \begin{equation*}
+              \left\{\begin{array}{l}
+                  y^{(n)} + p_{n-1}(x)\cdot y^{(n-1)} + \ldots + p_1(x)\cdot y' + p_0(x)\cdot y = 0         \\
+                  y^{(n)}_1 + p_{n-1}(x)\cdot y^{(n-1)}_1 + \ldots + p_1(x)\cdot y'_1 + p_0(x)\cdot y_1 = 0 \\
+                  y^{(n)}_2 + p_{n-1}(x)\cdot y^{(n-1)}_2 + \ldots + p_1(x)\cdot y'_2 + p_0(x)\cdot y_2 = 0 \\
+                  \vdots                                                                                    \\
+                  y^{(n)}_n + p_{n-1}(x)\cdot y^{(n-1)}_n + \ldots + p_1(x)\cdot y'_n + p_0(x)\cdot y_n = 0 \\
+              \end{array}\right.
+          \end{equation*}
+          \begin{multline*}
+              \Delta = \left|\begin{array}{cccc}
+                  y_1    & y_1'   & \ldots & y_1^{(n-1)} \\
+                  y_2    & y_2'   & \ldots & y_2^{(n-1)} \\
+                  \vdots & \vdots & \ddots & \vdots      \\
+                  y_n    & y_n'   & \ldots & y_n^{(n-1)}
+              \end{array}\right|\begin{array}{l}
+                  p_0 \\ p_1 \\ \vdots \\ p_n
+              \end{array} = \\
+              = \left|\begin{array}{cccc}
+                  y_1         & y_2         & \ldots & y_n         \\
+                  y_1'        & y_2'        & \ldots & y_n'        \\
+                  \vdots      & \vdots      & \ddots & \vdots      \\
+                  y_1^{(n-1)} & y_2^{(n-1)} & \ldots & y_n^{(n-1)}
+              \end{array}\right| = W(x) \ne 0
+          \end{multline*}
+          $(\implies y_1,y_2,\ldots,y_n\text{ -- ЛНЗ}) \implies$ система имеет $!$ решение \\ $p_0(x),p_1(x),\ldots,p_{n-1}(x)$, которое выражается через $y_1,y_2,\ldots,y_n$ и их производные.
+
+    \item Способ второй: потерян
+\end{enumerate}
+
+\begin{example}
+    По второму способу:
+
+    $y_1 = x, \ y_2 = x^2, \ W(x) = \left|\begin{array}{cc}
+            y_1 & y_2 \\ y_1' & y_2'
+        \end{array}\right| = \left|\begin{array}{cc}
+            x & x^2 \\ 1 & 2x
+        \end{array}\right| = 2x^2 - x^2 = x^2 \ne 0, \ \text{при } x\ne 0$.
+    \begin{multline*}
+        \left|\begin{array}{ccc}
+            y_1'' & y_1' & y_1 \\
+            y_2'' & y_2' & y_2 \\
+            y_1'' & y_1' & y_1 \\
+        \end{array}\right| = 0 \iff \left|\begin{array}{ccc}
+            0   & 1  & x   \\
+            2   & 2x & x^2 \\
+            y'' & y' & y
+        \end{array}\right| = 0 \iff \\
+        \iff y'' \cdot \left|\begin{array}{cc}
+            2x & x^2 \\ y' & y
+        \end{array}\right| - y' \cdot \left|\begin{array}{cc}
+            0 & x \\ 2 & x^2
+        \end{array}\right| + y \cdot \left|\begin{array}{cc}
+            0 & 1 \\ 2 & 2x
+        \end{array}\right| = 0
+    \end{multline*}
+    \begin{equation*}
+        x^2 \cdot y'' - 2x \cdot y' + 2y = 0
+    \end{equation*}
+\end{example}
+
+\section{Структура общего решения линейного неоднородного уравнения $Ly = f$}
+
+\begin{equation}\label{eq36}
+    Ly = a_0(x) \cdot y^{(n)} + a_1(x) \cdot y^{(n-1)} + \ldots + a_{n-1}(x)\cdot y' + a_n(x) \cdot y = f(x),
+\end{equation}
+где $a_0(x)\ne0, \ a_j(x), \ f(x) \in C(\alpha;\beta), \ j = \overline{0,n}, \ -\infty \leqslant \alpha <\beta \leqslant +\infty$
+
+\begin{theorem}
+    Все решения уравнения вида \ref{eq36} даются формулой:
+    \begin{equation}\label{eq37}
+        y_{\text{ОН}} = y_{\text{ОО}} + y_{2\text{ЧН}}
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Пусть $y_{2\text{ЧН}}$ -- произвольное частное решение \ref{eq36}, то есть
+    \begin{equation*}
+        L(y_{2\text{Н}}) = f(x)
+    \end{equation*}
+    \begin{enumerate}
+        \item Покажем, что решение \ref{eq37} удовлетворяет \ref{eq36}:
+              \begin{equation*}
+                  L(y_{\text{ОН}}) = L(y_{\text{ОО}} + y_{2\text{ЧН}}) = L(y_{\text{ОО}}) + L(y_{2\text{ЧН}}) = 0 + f(x) = f(x)
+              \end{equation*}
+
+        \item Покажем, что формула \ref{eq37} покрывает все решения \ref{eq36}:
+
+              $\widetilde{y}$ -- частное решение \ref{eq36}, $L(\widetilde{y}) = f(x)$
+              \begin{equation*}
+                  \widetilde{y} = (\widetilde{y} - y_{\text{ЧН}}) + y_{\text{ЧН}}
+              \end{equation*}
+              \begin{multline*}
+                  L(\widetilde{y} - y_{\text{ЧН}}) = L(\widetilde{y}) - L(y_{\text{ЧН}}) = f(x) - f(x) = 0 \implies \\
+                  \implies \widetilde{y} = (\widetilde{y} - y_{\text{ЧН}}) + y_{\text{ЧН}} = y_{\text{ОО}} + y_{\text{ЧН}}
+              \end{multline*}
+    \end{enumerate}
+\end{proof}
+
+\subsection*{Построение общего решения неоднородного уравнения \ref{eq36}}
+
+\paragraph*{Метод вариации произвольных постоянных}
+
+\begin{enumerate}
+    \item $y_1,y_2,\ldots,y_n$ -- ФСР уравнения \ref{eq36} $\implies y_{\text{ОО}} = C_1y_1(x) + \ldots + C_ny_n(x)$.
+    \item $y = y_{\text{ОН}} = C_1(x)y_1(x) + \ldots + C_n(x)y_n(x)$. Найдем производные до $n$-го порядка:
+          \begin{equation*}
+              \begin{array}{rl}
+                  a_{n}(x):   & C_1(x)y_1(x) + \ldots + C_n(x)y_n(x)                                                                                                    \\
+                  a_{n-1}(x): & C_1(x)y'_1(x) + \ldots + C_n(x)y'_n(x) + \equalto{\underbrace{C_1'(x)y_1(x) + \ldots + C_n'(x)y_n(x)}}{0}                               \\
+                  a_{n-2}(x): & C_1(x)y''_1(x) + \ldots + C_n(x)y''_n(x) + \equalto{\underbrace{C_1'(x)y_1'(x) + \ldots + C_n'(x)y_n'(x)}}{0}                           \\
+                  \vdots      & \vdots                                                                                                                                  \\
+                  a_1(x):     & C_1(x)y^{(n-1)}_1(x) + \ldots + C_n(x)y^{(n-1)}_n(x) + \equalto{\underbrace{C_1'(x)y_1^{(n-2)}(x) + \ldots + C_n'(x)y_n^{(n-2)}(x)}}{0} \\
+                  a_0(x):     & C_1(x)y^{(n)}_1(x) + \ldots + C_n(x)y^{(n)}_n(x) + \equalto{\underbrace{C_1'(x)y_1^{(n-1)}(x) + \ldots + C_n'(x)y_n^{(n-1)}(x)}}{0}     \\
+              \end{array}
+          \end{equation*}
+          \begin{equation*}
+              C_1(x)\equalto{\underbrace{\big(a_0(x)y_1^{(n)}(x) + a_1(x)y_1^{(n-1)}(x) + \ldots + a_{n_1}(x)y_1' + a_n(x)y_1(x)\big)}}{0}
+          \end{equation*}
+
+          Система $n$ уравенений и $n$ неизвестных $C_1'(x), \ldots, C_n'(x)$, определитель $\Delta = ?$
+          \begin{equation*}
+              \Delta = \left|\begin{matrix}
+                  y_1         & \cdots & y_n         \\
+                  y_1'        & \cdots & y_n'        \\
+                  \vdots      & \ddots & \vdots      \\
+                  y_1^{(n-1)} & \cdots & y_n^{(n-1)}
+              \end{matrix}\right| = W(x) \ne 0
+          \end{equation*}
+\end{enumerate}
+
+\paragraph*{Метод вариации произвольных постоянных (продолжение?)}
+
+\begin{equation*}
+    y_{\text{ОН}} = C_1(x) \cdot y_1 + \ldots = C_n(x)y_n
+\end{equation*}
+\begin{equation*}
+    \left\{\begin{array}{l}
+        C_1'(x)y_1 + \ldots + C_n'(x)y_n = 0                 \\
+        C_1'(x)y_1' + \ldots + C_n'(x)y_n' = 0               \\
+        \vdots                                               \\
+        C_1'(x)y_1^{(n-2)} + \ldots + C_n'(x)y_n^{(n-2)} = 0 \\
+        C_1'(x)y_1^{(n-1)} + \ldots + C_n'(x)y_n^{(n-1)} = \frac{f(x)}{a_0(x)}
+    \end{array}\right.
+\end{equation*}
+$\Delta = W(y_1,y_2,\ldots,y_n) \ne 0$, так как $y_1,y_2,\ldots,y_n$ -- ФСР $\implies$ система имеет $!$ решение. Найти это решение по формулам Крамера:
+\begin{equation}\label{eq38}
+    C_k'(x) = \frac{W_k(x)}{W(x)}dx + C_k, \quad k = \overline{1,n},
+\end{equation}
+где:
+\begin{equation*}
+    W(x) = \left|\begin{matrix}
+        y_1         & \cdots & y_n         \\
+        y_1'        & \cdots & y_n'        \\
+        \vdots      & \ddots & \vdots      \\
+        y_1^{(n-1)} & \cdots & y_n^{(n-1)}
+    \end{matrix}\right|,
+\end{equation*}
+\begin{equation*}
+    W_k(x) = \left|\begin{matrix}
+        y_1         & \cdots & y_n         & 0      & y_{k+1}         & \cdots & y_n         \\
+        y_1'        & \cdots & y_n'        & 0      & y_{k+1}'        & \cdots & y_n'        \\
+        \vdots      & \ddots & \vdots      & \vdots & \vdots          & \ddots & \vdots      \\
+        y_1^{(n-1)} & \cdots & y_n^{(n-1)} & 0      & y_{k+1}^{(n-1)} & \cdots & y_n^{(n-1)}
+    \end{matrix}\right|
+\end{equation*}
+
+Проинтегрируем \ref{eq38}:
+
+\begin{equation}
+    C_k(x) = \int \frac{W_k(x)}{W(x)}dx + C_k, \quad k = \overline{1,n},
+\end{equation}
+
+\begin{equation*}
+    y(x) = y_{\text{ОН}} = \sum_{k=1}^{n}\left(\frac{W_k(x)}{W(x)}dx + C_k\right)y_k = \equalto{\underbrace{\sum_{k=1}^{n}C_ky_k}}{y_{\text{ОО}}} + \equalto{\underbrace{\sum_{k=1}^{n}y_k\int \frac{W_k(x)}{W(x)}dx}}{y_{\text{ЧН}}}
+\end{equation*}
+
+\section{Линейные уравнения с постоянными коэффициентами}
+
+Рассмотрим:
+\begin{equation}\label{eq39}
+    a_0y^{(n)} + a_1y^{(n-1)} + \ldots + a_{n-1}y' + a_ny = 0,
+\end{equation}
+где $a_0 \ne 0, \ a_i \in \mathbb{R}$. Теперь $y = e^{\lambda x}, \ y' = \lambda e^{\lambda x}, \ldots, y^{(n)} = \lambda^n e^{\lambda x}$:
+\begin{equation}\label{eq40}
+    \nequalto{e^{\lambda x}}{0}(a_0\lambda^n + a_1\lambda^{n-1} + \ldots + a_{n-1}\lambda + a_n) = 0
+\end{equation}
+
+$y = e^{\lambda x}$ -- решение уравнения \ref{eq39} $\iff \lambda$ -- корень характеристического уравнения $T_n(\lambda) = 0, \ T_n(\lambda) = a_0\lambda^n + \ldots + a_{n-1}\lambda + a_n$.
+
+Если $a_i \in \mathbb{R} \implies$ характеристическое уравнение \ref{eq40} имеет ровно $n$ корней, учитывая их кратность. Корни могут быть комплексными.
+
+\begin{enumerate}
+    \item $\lambda_i \in \mathbb{R}, \ \lambda_i \ne \lambda_m, \ i \ne m, \ i = \overline{1,n}$. Найти $y_1,y_2,\ldots,y_n$ -- ФСР ?
+          \begin{equation*}
+              y_1= e^{\lambda_1 x}, \ y_2=e^{\lambda_2x},\ \ldots, \ y_n=e^{\lambda_nx}
+          \end{equation*}
+          $\lambda_1,\lambda_2,\ldots,\lambda_n$ -- корни характеристического многочлена \ref{eq40}.
+          \begin{equation*}
+              W(x) = 0 \iff y_1,y_2,\ldots,y_n\text{, так как решения }Ly = 0\text{, ЛЗ}
+          \end{equation*}
+          \begin{equation*}
+              W(x)\ne 0 \implies y_1,\ldots,y_n\text{ ЛНЗ}
+          \end{equation*}
+          \begin{multline*}
+              W(x) = \left|\begin{matrix}
+                  e^{\lambda_1x}                & e^{\lambda_2x}                & \cdots & e^{\lambda_nx}                \\
+                  \lambda_1e^{\lambda_1x}       & \lambda_2e^{\lambda_2x}       & \cdots & \lambda_ne^{\lambda_nx}       \\
+                  \vdots                        & \vdots                        & \ddots & \vdots                        \\
+                  \lambda_1^{n-1}e^{\lambda_1x} & \lambda_2^{n-1}e^{\lambda_2x} & \cdots & \lambda_n^{n-1}e^{\lambda_nx} \\
+              \end{matrix}\right| = \\
+              = e^{\lambda_1x}e^{\lambda_2x}\ldots e^{\lambda_nx}\cdot \left|\begin{matrix}
+                  1               & 1               & \cdots & 1               \\
+                  \lambda_1       & \lambda_2       & \cdots & \lambda_n       \\
+                  \vdots          & \vdots          & \ddots & \vdots          \\
+                  \lambda_1^{n-1} & \lambda_2^{n-1} & \cdots & \lambda_n^{n-1} \\
+              \end{matrix}\right| \ne 0\text{ при }\lambda_i \ne \lambda m
+          \end{multline*}
+          \begin{multline*}
+              \implies y_1,y_2,\ldots,y_n\text{ ЛНЗ }\implies \\
+              \implies y_{\text{ОО}} = C_1e^{\lambda_1x} + C_2 e^{\lambda_2x} + \ldots + C_n e^{\lambda_nx}
+          \end{multline*}
+
+    \item $\underbrace{\lambda_1 = \lambda_2 = \ldots = \lambda_m}_{\text{кратный}} = \lambda, \quad \nequalto{\underbrace{\lambda_{m+1},\ldots,\lambda_n}}{\lambda} \in \mathbb{R}$
+          \begin{equation*}
+              \underbrace{e^{\lambda x},e^{\lambda x},\ldots,e^{\lambda x}}_{m} \qquad e^{\lambda_{m+1}x},\ldots,e^{\lambda_n x}
+          \end{equation*}
+          \begin{equation*}
+              \equalto{e^{\lambda x}}{y_1}, \equalto{xe^{\lambda x}}{y_2}, \ldots, \equalto{x^{m-1} e^{\lambda x}}{y_m}
+          \end{equation*}
+
+          $y_1,y_2,\ldots,y_m$ -- ФСР:
+          \begin{enumerate}
+              \item ЛНЗ:
+                    \begin{equation*}
+                        \alpha_1e^{\lambda x} + \alpha_2 xe^{\lambda x} + \ldots + \alpha x^{m-1}e^{\lambda x} = 0
+                    \end{equation*}
+                    \begin{equation*}
+                        e^{\lambda x}(\alpha_1 + \alpha_2 x + \ldots + \alpha_m x^{m-1}) = 0 \iff \alpha_1 = \alpha_2 = \ldots = \alpha_m = 0
+                    \end{equation*}
+
+              \item Является решением \ref{eq39}:
+                    \begin{equation*}
+                        L(x^k e^{\lambda x})\overset{?}{=}0, \quad k=\overline{0,m-1}
+                    \end{equation*}
+                    \begin{equation}\label{eq41}
+                        L(e^{\lambda x}) = e^{\lambda x} \cdot T_n(\lambda)
+                    \end{equation}
+                    \begin{equation*}
+                        \frac{\delta^k}{\delta x^k}\big(L(e^{\lambda x})\big) = \frac{\delta^k}{\delta \lambda^k}\big(e^{\lambda x}T_n(\lambda)\big), \quad (u\cdot v)^{(k)} = \sum_{i = 0}^{k}C_k^i u^{(i)}v^{(k-i)}
+                    \end{equation*}
+                    \begin{equation*}
+                        L\left(\frac{\delta^k}{\delta \lambda^k}e^{\lambda x}\right) = \sum_{i = 0}^{k}C^i_k T_n^{(i)}(\lambda)\cdot (e^{\lambda x})^{(k-i)}
+                    \end{equation*}
+                    \begin{equation*}
+                        L(x^k e^{\lambda x}) = \sum_{i=0}^{k}C_k^i T_n^{(i)}(\lambda)x^{k-i}e^{\lambda x}
+                    \end{equation*}
+
+                    Если $\lambda$ -- корень $T_n(\lambda)$ кратности $m$, то:
+                    \begin{equation*}
+                        T_n(\lambda) = T_n'(\lambda) = \ldots = T_n^{(m-1)}(\lambda) = 0, \quad T_n^{(m)}(\lambda) \ne 0
+                    \end{equation*}
+
+                    Правая часть $= 0$, если $k = \overline{0,m-1} \implies L(x^ke^{\lambda x}) = 0, \ k=\overline{0,m-1}$,
+                    \begin{equation*}
+                        y_{\text{ОО}} = C_1e^{\lambda x} + C_2 x e^{\lambda x} + \ldots + C_m x^{m-1} e^{\lambda x} + C_{m+1} e^{\lambda_m x} +\ldots + C_n e^{\lambda_n x}
+                    \end{equation*}
+          \end{enumerate}
+    \item $\lambda_{1,2} = a\pm b_i, \quad \nequalto{\lambda_3,\ldots,\lambda_n}{\lambda_{1,2}}$
+          \begin{equation*}
+              y_1 = e^{(a + b_i)x} = e^{ax}\cdot e^{ibx} = e^{ax}(\cos bx + i \sin b_x)
+          \end{equation*}
+          \begin{equation*}
+              y(x) = u(x) + i v(x), \quad y'(x) = u'(x) + iv'(x)
+          \end{equation*}
+
+          \begin{statement}
+              $y(x)$ -- решение $Ly = 0 \iff u(x)$ и $v(x)$ -- решения \ref{eq39}.
+          \end{statement}
+          \begin{equation*}
+              Ly(x) = Lu(x) + iLv(x)
+          \end{equation*}
+          \begin{align*}
+              y_2 = e^{(a-bi)x} = e^{ax}\cdot e^{-ibx} = e^{ax}(\cos bx - i\sin bx); \\
+              \widetilde{y_1} = \frac{y_1 + y_2}{2} = e^{ax} \cdot \cos bx;          \\
+              \widetilde{y_2} = \frac{y_1 - y_2}{2} = e^{ax}\cdot \sin bx
+          \end{align*}
+          \begin{enumerate}
+              \item $\widetilde{y_1},\widetilde{y_2}$ -- решения \ref{eq39};
+              \item $\widetilde{y_1},\widetilde{y_2}$ -- ЛНЗ?
+          \end{enumerate}
+          $\implies \widetilde{y_1}, \widetilde{y_2}, y_3, \ldots, y_n$ -- ФСР:
+          \begin{equation*}
+              y_{\text{ОО}} = C_1e^{ax}\cos bx + C_2 e^{ax}\sin bx + C_3 e^{\lambda_3x} + \ldots + C_n e^{\lambda_n x}
+          \end{equation*}
+
+    \item $\lambda_{1,2} = \lambda_{3,4} = \ldots = \lambda_{2m-1,2m} = a\pm bi, \quad \nequalto{\lambda_{2m+1},\ldots,\lambda_n}{\lambda_{1,2}}$
+          \begin{equation*}
+              y_1 = e^{ax}\cos bx, \ y_2 = xe^{ax}\cos bx,\ \ldots, \ y_m = x^{m-1}e^{ax}\cos bx,
+          \end{equation*}
+          \begin{equation*}
+              y_{m+1} = e^{ax}\sin bx, \ y_{m+2} = xe^{ax}\sin bx, \ \ldots, \ y_{2m} = x^{m-1}e^{ax}\sin bx
+          \end{equation*}
+          \begin{multline*}
+              y_{\text{ОО}} = e^{ax}(C_1\cos bx + C_2 x \cos bx + \ldots + C_m x^{m-1}\cos bx) + \\
+              + e^{ax}\sin bx(C_{m+1} + C_{m+2}x + \ldots + C_{2m}x^{m-1}) + \\
+              + C_{2m+1}e^{\lambda_{2m}x} + \ldots + C_ne^{\lambda_n x}
+          \end{multline*}
+          $f(x)$ -- спецального вида
+          \begin{equation*}
+              b_0 + b_1x + \ldots + b_m x^m, e^{ax}, \cos bx, \ sin bx
+          \end{equation*}
+\end{enumerate}
+
+\section{Линейные неоднородные уравнения с правой частью спец. вида}
+
+\begin{equation}\label{eq42}
+    a_0y^{(n)} + a_1y^{(n-1)} + \ldots + a_{n-1}y' + a_ny = f(x),
+\end{equation}
+где $a_0 \ne 0, \ a_i \in \mathbb{R}, \ i = \overline{0,n}$
+
+\begin{equation}\label{eq43}
+    a_0\lambda^n + a_1\lambda^{n-1} + \ldots + a_{n-1}\lambda + a_n = 0
+\end{equation}
+
+\begin{enumerate}
+    \item Пусть:
+          \begin{equation}\label{eq44}
+              f(x) = e^{\alpha x}\big(P_m(x)\cos \beta x + Q_n(x)\sin \beta x \big)
+          \end{equation}
+
+          Тогда частное решение уравнения \ref{eq42} будем искать $\lambda$ вида:
+          \begin{equation*}
+              y_{\text{ЧН}} = e^{\alpha x}\big(M_k(x)\cos\beta x + N_k(x)\sin \beta x\big)\cdot x^\tau,
+          \end{equation*}
+          где $k = \max(m,n), \ M_k(x),N_k(x)$ -- многочлены степени $k$ общего вида с неоднородными коэффициентами, $\tau$ -- кратность числа $\alpha\pm\beta_i$ как корня характеристического уравнения \ref{eq43}, если $\alpha \pm\beta i$ не является корнем \ref{eq43}, то $\tau = 0$.
+
+    \item $f(x) = (b_0 + b_1 x + \ldots + b_m x^m)e^{2x}$. Тогда:
+          \begin{equation*}
+              y_{\text{ЧН}} = (d_0 + d_1 x + \ldots + d_m x^m)e^{\alpha x}\cdot x^\tau,
+          \end{equation*}
+          где $\tau$ -- кратность числа $\alpha$ как корня характеристического уравнения \ref{eq43}, если $\lambda$ не является корнем характеристического уравнения \ref{eq43}, то $\tau = 0$.
+
+    \item Если $f(x) = f_1(x) + f_2(x) + \ldots + f_p(x)$, где $f_i(x)$ -- многочлен вида \ref{eq44}, то $y_{\text{ОН}} = y_{\text{ОО}} + y_{\text{ЧН}}^{(1)} + y_{\text{ЧН}}^{(2)} + \ldots + y_{\text{ЧН}}^{(p)}$.
+
+    \item Если $f(x)$ -- произвольного вида (отличного от вида \ref{eq44}), то $y_{\text{ОН}}$ находим с помощью метода вариаций произольных простоянных.
+\end{enumerate}
+
+\paragraph*{Уравнение Эйлера.}
+
+\begin{equation*}
+    a_0 x^n y^{(n)} + a_1 x^{n-1}y^{(n-1)} + \ldots + a_{n-1}x y' + a_n y = f(x),
+\end{equation*}
+$x^ky^{(k)}$ сводится к уравнению с постоянными коэффициентами с помощью замены $x = e^t$ при $x > 0 \ (x = e^t \text{ при }x < 0)$.
+
+\begin{example}
+    $x^3y''' - x^2 y'' + 2xy' - 2y = x^3, \quad x = e^t$
+    \begin{equation*}
+        \begin{array}{l}
+            y' = \frac{dy}{dx} = \frac{\frac{dy}{dt}}{\frac{dx}{dt}} = \frac{y'_t}{e^t} = e^{-t}y_t'                             \\
+            y'' = \frac{dy'}{dx} = \frac{\frac{dy'}{dt}}{\frac{dx}{dt}} = \frac{e^{-t}(y_t''-y_t')}{e^t} = e^{-2t}(y''_t - y'_t) \\
+            y''' = \frac{dy''}{dx} = \frac{\frac{dy''}{dt}}{\frac{dx}{dt}} = \frac{e^{-2t}(y_t'''-y_t'' - 2y_t'' + 2y'_t)}{e^t} = e^{-3t}(y'''_t - 3y''_t + 2y'_t)
+        \end{array}
+    \end{equation*}
+    \begin{equation*}
+        e^{3t}\cdot e^{-3t}(y'''_t - 3y''_t + 2y_t') - e^{2t}\cdot e^{-2t}\cdot (y''_t - y'_t) + 2e^t \cdot e^{-t}y_t' - 2y = e^{3t}
+    \end{equation*}
+    \begin{equation*}
+        y'''_t - 4y''_t + 5y_t' - dy = e^{3t}, \quad \lambda^3 - 4\lambda^2 + 5\lambda -2 = 0
+    \end{equation*}
+    \begin{enumerate}
+        \item Характеристическое уравнение: $x^ky^{(k)}\rightarrow \lambda(\lambda-1)\ldots(\lambda-k+1)$,
+              \begin{equation*}
+                  \lambda(\lambda - 1)(\lambda -2) - \lambda(\lambda-1)+ 2\lambda - 2 = 0
+              \end{equation*}
+              \begin{equation*}
+                  (\lambda-1)(\lambda^2 - 2\lambda - \lambda) + 2(\lambda -1) = 0
+              \end{equation*}
+              \begin{multline*}
+                  (\lambda - 1)(\lambda^2 - 3\lambda + 2) = 0 \iff (\lambda - 1)^2(\lambda - 2) = 0 \implies \\
+                  \implies \left[\begin{array}{l}
+                      \lambda_1 = \lambda_2 = 1 \\
+                      \lambda_3 = 2
+                  \end{array}\right. \implies y_{\text{ОО}} = (C_1 + C_2t)e^t + C_3 e^{2t}
+              \end{multline*}
+
+        \item $\lambda(\lambda^2 - 3\lambda + 2) - \lambda^2 + \lambda + 2\lambda -2 = 0$
+              \begin{align*}
+                  \lambda^3 - 3\lambda^2 + 2\lambda - \lambda^2 + 3\lambda - 2 = 0                                                         \\
+                  \lambda^3 - 4\lambda^2 + 5\lambda - 2 = 0 \implies                                                                       \\
+                  \implies y''' - 4y'' + 5y' - 2y = e^{3t}                                                                                 \\
+                  f(t) = e^{3t} \implies \alpha \pm \beta i = 3 \ne \lambda_1,\lambda_2 \implies \tau = 0 \implies y_{\text{ЧН}} = Ae^{3t} \\
+                  27Ae^{3t} - 36Ae^{3t} + 15Ae^{3t} - 2Ae^{3t} = e^{3t}                                                                    \\
+                  4A = 1 \implies A = \frac{1}{4} \implies y_{\text{ЧН}} = \frac{1}{4}e^{3t}
+              \end{align*}
+              \begin{multline*}
+                  y_{\text{ОН}} = y_{\text{ОО}} + y_{\text{ЧН}} = \\
+                  = (C_1 + C_2t)e^t + C_3e^{2t} + \frac{1}{4}e^{3t} = (C_1 + C_2\ln x)x + C_3x^2 + \frac{1}{4}x^3
+              \end{multline*}
+              $x > 0, \ x = e^t, \ \ln x = t$
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    $y'' - 3y' + 2y = 9e^{3x}$
+    \begin{enumerate}
+        \item $\lambda^2 - 3\lambda + 2 = 0 \implies \lambda_1 = 1, \ \lambda_2 = 2$.
+        \item $f(x) = 9e^{3x} \implies \alpha \pm \beta i = 3 \ne \lambda_1, \lambda_2 \implies \tau = 0 \implies y_{\text{ЧН}} = Ae^{3x}\cdot x^\circ = Ae^{3x}$.
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    $y'' + 16y = x\cdot \sin 4x$
+    \begin{enumerate}
+        \item $\lambda^2 + 16 = 0 \implies \lambda_{1,2} = \pm 4i$.
+        \item $f(x) = x\sin x \implies \alpha \pm \beta i = 0 \pm 4i = \lambda_1 \implies \tau = 1$
+    \end{enumerate}
+    \begin{equation*}
+        y_{\text{ЧН}} = x(Ax + B)\sin x + x(Cx + D)\cos x
+    \end{equation*}
+    \begin{enumerate}
+        \item Характеристическое уравнение:
+              \begin{equation*}
+                  \lambda(\lambda - 1)(\lambda-2)-\lambda(\lambda-1)+2\lambda - 2 =0
+              \end{equation*}
+              \begin{equation*}
+                  (\lambda-1)(\lambda^2-2\lambda-\lambda)+2(\lambda-1) = 0
+              \end{equation*}
+              \begin{multline*}
+                  (\lambda - 1)(\lambda^2 - 3\lambda + 2)= 0\iff \\
+                  \iff (\lambda-1)^2(\lambda-2) = 0 \iff \left[\begin{array}{l}
+                      \lambda_1 = \lambda_2 = 1 \\
+                      \lambda_3 = 2
+                  \end{array}\right. \implies
+              \end{multline*}
+              \begin{equation*}
+                  y_{\text{ОО}} = (C_1 + C_2t)e^t + C_3e^{2t}
+              \end{equation*}
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    $y'' - 8y' + 16y = e^{4x}(1-x)$
+    \begin{enumerate}
+        \item $\lambda^2 - 8\lambda + 16 = 0 \implies (\lambda-4)^2 = 0 \implies \lambda_1 = \lambda_2 = 4$, кратность -- 2.
+        \item $f(x)= e^{4x}(1-x)\implies \alpha \pm \beta i = 4 = \lambda_1 \implies \tau = 2$.
+    \end{enumerate}
+    \begin{equation*}
+        y_{\text{ЧН}} = e^{4x}(Ax + B)x^2 = e^{4x}(Ax^3 + Bx^2)
+    \end{equation*}
+\end{example}
 
 \end{document}
